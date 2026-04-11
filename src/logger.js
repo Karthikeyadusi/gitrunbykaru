@@ -35,7 +35,7 @@ export function createSpinner(text) {
 export function printBanner() {
   console.log('');
   console.log(
-    chalk.bold.magenta('  GitRun') +
+    chalk.bold.magenta('  gitrunbykarubykaru') +
     chalk.gray(' by karu') +
     chalk.dim('  —  run any GitHub repo in seconds')
   );

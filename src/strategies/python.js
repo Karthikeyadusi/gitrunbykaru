@@ -23,7 +23,7 @@ export const pythonStrategy = {
 
     try {
       // Create a venv to avoid polluting global Python
-      const venvDir = join(dir, '.gitrun-venv');
+      const venvDir = join(dir, '.gitrunbykarubykaru-venv');
       if (!existsSync(venvDir)) {
         execSync(`${pyBin} -m venv "${venvDir}"`, { cwd: dir, stdio: 'pipe' });
       }

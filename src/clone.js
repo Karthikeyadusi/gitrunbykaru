@@ -16,7 +16,7 @@ export async function cloneRepo(url) {
   const repoName = url.split('/').slice(-2).join('-').replace(/[^a-zA-Z0-9-_]/g, '');
   const tmpBase = tmpdir();
   // Create temp dir and immediately resolve it to its real absolute path (fixes Windows 8.3 short path bugs with Vite/React)
-  let tmpDir = mkdtempSync(join(tmpBase, `gitrun-${repoName}-`));
+  let tmpDir = mkdtempSync(join(tmpBase, `gitrunbykaru-${repoName}-`));
   if (process.platform === 'win32') {
     tmpDir = realpathSync.native(tmpDir);
   } else {

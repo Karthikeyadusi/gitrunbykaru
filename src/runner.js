@@ -31,7 +31,7 @@ export async function spawnProject(dir, detection, strategy, options = {}) {
         // If no '=', it might just be listed in the example without a value
         if (splitIdx === -1) {
              const key = trimmed;
-             let val = 'gitrun_dummy_key_12345';
+             let val = 'gitrunbykaru_dummy_key_12345';
              if (key.toUpperCase().includes('URL') || key.toUpperCase().includes('URI') || key.toUpperCase().includes('ENDPOINT')) {
                val = 'http://localhost:9999';
              }
@@ -46,7 +46,7 @@ export async function spawnProject(dir, detection, strategy, options = {}) {
           if (key.toUpperCase().includes('URL') || key.toUpperCase().includes('URI') || key.toUpperCase().includes('ENDPOINT')) {
              val = 'http://localhost:9999';
           } else {
-             val = 'gitrun_dummy_key_12345';
+             val = 'gitrunbykaru_dummy_key_12345';
           }
         }
         return `${key}=${val}`;

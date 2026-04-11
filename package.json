@@ -1,6 +1,6 @@
 {
   "name": "gitrunbykaru",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Run any GitHub repo locally in seconds — no setup, no friction.",
   "type": "module",
   "bin": {

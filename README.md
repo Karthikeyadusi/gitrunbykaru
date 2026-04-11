@@ -6,7 +6,7 @@ Run any GitHub repository locally in seconds — no setup, no friction.
 gitrunbykaru https://github.com/user/repo
 ```
 
-That's it. GitRun clones the repo, detects what kind of project it is, installs dependencies, and runs it. You get a `localhost` link.
+That's it. gitrunbykaru clones the repo, detects what kind of project it is, installs dependencies, and runs it. You get a `localhost` link.
 
 ---
 
@@ -51,9 +51,9 @@ gitrunbykaru https://github.com/user/repo --keep
 
 ## 🔥 Magic Features (Why it's smart)
 
-- **Auto-Environment Mocking:** If a repo requires a `.env` file but only provides a `.env.example` or `.env.sample`, GitRun automatically clones it and injects dummy keys so the app doesn't crash on startup!
-- **Interactive Fallback:** If a repository is too weird to auto-detect, GitRun won't just crash. It pauses and gives you an interactive menu to manually type the run command.
-- **Auto-Downloads Missing Tools:** If a repo strictly uses `yarn`, `pnpm`, or `bun`, but you don't have them installed globally, GitRun will automatically fetch them securely via `npx` just for that run.
+- **Auto-Environment Mocking:** If a repo requires a `.env` file but only provides a `.env.example` or `.env.sample`, gitrunbykaru automatically clones it and injects dummy keys so the app doesn't crash on startup!
+- **Interactive Fallback:** If a repository is too weird to auto-detect, gitrunbykaru won't just crash. It pauses and gives you an interactive menu to manually type the run command.
+- **Auto-Downloads Missing Tools:** If a repo strictly uses `yarn`, `pnpm`, or `bun`, but you don't have them installed globally, gitrunbykaru will automatically fetch them securely via `npx` just for that run.
 - **Windows Path Fixes:** Bypasses legacy Windows 8.3 short-path bugs so strict bundlers like Vite and React never crash.
 
 ---
@@ -61,7 +61,7 @@ gitrunbykaru https://github.com/user/repo --keep
 ## Philosophy
 
 - **Speed over perfection** — works for 80% of repos without any config
-- **Zero effort** — you provide the URL, GitRun handles everything else
+- **Zero effort** — you provide the URL, gitrunbykaru handles everything else
 - **Local first** — runs on your machine, no cloud, no auth
 - **Opinionated** — makes decisions for you so you don't have to
 
