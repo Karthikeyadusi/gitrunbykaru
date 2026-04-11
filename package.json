@@ -1,0 +1,39 @@
+{
+  "name": "gitrunbykaru",
+  "version": "1.0.0",
+  "description": "Run any GitHub repo locally in seconds — no setup, no friction.",
+  "type": "module",
+  "bin": {
+    "gitrunbykaru": "./bin/gitrunbykaru.js"
+  },
+  "main": "./src/index.js",
+  "scripts": {
+    "start": "node bin/gitrunbykaru.js",
+    "test": "node tests/test.js"
+  },
+  "keywords": [
+    "cli",
+    "github",
+    "runner",
+    "developer-tools",
+    "automation"
+  ],
+  "author": "Karthikeya Dusi",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Karthikeyadusi/gitrunbykaru.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Karthikeyadusi/gitrunbykaru/issues"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^11.1.0",
+    "open": "^10.0.3",
+    "ora": "^8.0.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
