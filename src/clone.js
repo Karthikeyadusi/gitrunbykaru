@@ -1,7 +1,7 @@
 import { mkdtempSync, existsSync, realpathSync } from 'fs';
 import { tmpdir } from 'os';
 import { join } from 'path';
-import { execSync } from 'child_process';
+import { execSync, execFileSync } from 'child_process';
 import { log, createSpinner } from './logger.js';
 
 export async function cloneRepo(url) {
@@ -13,7 +13,17 @@ export async function cloneRepo(url) {
   }
 
   // Extract repo name for a friendlier temp dir name
-  const repoName = url.split('/').slice(-2).join('-').replace(/[^a-zA-Z0-9-_]/g, '');
+  let repoName = 'repo';
+  try {
+    const parsedUrl = new URL(url);
+    const paths = parsedUrl.pathname.replace(/^\/|\/$/g, '').split('/');
+    if (paths.length >= 2) {
+      repoName = `${paths[0]}-${paths[1]}`;
+    }
+  } catch {
+    repoName = url.split('/').slice(-2).join('-');
+  }
+  repoName = repoName.replace(/[^a-zA-Z0-9-_]/g, '');
   const tmpBase = tmpdir();
   // Create temp dir and immediately resolve it to its real absolute path (fixes Windows 8.3 short path bugs with Vite/React)
   let tmpDir = mkdtempSync(join(tmpBase, `gitrunbykaru-${repoName}-`));
@@ -27,7 +37,7 @@ export async function cloneRepo(url) {
   spinner.start();
 
   try {
-    execSync(`git clone --depth 1 "${url}" "${tmpDir}"`, {
+    execFileSync('git', ['clone', '--depth', '1', url, tmpDir], {
       stdio: 'pipe',
       timeout: 300000, // 5 minutes timeout for large repos or slower networks
     });

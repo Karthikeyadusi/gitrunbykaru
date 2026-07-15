@@ -3,11 +3,13 @@ import { log, printSuccess, printError, printWarning } from './logger.js';
 import openBrowser from 'open';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
+import readline from 'readline';
+import http from 'http';
 
 const PORT_TIMEOUT_MS = 45000; // Wait up to 45s for the port to appear in output
 
 export async function spawnProject(dir, detection, strategy, options = {}) {
-  const runCmd = strategy.getRunCommand(detection);
+  const runCmd = strategy.getRunCommand(detection, dir);
   const portPattern = strategy.portPattern;
 
   // Auto-mocking .env files
@@ -98,27 +100,63 @@ export async function spawnProject(dir, detection, strategy, options = {}) {
           const url = `http://localhost:${port}`;
           printSuccess(url);
           if (options.open !== false) {
-            // Small delay so the server is actually ready
-            setTimeout(() => openBrowser(url).catch(() => {}), 800);
+            // Verify the HTTP server is responsive before opening browser
+            verifyHttpServerReady(parseInt(port, 10))
+              .then(() => {
+                openBrowser(url).catch(() => {});
+              });
           }
         }
       }
     };
 
+    const killChild = () => {
+      if (process.platform === 'win32') {
+        try {
+          spawnSync('taskkill', ['/pid', String(child.pid), '/f', '/t'], { stdio: 'ignore' });
+        } catch {
+          // ignore if process already exited
+        }
+      } else {
+        try {
+          child.kill('SIGINT');
+        } catch {
+          // ignore
+        }
+      }
+    };
+
+    const rlStdout = readline.createInterface({ input: child.stdout, terminal: false });
+    rlStdout.on('line', checkForPort);
+
+    const rlStderr = readline.createInterface({ input: child.stderr, terminal: false });
+    rlStderr.on('line', checkForPort);
+
+    let sigintHandler = null;
+    let sigtermHandler = null;
+
+    const cleanupResources = () => {
+      clearTimeout(portTimer);
+      rlStdout.close();
+      rlStderr.close();
+      if (sigintHandler) {
+        process.off('SIGINT', sigintHandler);
+      }
+      if (sigtermHandler) {
+        process.off('SIGTERM', sigtermHandler);
+      }
+    };
+
     child.stdout.on('data', (data) => {
-      const text = data.toString();
-      process.stdout.write(text);
-      text.split('\n').forEach(checkForPort);
+      process.stdout.write(data);
     });
 
     child.stderr.on('data', (data) => {
-      const text = data.toString();
-      process.stderr.write(text);
-      text.split('\n').forEach(checkForPort);
+      process.stderr.write(data);
     });
 
     child.on('error', (err) => {
-      clearTimeout(portTimer);
+      cleanupResources();
       if (err.code === 'ENOENT') {
         reject(new Error(`Command not found: "${bin}"\nMake sure it's installed and in your PATH.`));
       } else {
@@ -127,7 +165,7 @@ export async function spawnProject(dir, detection, strategy, options = {}) {
     });
 
     child.on('close', (code) => {
-      clearTimeout(portTimer);
+      cleanupResources();
       if (code !== 0 && code !== null) {
         log.dim('─'.repeat(48));
         printError(`Process exited with code ${code}`);
@@ -144,10 +182,15 @@ export async function spawnProject(dir, detection, strategy, options = {}) {
       }
     }, PORT_TIMEOUT_MS);
 
-    // Forward SIGINT to child so it can clean up
-    process.on('SIGINT', () => {
-      child.kill('SIGINT');
-    });
+    // Forward SIGINT and SIGTERM to child so it can clean up
+    sigintHandler = () => {
+      killChild();
+    };
+    sigtermHandler = () => {
+      killChild();
+    };
+    process.on('SIGINT', sigintHandler);
+    process.on('SIGTERM', sigtermHandler);
   });
 }
 
@@ -181,4 +224,35 @@ function checkCommand(cmd) {
   } catch {
     return false;
   }
+}
+
+function verifyHttpServerReady(port, host = 'localhost', timeout = 5000) {
+  return new Promise((resolve) => {
+    const start = Date.now();
+    const check = () => {
+      if (Date.now() - start > timeout) {
+        resolve(false);
+        return;
+      }
+      const req = http.request({
+        method: 'GET',
+        host,
+        port,
+        path: '/',
+        timeout: 500,
+      }, (res) => {
+        res.resume(); // consume response stream
+        resolve(true);
+      });
+      req.once('error', () => {
+        setTimeout(check, 100);
+      });
+      req.once('timeout', () => {
+        req.destroy();
+        setTimeout(check, 100);
+      });
+      req.end();
+    };
+    check();
+  });
 }

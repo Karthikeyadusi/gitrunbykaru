@@ -1,7 +1,7 @@
 {
   "name": "gitrunbykaru",
-  "version": "1.0.2",
-  "description": "Run any GitHub repo locally in seconds — no setup, no friction.",
+  "version": "2.0.0",
+  "description": "Run conventional GitHub repositories locally with one command.",
   "type": "module",
   "bin": {
     "gitrunbykaru": "./bin/gitrunbykaru.js"
@@ -13,10 +13,14 @@
   },
   "keywords": [
     "cli",
+    "nodejs",
     "github",
-    "runner",
     "developer-tools",
-    "automation"
+    "automation",
+    "npm",
+    "productivity",
+    "open-source",
+    "command-line"
   ],
   "author": "Karthikeya Dusi",
   "repository": {

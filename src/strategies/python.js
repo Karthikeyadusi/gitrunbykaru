@@ -43,11 +43,7 @@ export const pythonStrategy = {
         timeout: 120000,
       });
 
-      // Store venv path so runner can use the right python binary
-      detection._venvDir = venvDir;
-      detection._pyBin = process.platform === 'win32'
-        ? join(venvDir, 'Scripts', 'python')
-        : join(venvDir, 'bin', 'python');
+      // Dependencies successfully installed in local venv
 
       spinner.succeed('Installed  Python packages ready');
     } catch (err) {
@@ -57,10 +53,16 @@ export const pythonStrategy = {
     }
   },
 
-  getRunCommand(detection) {
-    if (detection._pyBin) {
-      // Use the venv python binary
-      return detection.runCommand.replace(/^python/, `"${detection._pyBin}"`);
+  getRunCommand(detection, dir) {
+    if (dir) {
+      const venvDir = join(dir, '.gitrunbykarubykaru-venv');
+      const pyBin = process.platform === 'win32'
+        ? join(venvDir, 'Scripts', 'python')
+        : join(venvDir, 'bin', 'python');
+      if (existsSync(pyBin)) {
+        // Use the venv python binary
+        return detection.runCommand.replace(/^python/, `"${pyBin}"`);
+      }
     }
     return detection.runCommand;
   },

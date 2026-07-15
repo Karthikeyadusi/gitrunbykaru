@@ -1,94 +1,163 @@
 # gitrunbykaru
 
-Run any GitHub repository locally in seconds — no setup, no friction.
+[![npm version](https://img.shields.io/npm/v/gitrunbykaru.svg)](https://www.npmjs.com/package/gitrunbykaru)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![node](https://img.shields.io/badge/node-%3E%3D18.0.0-blue.svg)](https://nodejs.org)
 
-```
+> Found a cool GitHub project? See it running before you lose interest.
+
+A command-line tool for quickly exploring conventional public GitHub repositories without the usual setup friction.
+
+```bash
 gitrunbykaru https://github.com/user/repo
 ```
 
-That's it. gitrunbykaru clones the repo, detects what kind of project it is, installs dependencies, and runs it. You get a `localhost` link.
+---
+
+## Why I Built This
+
+As developers, we constantly browse Reddit, GitHub, LinkedIn, hackathons, and developer communities. We find many interesting, creative, or educational open-source repositories that we want to quickly run or learn from.
+
+But getting them running locally involves repetitive setup friction:
+1. Cloning the repository.
+2. Reading the README.
+3. Figuring out the package manager.
+4. Installing dependencies.
+5. Configuring `.env` files.
+6. Finding the correct run command.
+7. Debugging setup errors.
+8. Finally opening localhost in the browser.
+
+Often, this setup takes 20–30 minutes, only to realize within two minutes of running the app that it isn't what we wanted to inspect. We spend more time configuring repositories than actually exploring them.
+
+I built GitRunByKaru to solve this exact workflow: **"I found a cool conventional repository, and I want to see it running locally right now."**
+
+It optimizes for the common case: getting interesting projects running quickly with minimal effort. If a repository follows common conventions, GitRunByKaru aims to get you from a GitHub URL to a running application with a single command.
 
 ---
 
-## Install
+## What GitRunByKaru Does
+
+GitRunByKaru automates the entire repository setup and launch experience:
+
+*   **Clones the repository** into a clean, temporary workspace.
+*   **Detects the project type** automatically without manual configuration.
+*   **Installs the correct dependencies** using the appropriate package manager (npm, yarn, pnpm, bun, or pip).
+*   **Creates a usable environment** from `.env.example` templates by mocking missing placeholders.
+*   **Starts the application** and waits until the application is ready.
+*   **Opens your browser** immediately as soon as the app is ready to receive requests.
+*   **Cleans up the temporary directory** automatically when you exit the tool.
+
+---
+
+## Installation
+
+Requires Node.js 18+.
 
 ```bash
 npm install -g gitrunbykaru
 ```
 
-Node.js 18+ required.
-
 ---
 
-## Usage
+## Quick Start
 
+Run a public repository locally in one command:
 ```bash
-# Run a repo
 gitrunbykaru https://github.com/user/repo
-
-# Don't auto-open the browser
-gitrunbykaru https://github.com/user/repo --no-open
-
-# Keep the cloned directory after exit (for debugging)
-gitrunbykaru https://github.com/user/repo --keep
 ```
 
----
+### Real-world Example
 
-## Supported stacks
+Try the tool directly on its own repository to see it run:
+```bash
+gitrunbykaru https://github.com/Karthikeyadusi/gitrunbykaru
+```
 
-| Stack          | Detected by                   | Install / Package Manager          | Run                                            |
-| -------------- | ----------------------------- | ---------------------------------- | ---------------------------------------------- |
-| Node.js / JS   | `package.json`                | npm, yarn, pnpm, bun (auto-detect) | `dev` → `start` → `serve` → `build && preview` |
-| Next.js        | `package.json` + next dep     | matching lockfile (`npm/yarn/...`) | `dev`                                          |
-| Vite / React   | `package.json` + vite dep     | matching lockfile (`npm/yarn/...`) | `dev`                                          |
-| Python / Flask | `requirements.txt` + `app.py` | `pip install -r requirements.txt`  | `python app.py`                                |
-| Django         | `manage.py`                   | `pip install -r requirements.txt`  | `python manage.py runserver`                   |
-| FastAPI        | `requirements.txt` + fastapi  | `pip install -r requirements.txt`  | `python main.py`                               |
-| Static HTML    | `index.html` only             | —                                  | `npx serve .`                                  |
+### Useful Flags
+
+*   `--no-open`: Skip opening the browser automatically.
+*   `--keep`: Keep the temporary cloned directory after exiting (useful for debugging).
 
 ---
 
-## 🔥 Magic Features (Why it's smart)
+## Supported Projects
 
-- **Auto-Environment Mocking:** If a repo requires a `.env` file but only provides a `.env.example` or `.env.sample`, gitrunbykaru automatically clones it and injects dummy keys so the app doesn't crash on startup!
-- **Interactive Fallback:** If a repository is too weird to auto-detect, gitrunbykaru won't just crash. It pauses and gives you an interactive menu to manually type the run command.
-- **Auto-Downloads Missing Tools:** If a repo strictly uses `yarn`, `pnpm`, or `bun`, but you don't have them installed globally, gitrunbykaru will automatically fetch them securely via `npx` just for that run.
-- **Windows Path Fixes:** Bypasses legacy Windows 8.3 short-path bugs so strict bundlers like Vite and React never crash.
+GitRunByKaru supports conventional web applications, APIs, and static pages:
 
----
-
-## Philosophy
-
-- **Speed over perfection** — works for 80% of repos without any config
-- **Zero effort** — you provide the URL, gitrunbykaru handles everything else
-- **Local first** — runs on your machine, no cloud, no auth
-- **Opinionated** — makes decisions for you so you don't have to
+| Stack | Detection File | Install Command | Run Priority |
+| :--- | :--- | :--- | :--- |
+| **Node.js** | `package.json` | `npm`, `yarn`, `pnpm`, or `bun` | `dev` ➔ `start` ➔ `serve` ➔ `build && preview` |
+| **Next.js** | `package.json` + next | matching lockfile | `dev` |
+| **Vite / React**| `package.json` + vite | matching lockfile | `dev` |
+| **Python / Flask**| `requirements.txt` + `app.py` | `pip` inside local venv | `python app.py` |
+| **Django** | `manage.py` | `pip` inside local venv | `python manage.py runserver` |
+| **FastAPI** | `requirements.txt` + fastapi | `pip` inside local venv | `python main.py` |
+| **Static HTML** | `index.html` (only) | None | `npx serve .` ➔ `python -m http.server` |
 
 ---
 
-## What it doesn't handle (by design)
+## How It Works
 
-- True database dependencies (Postgres, MySQL, Redis, etc.)
-- Monorepos with complex workspace setups (e.g., `client/` and `api/` folders requiring separate terminal tabs — _coming soon_)
-- Private repositories where Git needs explicit SSH keys/auth
+GitRunByKaru processes repositories through a clean, isolated execution lifecycle:
 
-For these, you'll need to set things up manually.
+![Architecture Diagram](docs/gitrun_architecture.svg)
+
+---
+
+## Design Philosophy
+
+*   **Developer Curiosity First:** GitRunByKaru is designed to minimize the time between discovering an interesting repository and interacting with it locally.
+*   **Convention Over Configuration:** The tool assumes standard directory structures and startup scripts. It targets the 80% conventional setups, not highly customized build steps.
+*   **Clean Workspaces:** It uses temporary folders so your local drive does not accumulate old experimental repositories.
+*   **Auto-Environment Mocking:** It reads `.env.example` templates and generates placeholder values (like `gitrunbykaru_dummy_key_12345`) to prevent boot-time crashes caused by missing keys.
+*   **Fast Exploration:** It is optimized for checking out repositories quickly. It is not designed for production deployments or code editing.
+
+---
+
+## What GitRunByKaru Doesn't Try to Solve
+
+GitRunByKaru intentionally does not solve:
+*   **Heavy Database Dependencies:** If a project requires a database instance (such as PostgreSQL, MySQL, or Redis) to run, it will fail unless that database is already running locally on your machine and accessible.
+*   **Complex Monorepos:** It does not support workspaces that require running multiple concurrent backend and frontend server processes simultaneously.
+*   **Private Repositories:** It is limited to public repositories where SSH or Git credentials are not required for checkout.
+
+---
+
+## Security
+
+> [!IMPORTANT]
+> **Local Code Execution Warning**
+> GitRunByKaru executes code locally on your machine. It does not run inside a sandbox or VM. The tool automatically runs package manager installation hooks (which can run custom `postinstall` scripts) and executes launch commands.
+> 
+> **You should only run repositories that you trust.**
 
 ---
 
 ## Development
 
+To set up the tool locally and contribute:
+
 ```bash
+# Clone the repository
 git clone https://github.com/yourusername/gitrunbykaru
 cd gitrunbykaru
+
+# Install dependencies
 npm install
-npm link          # makes 'gitrunbykaru' available globally
-node tests/test.js
+
+# Link command globally
+npm link
+```
+
+### Running Tests
+The project has tests configured in `package.json` pointing to a local test suite:
+```bash
+npm test
 ```
 
 ---
 
 ## License
 
-MIT
+This project is licensed under the MIT License.

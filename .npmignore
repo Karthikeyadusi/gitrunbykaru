@@ -1,4 +1,10 @@
 tests/
-.gitignore
+docs/
+.github/
+Artifacts/
 *.log
 node_modules/
+INTERVIEW.md
+technical_deep_dive.md
+CHANGELOG.md
+CONTRIBUTING.md
