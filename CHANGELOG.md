@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.1] - 2026-07-15
+
+This patch release fixes dependency installation issues on repositories containing out-of-sync package locks.
+
+### Fixed
+- Added a fallback safety check during Node installation: if a fast clean install (`npm ci`) fails due to a desynchronized `package-lock.json`, the installer automatically falls back to a standard `npm install` run to heal and configure dependencies.
+
 ## [2.0.0] - 2026-07-15
 
 This release focuses on production hardening, cross-platform reliability, security, and documentation. GitRunByKaru is now considered the first stable production release.
