@@ -1,6 +1,6 @@
 {
   "name": "gitrunbykaru",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Run conventional GitHub repositories locally with one command.",
   "type": "module",
   "bin": {

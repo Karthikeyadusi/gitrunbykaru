@@ -14,11 +14,24 @@ export const nodeStrategy = {
       if (installCmd.startsWith('pnpm') && !checkCommand('pnpm')) installCmd = `npx ${installCmd}`;
       if (installCmd.startsWith('bun') && !checkCommand('bun')) installCmd = `npx ${installCmd}`;
 
-      execSync(installCmd, {
-        cwd: dir,
-        stdio: 'pipe',
-        timeout: 600000,
-      });
+      try {
+        execSync(installCmd, {
+          cwd: dir,
+          stdio: 'pipe',
+          timeout: 600000,
+        });
+      } catch (err) {
+        if (installCmd.includes('npm ci')) {
+          spinner.text = '  npm ci failed, falling back to npm install...';
+          execSync('npm install --prefer-offline --no-audit --no-fund', {
+            cwd: dir,
+            stdio: 'pipe',
+            timeout: 600000,
+          });
+        } else {
+          throw err;
+        }
+      }
       spinner.succeed(`Installed  node_modules ready`);
     } catch (err) {
       spinner.fail('Dependency install failed');
