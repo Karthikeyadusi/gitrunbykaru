@@ -8,6 +8,7 @@ import './TerminalDemo.css';
 
 export function TerminalDemo() {
   const [activeScriptKey, setActiveScriptKey] = useState('nextjs');
+  const [replayKey, setReplayKey] = useState(0);
   const [visibleLines, setVisibleLines] = useState([]);
   const [isPlaying, setIsPlaying] = useState(true);
 
@@ -24,11 +25,11 @@ export function TerminalDemo() {
       }, line.delay);
     });
 
-    const totalDuration = Math.max(...currentScript.lines.map((l) => l.delay)) + 3000;
+    const maxDelay = Math.max(...currentScript.lines.map((l) => l.delay));
+    const totalDuration = maxDelay + 4000;
 
     const loopTimeout = setTimeout(() => {
       setIsPlaying(false);
-      // Loop to next script
       setActiveScriptKey((prev) => {
         if (prev === 'nextjs') return 'python';
         if (prev === 'python') return 'static';
@@ -40,16 +41,16 @@ export function TerminalDemo() {
       timeouts.forEach((t) => clearTimeout(t));
       clearTimeout(loopTimeout);
     };
-  }, [activeScriptKey, currentScript]);
+  }, [activeScriptKey, replayKey]);
 
   const handleSelectScript = (key) => {
-    setActiveScriptKey(key);
+    if (key !== activeScriptKey) {
+      setActiveScriptKey(key);
+    }
   };
 
   const handleReplay = () => {
-    setVisibleLines([]);
-    setIsPlaying(true);
-    setActiveScriptKey((prev) => prev);
+    setReplayKey((prev) => prev + 1);
   };
 
   return (
@@ -85,7 +86,7 @@ export function TerminalDemo() {
 
             <div className="terminal-lines-body">
               {visibleLines.map((line, idx) => (
-                <TerminalLine key={idx} line={line} />
+                <TerminalLine key={`${activeScriptKey}-${replayKey}-${idx}`} line={line} />
               ))}
             </div>
           </TerminalWindow>

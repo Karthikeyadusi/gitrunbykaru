@@ -5,22 +5,17 @@ export function ProgressBar({ label, duration = 3000, targetPct = 85, elapsed = 
   const [pct, setPct] = useState(0);
 
   useEffect(() => {
-    let start = null;
-    let animationFrame;
-
-    const animate = (timestamp) => {
-      if (!start) start = timestamp;
-      const progress = timestamp - start;
-      const current = Math.min(targetPct, Math.floor((progress / duration) * targetPct));
+    const startTime = Date.now();
+    const interval = setInterval(() => {
+      const elapsedMs = Date.now() - startTime;
+      const current = Math.min(targetPct, Math.floor((elapsedMs / duration) * targetPct));
       setPct(current);
-
-      if (progress < duration) {
-        animationFrame = requestAnimationFrame(animate);
+      if (elapsedMs >= duration) {
+        clearInterval(interval);
       }
-    };
+    }, 80);
 
-    animationFrame = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animationFrame);
+    return () => clearInterval(interval);
   }, [duration, targetPct]);
 
   const filledCount = Math.round((pct / 100) * 16);
