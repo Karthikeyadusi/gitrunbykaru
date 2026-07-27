@@ -86,31 +86,19 @@ export function Navbar() {
           </a>
         </nav>
 
-        {/* Compound Repository Action & Primary Install Action */}
+        {/* Dark Natural GitHub Mark + Arrow Action */}
         <div className="nav-actions">
-          <div className="nav-compound-action">
-            <a
-              href="https://github.com/Karthikeyadusi/gitrunbykaru"
-              target="_blank"
-              rel="noreferrer"
-              className="compound-btn compound-main"
-              title="Inspect source repository on GitHub"
-              aria-label="Inspect source repository on GitHub"
-            >
-              <GithubIcon size={14} className="compound-icon" />
-              <span>Repository</span>
-            </a>
-            <a
-              href="https://github.com/Karthikeyadusi/gitrunbykaru"
-              target="_blank"
-              rel="noreferrer"
-              className="compound-btn compound-arrow"
-              title="Open GitHub repository"
-              aria-label="Open GitHub repository in new tab"
-            >
-              <ArrowUpRight size={13} className="arrow-icon" />
-            </a>
-          </div>
+          <a
+            href="https://github.com/Karthikeyadusi/gitrunbykaru"
+            target="_blank"
+            rel="noreferrer"
+            className="nav-github-action"
+            title="View repository on GitHub"
+            aria-label="View repository on GitHub"
+          >
+            <GithubIcon size={16} className="github-icon" />
+            <ArrowUpRight size={14} className="github-arrow" />
+          </a>
 
           <CopyButton
             text="npm install -g gitrunbykaru"

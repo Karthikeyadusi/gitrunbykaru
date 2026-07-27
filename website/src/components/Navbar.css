@@ -116,64 +116,41 @@
   gap: var(--space-sm);
 }
 
-/* Compound Repository Action Control */
-.nav-compound-action {
-  display: flex;
-  align-items: center;
-  gap: 3px;
-}
-
-.compound-btn {
+/* Dark Natural GitHub Mark + Arrow Action */
+.nav-github-action {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  font-family: var(--font-mono);
-  font-size: 12px;
+  gap: 4px;
+  padding: 6px 10px;
+  border-radius: var(--radius-md);
   color: var(--text-secondary);
-  background-color: var(--bg-surface);
-  border: 1px solid var(--border);
-  height: 30px;
+  background-color: transparent;
+  border: 1px solid transparent;
   text-decoration: none;
   transition: all 150ms ease;
 }
 
-.compound-main {
-  padding: 0 10px;
-  gap: 6px;
-  border-radius: var(--radius-sm) 3px 3px var(--radius-sm);
-}
-
-.compound-arrow {
-  width: 26px;
-  padding: 0;
-  border-radius: 3px var(--radius-sm) var(--radius-sm) 3px;
-}
-
-.nav-compound-action:hover .compound-btn,
-.compound-btn:hover {
+.nav-github-action:hover {
   color: var(--text-primary);
-  border-color: var(--border-hover);
+  background-color: var(--bg-surface);
+  border-color: var(--border);
 }
 
-.compound-btn:hover {
-  background-color: var(--bg-hover);
-}
-
-.compound-arrow:hover .arrow-icon {
+.nav-github-action:hover .github-arrow {
   color: var(--accent-magenta);
   transform: translate(1px, -1px);
 }
 
-.compound-icon {
+.github-icon {
   color: var(--text-secondary);
   transition: color 150ms ease;
 }
 
-.compound-main:hover .compound-icon {
-  color: var(--accent-magenta);
+.nav-github-action:hover .github-icon {
+  color: var(--text-primary);
 }
 
-.arrow-icon {
+.github-arrow {
   color: var(--text-tertiary);
   transition: transform 150ms ease, color 150ms ease;
 }
@@ -188,12 +165,6 @@
 
 @media (max-width: 840px) {
   .nav-links {
-    display: none;
-  }
-}
-
-@media (max-width: 520px) {
-  .compound-main span {
     display: none;
   }
 }
