@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { CopyButton } from './ui/CopyButton';
 import { GithubIcon } from './ui/GithubIcon';
 import { NpmIcon } from './ui/NpmIcon';
 import { ArrowUpRight } from 'lucide-react';
@@ -55,7 +54,7 @@ export function Navbar() {
     <header className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="container nav-container">
         
-        {/* Stable Terminal Shell Logo */}
+        {/* Clean Terminal Shell Logo */}
         <a href="#" className="nav-logo" aria-label="gitrunbykaru homepage">
           <span className="logo-prompt">$</span>
           <span className="logo-brand">gitrunbykaru</span>
@@ -87,39 +86,33 @@ export function Navbar() {
           </a>
         </nav>
 
-        {/* Cohesive Action Cluster: Companion Utilities + Primary Install CTA */}
-        <div className="nav-action-cluster">
-          <div className="utility-buttons">
-            <a
-              href="https://www.npmjs.com/package/gitrunbykaru"
-              target="_blank"
-              rel="noreferrer"
-              className="nav-util-btn"
-              title="View package on npm registry"
-              aria-label="View package on npm registry"
-            >
-              <NpmIcon size={13} className="util-npm-icon" />
-              <ArrowUpRight size={12} className="util-arrow" />
-            </a>
+        {/* Prominent Action Buttons for npm & GitHub */}
+        <div className="nav-actions">
+          <a
+            href="https://www.npmjs.com/package/gitrunbykaru"
+            target="_blank"
+            rel="noreferrer"
+            className="nav-btn nav-btn-npm"
+            title="View package on npm registry"
+            aria-label="View package on npm registry"
+          >
+            <NpmIcon size={18} className="btn-npm-icon" />
+            <span className="btn-label">npm</span>
+            <ArrowUpRight size={14} className="btn-arrow" />
+          </a>
 
-            <a
-              href="https://github.com/Karthikeyadusi/gitrunbykaru"
-              target="_blank"
-              rel="noreferrer"
-              className="nav-util-btn"
-              title="View repository on GitHub"
-              aria-label="View repository on GitHub"
-            >
-              <GithubIcon size={15} className="util-github-icon" />
-              <ArrowUpRight size={12} className="util-arrow" />
-            </a>
-          </div>
-
-          <CopyButton
-            text="npm install -g gitrunbykaru"
-            label="npm i -g gitrunbykaru"
-            className="nav-primary-install-cta"
-          />
+          <a
+            href="https://github.com/Karthikeyadusi/gitrunbykaru"
+            target="_blank"
+            rel="noreferrer"
+            className="nav-btn nav-btn-github"
+            title="View repository on GitHub"
+            aria-label="View repository on GitHub"
+          >
+            <GithubIcon size={18} className="btn-github-icon" />
+            <span className="btn-label">GitHub</span>
+            <ArrowUpRight size={14} className="btn-arrow" />
+          </a>
         </div>
 
       </div>

@@ -82,7 +82,7 @@
 
 .nav-link {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 13.5px;
   color: var(--text-secondary);
   display: flex;
   align-items: center;
@@ -109,78 +109,67 @@
   color: var(--text-tertiary);
 }
 
-/* Cohesive Action Cluster */
-.nav-action-cluster {
+/* Actions Area */
+.nav-actions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
-.utility-buttons {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.nav-util-btn {
+/* Prominent Action Buttons for npm & GitHub */
+.nav-btn {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 5px;
-  padding: 5px 9px;
-  height: 30px;
+  gap: 7px;
+  padding: 7px 14px;
+  height: 36px;
   border-radius: var(--radius-md);
   background-color: var(--bg-surface);
   border: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-primary);
   text-decoration: none;
   transition: all 150ms ease;
 }
 
-.nav-util-btn:hover {
+.nav-btn:hover {
   background-color: var(--bg-hover);
   border-color: var(--border-hover);
+  transform: translateY(-1px);
 }
 
-.util-npm-icon {
+.btn-npm-icon {
   color: #CB3837;
 }
 
-.util-github-icon {
-  color: var(--text-secondary);
-  transition: color 150ms ease;
-}
-
-.nav-util-btn:hover .util-github-icon {
+.btn-github-icon {
   color: var(--text-primary);
 }
 
-.nav-util-btn:hover .util-arrow {
-  color: var(--accent-magenta);
-  transform: translate(1px, -1px);
+.btn-label {
+  font-size: 13.5px;
 }
 
-.util-arrow {
+.nav-btn:hover .btn-arrow {
+  color: var(--accent-magenta);
+  transform: translate(2px, -2px);
+}
+
+.btn-arrow {
   color: var(--text-tertiary);
   transition: transform 150ms ease, color 150ms ease;
 }
 
-.nav-primary-install-cta {
-  padding: 5px 14px;
-  font-size: 13px;
-  height: 32px;
-  background-color: var(--bg-surface);
-  border-color: var(--accent-magenta);
-  box-shadow: 0 0 12px var(--glow-magenta);
-}
-
-@media (max-width: 900px) {
+@media (max-width: 840px) {
   .nav-links {
     display: none;
   }
 }
 
 @media (max-width: 520px) {
-  .utility-buttons {
+  .btn-label {
     display: none;
   }
 }
