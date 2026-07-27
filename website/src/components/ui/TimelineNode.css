@@ -22,6 +22,16 @@
   transition: all 300ms ease;
 }
 
+.timeline-node:hover .node-dot {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 10px var(--glow-cyan);
+  transform: scale(1.15);
+}
+
+.timeline-node:hover .node-title {
+  color: var(--accent-cyan);
+}
+
 .is-latest .node-dot {
   border-color: var(--accent-magenta);
   background-color: var(--accent-magenta);
