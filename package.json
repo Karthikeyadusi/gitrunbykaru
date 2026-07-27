@@ -4,9 +4,9 @@
   "description": "Run conventional GitHub repositories locally with one command.",
   "type": "module",
   "bin": {
-    "gitrunbykaru": "./bin/gitrunbykaru.js"
+    "gitrunbykaru": "bin/gitrunbykaru.js"
   },
-  "main": "./src/index.js",
+  "main": "src/index.js",
   "scripts": {
     "start": "node bin/gitrunbykaru.js",
     "test": "node tests/test.js"
