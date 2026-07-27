@@ -26,20 +26,13 @@ export function TerminalDemo() {
     });
 
     const maxDelay = Math.max(...currentScript.lines.map((l) => l.delay));
-    const totalDuration = maxDelay + 4000;
-
-    const loopTimeout = setTimeout(() => {
+    const finishTimeout = setTimeout(() => {
       setIsPlaying(false);
-      setActiveScriptKey((prev) => {
-        if (prev === 'nextjs') return 'python';
-        if (prev === 'python') return 'static';
-        return 'nextjs';
-      });
-    }, totalDuration);
+    }, maxDelay + 500);
 
     return () => {
       timeouts.forEach((t) => clearTimeout(t));
-      clearTimeout(loopTimeout);
+      clearTimeout(finishTimeout);
     };
   }, [activeScriptKey, replayKey]);
 
