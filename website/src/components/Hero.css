@@ -1,18 +1,18 @@
 .hero-section {
   position: relative;
-  padding-top: calc(var(--nav-height) + 80px);
+  padding-top: calc(var(--nav-height) + 60px);
   padding-bottom: 80px;
   overflow: hidden;
 }
 
 .hero-glow {
   position: absolute;
-  top: 10%;
+  top: 8%;
   left: 50%;
   transform: translateX(-50%);
-  width: 600px;
-  height: 400px;
-  background: radial-gradient(circle, var(--glow-magenta) 0%, rgba(10, 10, 15, 0) 70%);
+  width: 700px;
+  height: 450px;
+  background: radial-gradient(circle, var(--glow-magenta) 0%, rgba(10, 10, 15, 0) 75%);
   pointer-events: none;
   z-index: 0;
 }
@@ -59,12 +59,86 @@
   max-width: 640px;
 }
 
+/* Mini Terminal Active Anchor */
+.hero-terminal-anchor {
+  background-color: var(--bg-terminal);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  width: 100%;
+  max-width: 580px;
+  text-align: left;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  margin-top: 4px;
+}
+
+.mini-terminal-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.mini-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+.mini-red    { background-color: #FF5F56; }
+.mini-yellow { background-color: #FFBD2E; }
+.mini-green  { background-color: #27C93F; }
+
+.mini-path {
+  color: var(--text-secondary);
+  margin-left: 4px;
+}
+
+.mini-temp-tag {
+  color: var(--text-tertiary);
+  margin-left: auto;
+  font-size: 10px;
+}
+
+.mini-terminal-body {
+  padding: 12px 16px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.prompt-sym {
+  color: var(--accent-magenta);
+  font-weight: 700;
+}
+
+.prompt-cmd {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.blinking-cursor {
+  color: var(--accent-magenta);
+  animation: blinkCursor 1s steps(2, start) infinite;
+  font-size: 12px;
+}
+
+@keyframes blinkCursor {
+  to { visibility: hidden; }
+}
+
+/* Actions & Install Pill */
 .hero-actions {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--space-md);
-  margin-top: 8px;
+  margin-top: 4px;
 }
 
 .hero-install-wrapper {
@@ -112,26 +186,57 @@
   color: var(--text-primary);
 }
 
+/* Icon-Enhanced Trust Strip */
 .hero-trust-strip {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   font-family: var(--font-mono);
   font-size: 13px;
-  margin-top: 16px;
+  margin-top: 12px;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.trust-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
 }
 
 .trust-dot {
   color: var(--text-tertiary);
 }
 
-.hero-origin-callout {
-  font-size: 14px;
-  max-width: 540px;
+/* Developer Signature Card */
+.hero-signature-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent-magenta);
+  border-radius: var(--radius-md);
+  padding: 14px 20px;
+  max-width: 520px;
   margin-top: 8px;
-  opacity: 0.85;
+  text-align: left;
+}
+
+.signature-quote {
+  font-size: 13.5px;
+  font-style: italic;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+.signature-author {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent-magenta);
+  margin-top: 6px;
 }
 
 @media (max-width: 768px) {
@@ -143,8 +248,16 @@
     font-size: 16px;
   }
 
+  .hero-terminal-anchor {
+    max-width: 100%;
+  }
+
+  .mini-temp-tag {
+    display: none;
+  }
+
   .hero-trust-strip {
     font-size: 12px;
-    gap: 8px;
+    gap: 6px;
   }
 }

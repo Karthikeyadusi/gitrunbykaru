@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { CopyButton } from './ui/CopyButton';
-import { ArrowRight, Terminal } from 'lucide-react';
+import { ArrowRight, Terminal, Download, Tag, ShieldCheck, Code2 } from 'lucide-react';
 import { fetchLiveStats } from '../utils/fetchStats';
 import './Hero.css';
 
@@ -19,6 +19,7 @@ export function Hero({ heroRef }) {
       <div className="hero-glow"></div>
       <div className="container hero-container">
         
+        {/* Active Badge */}
         <motion.div
           className="hero-badge"
           initial={{ opacity: 0, y: 20 }}
@@ -30,6 +31,7 @@ export function Hero({ heroRef }) {
           {stats.isLive && <span className="live-indicator-dot" title="Live npm/GitHub stats synced"></span>}
         </motion.div>
 
+        {/* Hero Title & Tagline */}
         <motion.h1
           className="type-h1 hero-title"
           initial={{ opacity: 0, y: 20 }}
@@ -50,6 +52,28 @@ export function Hero({ heroRef }) {
           Run conventional GitHub projects with zero config friction.
         </motion.p>
 
+        {/* Hero Mini Terminal Active Anchor */}
+        <motion.div
+          className="hero-terminal-anchor"
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.25 }}
+        >
+          <div className="mini-terminal-header">
+            <span className="mini-dot mini-red"></span>
+            <span className="mini-dot mini-yellow"></span>
+            <span className="mini-dot mini-green"></span>
+            <span className="mini-path">~/gitrun-workspace</span>
+            <span className="mini-temp-tag">[tempdir: /tmp/gitrun-ephemeral]</span>
+          </div>
+          <div className="mini-terminal-body">
+            <span className="prompt-sym">$</span>
+            <span className="prompt-cmd">gitrunbykaru https://github.com/user/project</span>
+            <span className="blinking-cursor">█</span>
+          </div>
+        </motion.div>
+
+        {/* Actions & Install Pill */}
         <motion.div
           className="hero-actions"
           initial={{ opacity: 0, y: 20 }}
@@ -72,33 +96,46 @@ export function Hero({ heroRef }) {
           </a>
         </motion.div>
 
+        {/* Enhanced Trust Strip with Icons */}
         <motion.div
           className="hero-trust-strip text-secondary"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.5 }}
         >
-          <span className="trust-item">
-            <strong className="text-primary">{stats.downloads}+</strong> downloads
-          </span>
+          <div className="trust-pill">
+            <Download size={13} className="text-magenta" />
+            <span><strong className="text-primary">{stats.downloads}+</strong> installs</span>
+          </div>
           <span className="trust-dot">·</span>
-          <span className="trust-item">
-            <strong className="text-primary">{stats.releases}</strong> releases
-          </span>
+          <div className="trust-pill">
+            <Tag size={13} className="text-cyan" />
+            <span><strong className="text-primary">{stats.releases}</strong> releases</span>
+          </div>
           <span className="trust-dot">·</span>
-          <span className="trust-item">MIT License</span>
+          <div className="trust-pill">
+            <ShieldCheck size={13} className="text-green" />
+            <span>MIT License</span>
+          </div>
           <span className="trust-dot">·</span>
-          <span className="trust-item">Open Source</span>
+          <div className="trust-pill">
+            <Code2 size={13} className="text-magenta" />
+            <span>Open Source</span>
+          </div>
         </motion.div>
 
-        <motion.p
-          className="hero-origin-callout text-secondary"
+        {/* Developer Signature Signature Block */}
+        <motion.div
+          className="hero-signature-card"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.6 }}
         >
-          <em>— Built because I was tired of spending 20 minutes configuring repos I'd close in 2.</em>
-        </motion.p>
+          <p className="signature-quote">
+            "Built because I was tired of spending 20 minutes configuring repos I'd close in 2."
+          </p>
+          <span className="signature-author">— Karthikeya Dusi, Creator</span>
+        </motion.div>
 
       </div>
     </section>
