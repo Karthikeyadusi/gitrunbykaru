@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { CopyButton } from './ui/CopyButton';
 import { GithubIcon } from './ui/GithubIcon';
+import { NpmIcon } from './ui/NpmIcon';
 import { ArrowUpRight } from 'lucide-react';
 import './Navbar.css';
 
@@ -86,18 +87,30 @@ export function Navbar() {
           </a>
         </nav>
 
-        {/* Dark Natural GitHub Mark + Arrow Action */}
+        {/* Global External Action Buttons & Primary Install Action */}
         <div className="nav-actions">
+          <a
+            href="https://www.npmjs.com/package/gitrunbykaru"
+            target="_blank"
+            rel="noreferrer"
+            className="nav-external-btn"
+            title="View package on npm registry"
+            aria-label="View package on npm registry"
+          >
+            <NpmIcon size={14} className="ext-icon npm-icon" />
+            <ArrowUpRight size={13} className="ext-arrow" />
+          </a>
+
           <a
             href="https://github.com/Karthikeyadusi/gitrunbykaru"
             target="_blank"
             rel="noreferrer"
-            className="nav-github-action"
+            className="nav-external-btn"
             title="View repository on GitHub"
             aria-label="View repository on GitHub"
           >
-            <GithubIcon size={16} className="github-icon" />
-            <ArrowUpRight size={14} className="github-arrow" />
+            <GithubIcon size={15} className="ext-icon github-icon" />
+            <ArrowUpRight size={13} className="ext-arrow" />
           </a>
 
           <CopyButton

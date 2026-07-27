@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { CopyButton } from './ui/CopyButton';
 import { NpmIcon } from './ui/NpmIcon';
-import { ArrowRight, Terminal, Tag, ShieldCheck, Code2 } from 'lucide-react';
+import { Terminal, Tag, ShieldCheck, Code2 } from 'lucide-react';
 import { fetchLiveStats } from '../utils/fetchStats';
 import './Hero.css';
 
@@ -84,7 +84,7 @@ export function Hero({ heroRef }) {
           </div>
         </motion.div>
 
-        {/* Actions & Install Pill */}
+        {/* Primary Install Command Action */}
         <motion.div
           className="hero-actions"
           initial={{ opacity: 0, y: 20 }}
@@ -95,36 +95,9 @@ export function Hero({ heroRef }) {
             <CopyButton text="npm install -g gitrunbykaru" className="hero-install-pill" />
             <span className="keyboard-hint">Press <kbd>⌘K</kbd> or <kbd>Ctrl+K</kbd> to copy</span>
           </div>
-
-          <div className="hero-secondary-links">
-            <a
-              href="https://www.npmjs.com/package/gitrunbykaru"
-              target="_blank"
-              rel="noreferrer"
-              className="hero-secondary-btn"
-              title="View npm package on registry.npmjs.org"
-            >
-              <NpmIcon size={14} className="text-magenta" />
-              <span>View on npm</span>
-              <ArrowRight size={14} />
-            </a>
-
-            <span className="secondary-divider text-tertiary">·</span>
-
-            <a
-              href="https://github.com/Karthikeyadusi/gitrunbykaru"
-              target="_blank"
-              rel="noreferrer"
-              className="hero-secondary-btn text-secondary"
-              title="View source repository on GitHub"
-            >
-              <span>GitHub</span>
-              <ArrowRight size={14} />
-            </a>
-          </div>
         </motion.div>
 
-        {/* Enhanced Trust Strip with npm link */}
+        {/* Technical Trust Strip */}
         <motion.div
           className="hero-trust-strip text-secondary"
           initial={{ opacity: 0 }}

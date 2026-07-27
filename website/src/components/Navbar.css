@@ -113,15 +113,17 @@
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: var(--space-sm);
+  gap: 6px;
 }
 
-/* Dark Natural GitHub Mark + Arrow Action */
-.nav-github-action {
+/* Identical External Action Buttons (npm & GitHub) */
+.nav-external-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 4px;
   padding: 6px 10px;
+  height: 32px;
   border-radius: var(--radius-md);
   color: var(--text-secondary);
   background-color: transparent;
@@ -130,27 +132,31 @@
   transition: all 150ms ease;
 }
 
-.nav-github-action:hover {
+.nav-external-btn:hover {
   color: var(--text-primary);
   background-color: var(--bg-surface);
   border-color: var(--border);
 }
 
-.nav-github-action:hover .github-arrow {
+.nav-external-btn:hover .ext-arrow {
   color: var(--accent-magenta);
   transform: translate(1px, -1px);
 }
 
-.github-icon {
+.ext-icon {
   color: var(--text-secondary);
   transition: color 150ms ease;
 }
 
-.nav-github-action:hover .github-icon {
+.nav-external-btn:hover .npm-icon {
+  color: #CB3837;
+}
+
+.nav-external-btn:hover .github-icon {
   color: var(--text-primary);
 }
 
-.github-arrow {
+.ext-arrow {
   color: var(--text-tertiary);
   transition: transform 150ms ease, color 150ms ease;
 }
@@ -158,6 +164,7 @@
 .nav-install-btn {
   padding: 6px 14px;
   font-size: 13px;
+  height: 32px;
   background-color: var(--bg-surface);
   border-color: var(--accent-magenta);
   box-shadow: 0 0 12px var(--glow-magenta);
