@@ -116,49 +116,65 @@
   gap: var(--space-sm);
 }
 
-/* Code-Inspired Repository Button */
-.nav-repository-btn {
+/* Compound Repository Action Control */
+.nav-compound-action {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.compound-btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  justify-content: center;
   font-family: var(--font-mono);
   font-size: 12px;
   color: var(--text-secondary);
   background-color: var(--bg-surface);
   border: 1px solid var(--border);
-  padding: 6px 12px;
-  border-radius: var(--radius-md);
+  height: 30px;
   text-decoration: none;
   transition: all 150ms ease;
 }
 
-.nav-repository-btn:hover {
+.compound-main {
+  padding: 0 10px;
+  gap: 6px;
+  border-radius: var(--radius-sm) 3px 3px var(--radius-sm);
+}
+
+.compound-arrow {
+  width: 26px;
+  padding: 0;
+  border-radius: 3px var(--radius-sm) var(--radius-sm) 3px;
+}
+
+.nav-compound-action:hover .compound-btn,
+.compound-btn:hover {
   color: var(--text-primary);
   border-color: var(--border-hover);
-  transform: translateY(-1px);
 }
 
-.nav-repository-btn:hover .repo-arrow {
+.compound-btn:hover {
+  background-color: var(--bg-hover);
+}
+
+.compound-arrow:hover .arrow-icon {
   color: var(--accent-magenta);
-  transform: translateX(2px);
+  transform: translate(1px, -1px);
 }
 
-.repo-icon {
-  color: var(--text-tertiary);
+.compound-icon {
+  color: var(--text-secondary);
   transition: color 150ms ease;
 }
 
-.nav-repository-btn:hover .repo-icon {
+.compound-main:hover .compound-icon {
   color: var(--accent-magenta);
 }
 
-.repo-label {
-  font-size: 12px;
-}
-
-.repo-arrow {
+.arrow-icon {
   color: var(--text-tertiary);
-  font-size: 12px;
   transition: transform 150ms ease, color 150ms ease;
 }
 
@@ -177,7 +193,7 @@
 }
 
 @media (max-width: 520px) {
-  .repo-label {
+  .compound-main span {
     display: none;
   }
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { CopyButton } from './ui/CopyButton';
-import { Code2 } from 'lucide-react';
+import { GithubIcon } from './ui/GithubIcon';
+import { ArrowUpRight } from 'lucide-react';
 import './Navbar.css';
 
 const NAV_ITEMS = [
@@ -85,20 +86,31 @@ export function Navbar() {
           </a>
         </nav>
 
-        {/* Integrated Repository Action & Primary Install Action */}
+        {/* Compound Repository Action & Primary Install Action */}
         <div className="nav-actions">
-          <a
-            href="https://github.com/Karthikeyadusi/gitrunbykaru"
-            target="_blank"
-            rel="noreferrer"
-            className="nav-repository-btn"
-            title="View source repository on GitHub"
-            aria-label="View source repository on GitHub"
-          >
-            <Code2 size={14} className="repo-icon" />
-            <span className="repo-label">Repository</span>
-            <span className="repo-arrow">→</span>
-          </a>
+          <div className="nav-compound-action">
+            <a
+              href="https://github.com/Karthikeyadusi/gitrunbykaru"
+              target="_blank"
+              rel="noreferrer"
+              className="compound-btn compound-main"
+              title="Inspect source repository on GitHub"
+              aria-label="Inspect source repository on GitHub"
+            >
+              <GithubIcon size={14} className="compound-icon" />
+              <span>Repository</span>
+            </a>
+            <a
+              href="https://github.com/Karthikeyadusi/gitrunbykaru"
+              target="_blank"
+              rel="noreferrer"
+              className="compound-btn compound-arrow"
+              title="Open GitHub repository"
+              aria-label="Open GitHub repository in new tab"
+            >
+              <ArrowUpRight size={13} className="arrow-icon" />
+            </a>
+          </div>
 
           <CopyButton
             text="npm install -g gitrunbykaru"
