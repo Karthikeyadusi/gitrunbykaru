@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { TerminalWindow } from './ui/TerminalWindow';
 import { TerminalLine } from './ui/TerminalLine';
@@ -7,15 +7,38 @@ import { DEMO_SCRIPTS } from '../data/siteData';
 import './TerminalDemo.css';
 
 export function TerminalDemo() {
+  const sectionRef = useRef(null);
+  const [isInView, setIsInView] = useState(false);
   const [activeScriptKey, setActiveScriptKey] = useState('nextjs');
   const [replayKey, setReplayKey] = useState(0);
   const [visibleLines, setVisibleLines] = useState([]);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const scriptList = Object.values(DEMO_SCRIPTS).map((s) => ({ id: s.id, label: s.label }));
   const currentScript = DEMO_SCRIPTS[activeScriptKey];
 
+  // IntersectionObserver to trigger animation when scrolled into view
   useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  // Execution line animation driven by isInView, activeScriptKey, and replayKey
+  useEffect(() => {
+    if (!isInView) return;
+
     setVisibleLines([]);
     setIsPlaying(true);
 
@@ -34,7 +57,7 @@ export function TerminalDemo() {
       timeouts.forEach((t) => clearTimeout(t));
       clearTimeout(finishTimeout);
     };
-  }, [activeScriptKey, replayKey]);
+  }, [isInView, activeScriptKey, replayKey]);
 
   const handleSelectScript = (key) => {
     if (key !== activeScriptKey) {
@@ -47,7 +70,7 @@ export function TerminalDemo() {
   };
 
   return (
-    <section className="section terminal-demo-section" id="demo">
+    <section className="section terminal-demo-section" id="demo" ref={sectionRef}>
       <div className="container">
         
         <div className="section-header text-center">
