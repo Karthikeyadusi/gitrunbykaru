@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { CopyButton } from './ui/CopyButton';
-import { GithubIcon } from './ui/GithubIcon';
-import { fetchLiveStats } from '../utils/fetchStats';
+import { Code2 } from 'lucide-react';
 import './Navbar.css';
 
 const NAV_ITEMS = [
@@ -14,7 +13,6 @@ const NAV_ITEMS = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('demo');
-  const [starsCount, setStarsCount] = useState(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,15 +20,6 @@ export function Navbar() {
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Fetch live stats for GitHub star count
-  useEffect(() => {
-    fetchLiveStats().then((data) => {
-      if (data && data.stars) {
-        setStarsCount(data.stars);
-      }
-    });
   }, []);
 
   // Section Observer for scroll spy active navigation
@@ -96,20 +85,19 @@ export function Navbar() {
           </a>
         </nav>
 
-        {/* Integrated GitHub (Secondary) & Primary Install Action */}
+        {/* Integrated Repository Action & Primary Install Action */}
         <div className="nav-actions">
           <a
             href="https://github.com/Karthikeyadusi/gitrunbykaru"
             target="_blank"
             rel="noreferrer"
-            className="nav-github-link"
+            className="nav-repository-btn"
             title="View source repository on GitHub"
-            aria-label="View on GitHub"
+            aria-label="View source repository on GitHub"
           >
-            <GithubIcon size={14} />
-            <span className="github-label">
-              {starsCount ? `★ ${starsCount}` : 'github'}
-            </span>
+            <Code2 size={14} className="repo-icon" />
+            <span className="repo-label">Repository</span>
+            <span className="repo-arrow">→</span>
           </a>
 
           <CopyButton
