@@ -1,9 +1,10 @@
 import React from 'react';
 import * as Icons from 'lucide-react';
+import { NpmIcon } from './NpmIcon';
 import './ResourceCard.css';
 
 export function ResourceCard({ title, desc, link, icon }) {
-  const IconComponent = Icons[icon] || Icons.FileText;
+  const IconComponent = icon === 'PackageCheck' ? NpmIcon : (Icons[icon] || Icons.FileText);
 
   return (
     <a

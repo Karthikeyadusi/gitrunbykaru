@@ -227,6 +227,12 @@ export const JOURNEY_MILESTONES = [
 
 export const RESOURCE_CARDS = [
   {
+    title: 'npm Package Page',
+    desc: 'Official package page on registry.npmjs.org, version history, and metrics.',
+    link: 'https://www.npmjs.com/package/gitrunbykaru',
+    icon: 'PackageCheck'
+  },
+  {
     title: 'Architecture Docs',
     desc: 'Execution pipeline, strategy pattern, process lifecycle.',
     link: 'https://github.com/Karthikeyadusi/gitrunbykaru/blob/main/docs/ARCHITECTURE.md',

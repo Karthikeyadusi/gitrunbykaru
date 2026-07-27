@@ -185,6 +185,17 @@
   color: var(--text-secondary);
 }
 
+.hero-secondary-links {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.secondary-divider {
+  font-family: var(--font-mono);
+  font-size: 14px;
+}
+
 .hero-secondary-btn {
   display: inline-flex;
   align-items: center;
@@ -195,6 +206,7 @@
   color: var(--text-secondary);
   transition: color 150ms ease;
   padding: 6px 12px;
+  text-decoration: none;
 }
 
 .hero-secondary-btn:hover {
@@ -221,6 +233,16 @@
   border: 1px solid var(--border);
   padding: 4px 10px;
   border-radius: var(--radius-sm);
+}
+
+.trust-link {
+  text-decoration: none;
+  transition: border-color 150ms ease, background-color 150ms ease;
+}
+
+.trust-link:hover {
+  border-color: var(--border-hover);
+  background-color: var(--bg-hover);
 }
 
 .trust-dot {

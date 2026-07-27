@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ResourceCard } from './ui/ResourceCard';
 import { RESOURCE_CARDS } from '../data/siteData';
-import { Star } from 'lucide-react';
+import { NpmIcon } from './ui/NpmIcon';
 import { GithubIcon } from './ui/GithubIcon';
 import './OpenSource.css';
 
@@ -12,13 +12,13 @@ export function OpenSource() {
       <div className="container">
         
         <div className="section-header text-center">
-          <h2 className="type-h2">Open source. Contributor friendly.</h2>
+          <h2 className="type-h2">Open source & published on npm.</h2>
           <p className="type-body text-secondary max-w-xl">
-            GitRunByKaru is MIT-licensed and built in the open. Every part of the codebase, architecture, and release process is fully documented.
+            GitRunByKaru is MIT-licensed, published on npm, and built completely in the open. Every part of the codebase, architecture, and release process is fully documented.
           </p>
         </div>
 
-        {/* 4 Resource Cards Grid */}
+        {/* 5 Resource Cards Grid */}
         <div className="resources-grid">
           {RESOURCE_CARDS.map((res, idx) => (
             <motion.div
@@ -38,16 +38,16 @@ export function OpenSource() {
           ))}
         </div>
 
-        {/* GitHub Actions CTAs */}
+        {/* Community Actions CTAs */}
         <div className="community-ctas">
           <a
-            href="https://github.com/Karthikeyadusi/gitrunbykaru"
+            href="https://www.npmjs.com/package/gitrunbykaru"
             target="_blank"
             rel="noreferrer"
             className="star-btn"
           >
-            <Star size={16} className="star-icon text-yellow" />
-            <span>Star on GitHub</span>
+            <NpmIcon size={16} className="text-magenta" />
+            <span>View on npm →</span>
           </a>
 
           <a
