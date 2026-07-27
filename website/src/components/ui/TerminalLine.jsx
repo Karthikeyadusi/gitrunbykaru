@@ -68,6 +68,20 @@ export function TerminalLine({ line }) {
         </div>
       );
 
+    case 'sigint':
+      return (
+        <div className="terminal-line line-sigint">
+          <span className="text-red font-bold">{line.text}</span>
+        </div>
+      );
+
+    case 'highlight':
+      return (
+        <div className="terminal-line line-highlight">
+          <span>{line.text}</span>
+        </div>
+      );
+
     default:
       return <div className="terminal-line">{line.text}</div>;
   }

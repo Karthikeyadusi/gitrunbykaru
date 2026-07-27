@@ -40,6 +40,16 @@
   color: var(--text-secondary);
 }
 
+.live-indicator-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--accent-green);
+  box-shadow: 0 0 6px var(--accent-green);
+  display: inline-block;
+  margin-left: 2px;
+}
+
 .hero-title {
   max-width: 900px;
 }

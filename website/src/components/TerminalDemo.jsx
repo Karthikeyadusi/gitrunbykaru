@@ -11,34 +11,44 @@ export function TerminalDemo() {
   const [visibleLines, setVisibleLines] = useState([]);
   const [isPlaying, setIsPlaying] = useState(true);
 
-  const script = DEMO_SCRIPTS[activeScriptKey];
+  const scriptList = Object.values(DEMO_SCRIPTS).map((s) => ({ id: s.id, label: s.label }));
+  const currentScript = DEMO_SCRIPTS[activeScriptKey];
 
   useEffect(() => {
     setVisibleLines([]);
     setIsPlaying(true);
 
-    const timeouts = script.lines.map((line) => {
+    const timeouts = currentScript.lines.map((line) => {
       return setTimeout(() => {
         setVisibleLines((prev) => [...prev, line]);
       }, line.delay);
     });
 
-    // Auto-loop to alternate script after 12 seconds
+    const totalDuration = Math.max(...currentScript.lines.map((l) => l.delay)) + 3000;
+
     const loopTimeout = setTimeout(() => {
       setIsPlaying(false);
-      setActiveScriptKey((prev) => (prev === 'nextjs' ? 'python' : 'nextjs'));
-    }, 12000);
+      // Loop to next script
+      setActiveScriptKey((prev) => {
+        if (prev === 'nextjs') return 'python';
+        if (prev === 'python') return 'static';
+        return 'nextjs';
+      });
+    }, totalDuration);
 
     return () => {
       timeouts.forEach((t) => clearTimeout(t));
       clearTimeout(loopTimeout);
     };
-  }, [activeScriptKey]);
+  }, [activeScriptKey, currentScript]);
+
+  const handleSelectScript = (key) => {
+    setActiveScriptKey(key);
+  };
 
   const handleReplay = () => {
     setVisibleLines([]);
     setIsPlaying(true);
-    // Re-trigger effect by toggling script key briefly or forcing re-render
     setActiveScriptKey((prev) => prev);
   };
 
@@ -49,7 +59,7 @@ export function TerminalDemo() {
         <div className="section-header text-center">
           <h2 className="type-h2">See it work live.</h2>
           <p className="type-body text-secondary">
-            One command handles cloning, detection, dependency installation, environment setup, and browser launch.
+            One command clones, detects, installs, launches the app, and cleanly deletes the workspace on exit.
           </p>
         </div>
 
@@ -60,10 +70,17 @@ export function TerminalDemo() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <TerminalWindow title="~/terminal" onReplay={handleReplay} isPlaying={isPlaying}>
+          <TerminalWindow
+            title="~/terminal"
+            onReplay={handleReplay}
+            isPlaying={isPlaying}
+            activeScriptKey={activeScriptKey}
+            onSelectScript={handleSelectScript}
+            scripts={scriptList}
+          >
             <div className="terminal-prompt-line">
               <span className="prompt-sym">$</span>
-              <span className="prompt-cmd">{script.command}</span>
+              <span className="prompt-cmd">{currentScript.command}</span>
             </div>
 
             <div className="terminal-lines-body">

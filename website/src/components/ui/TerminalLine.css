@@ -26,6 +26,7 @@
 .sym-magenta { color: var(--accent-magenta); }
 .sym-cyan    { color: var(--accent-cyan); }
 .sym-green   { color: var(--accent-green); }
+.text-red    { color: #EF4444; }
 
 .sym-green-bold {
   color: var(--accent-green);
@@ -51,5 +52,18 @@
 
 .line-dim {
   color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+.line-sigint {
+  margin-top: 8px;
+}
+
+.line-highlight {
+  color: var(--accent-green);
+  background-color: rgba(74, 222, 128, 0.08);
+  border: 1px solid rgba(74, 222, 128, 0.2);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
   margin-top: 4px;
 }

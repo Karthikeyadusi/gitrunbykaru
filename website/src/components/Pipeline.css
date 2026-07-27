@@ -2,12 +2,17 @@
   position: relative;
 }
 
+.click-hint {
+  color: var(--accent-magenta);
+  font-weight: 500;
+}
+
 .pipeline-stepper {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   position: relative;
-  margin-bottom: var(--space-3xl);
+  margin-bottom: var(--space-xl);
 }
 
 .pipeline-node {
@@ -18,6 +23,21 @@
   gap: var(--space-sm);
   flex: 1;
   max-width: 180px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: var(--radius-md);
+  transition: all 200ms ease;
+}
+
+.pipeline-node:hover {
+  background-color: var(--bg-surface);
+}
+
+.pipeline-node.selected .pipeline-icon-box {
+  border-color: var(--accent-magenta);
+  background-color: var(--bg-surface);
+  box-shadow: 0 0 20px var(--glow-magenta);
+  transform: scale(1.08);
 }
 
 .pipeline-icon-box {
@@ -30,12 +50,6 @@
   align-items: center;
   justify-content: center;
   transition: all 150ms ease;
-}
-
-.pipeline-node:hover .pipeline-icon-box {
-  border-color: var(--accent-magenta);
-  transform: scale(1.05);
-  box-shadow: 0 0 16px var(--glow-magenta);
 }
 
 .pipeline-title {
@@ -74,12 +88,71 @@
   100% { left: 100%; opacity: 0; }
 }
 
+/* Inspection Drawer */
+.inspection-drawer {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent-magenta);
+  border-radius: var(--radius-md);
+  padding: 20px 24px;
+  max-width: 840px;
+  margin: 0 auto var(--space-3xl) auto;
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+}
+
+.drawer-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.drawer-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--accent-magenta);
+  background-color: rgba(192, 132, 252, 0.1);
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.05em;
+}
+
+.action-code {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--accent-cyan);
+}
+
+.details-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detail-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.bullet {
+  color: var(--accent-magenta);
+  font-size: 10px;
+  margin-top: 3px;
+}
+
 .tech-stack-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--space-md);
-  margin-top: var(--space-2xl);
+  margin-top: var(--space-xl);
 }
 
 .tech-stack-label {

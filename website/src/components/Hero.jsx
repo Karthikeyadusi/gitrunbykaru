@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { CopyButton } from './ui/CopyButton';
 import { ArrowRight, Terminal } from 'lucide-react';
+import { fetchLiveStats } from '../utils/fetchStats';
 import './Hero.css';
 
 export function Hero({ heroRef }) {
+  const [stats, setStats] = useState({ downloads: 700, releases: 5, latestVersion: 'v2.0.2', isLive: false });
+
+  useEffect(() => {
+    fetchLiveStats().then((data) => {
+      if (data) setStats(data);
+    });
+  }, []);
+
   return (
     <section className="hero-section" ref={heroRef}>
       <div className="hero-glow"></div>
@@ -17,7 +26,8 @@ export function Hero({ heroRef }) {
           transition={{ duration: 0.5 }}
         >
           <Terminal size={14} className="text-magenta" />
-          <span>v2.0.2 is live</span>
+          <span>{stats.latestVersion} is live</span>
+          {stats.isLive && <span className="live-indicator-dot" title="Live npm/GitHub stats synced"></span>}
         </motion.div>
 
         <motion.h1
@@ -68,9 +78,13 @@ export function Hero({ heroRef }) {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.5 }}
         >
-          <span className="trust-item"><strong className="text-primary">700+</strong> downloads</span>
+          <span className="trust-item">
+            <strong className="text-primary">{stats.downloads}+</strong> downloads
+          </span>
           <span className="trust-dot">·</span>
-          <span className="trust-item"><strong className="text-primary">5</strong> releases</span>
+          <span className="trust-item">
+            <strong className="text-primary">{stats.releases}</strong> releases
+          </span>
           <span className="trust-dot">·</span>
           <span className="trust-item">MIT License</span>
           <span className="trust-dot">·</span>
