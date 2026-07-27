@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.2] - 2026-07-27
+
+This patch release introduces a smooth 80s-calibrated animated loading bar for dependency installation, cleans up CLI banner text rendering, and fixes internal string names.
+
+### Added
+- Added a dynamic, animated loading bar `[██████████░░░░░░░░░░] 50% (30s)` for Node and Python dependency installation, calibrated for an 80-second average installation lifecycle with continuous micro-ticking past 85% so it never stalls.
+
+### Fixed
+- Corrected CLI banner header string formatting from `gitrunbykarubykaru by karu` to clean `gitrunbykaru`.
+- Fixed internal virtual environment directory naming in the Python strategy.
+
 ## [2.0.1] - 2026-07-15
 
 This patch release fixes dependency installation issues on repositories containing out-of-sync package locks.

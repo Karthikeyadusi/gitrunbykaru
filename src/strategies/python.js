@@ -1,7 +1,7 @@
 import { execSync, spawnSync } from 'child_process';
-import { existsSync, mkdirSync } from 'fs';
+import { existsSync } from 'fs';
 import { join } from 'path';
-import { createSpinner, log } from '../logger.js';
+import { runInstallWithProgress, log } from '../logger.js';
 
 export const pythonStrategy = {
   name: 'python',
@@ -18,44 +18,27 @@ export const pythonStrategy = {
       return;
     }
 
-    const spinner = createSpinner('Installing  Python dependencies...');
-    spinner.start();
-
-    try {
-      // Create a venv to avoid polluting global Python
-      const venvDir = join(dir, '.gitrunbykarubykaru-venv');
-      if (!existsSync(venvDir)) {
-        execSync(`${pyBin} -m venv "${venvDir}"`, { cwd: dir, stdio: 'pipe' });
-      }
-
-      // Use venv pip
-      const pipBin = process.platform === 'win32'
-        ? join(venvDir, 'Scripts', 'pip')
-        : join(venvDir, 'bin', 'pip');
-
-      const installCmd = detection.installCommand
-        .replace(/^pip install/, `"${pipBin}" install`)
-        .replace(/^pipenv install/, `"${pipBin}" install`);
-
-      execSync(installCmd, {
-        cwd: dir,
-        stdio: 'pipe',
-        timeout: 120000,
-      });
-
-      // Dependencies successfully installed in local venv
-
-      spinner.succeed('Installed  Python packages ready');
-    } catch (err) {
-      spinner.fail('pip install failed');
-      const stderr = err.stderr?.toString() || err.message;
-      throw new Error(`Python dependency install failed:\n${stderr.slice(0, 500)}`);
+    // Create a venv to avoid polluting global Python
+    const venvDir = join(dir, '.gitrunbykaru-venv');
+    if (!existsSync(venvDir)) {
+      execSync(`${pyBin} -m venv "${venvDir}"`, { cwd: dir, stdio: 'pipe' });
     }
+
+    // Use venv pip
+    const pipBin = process.platform === 'win32'
+      ? join(venvDir, 'Scripts', 'pip')
+      : join(venvDir, 'bin', 'pip');
+
+    const installCmd = detection.installCommand
+      .replace(/^pip install/, `"${pipBin}" install`)
+      .replace(/^pipenv install/, `"${pipBin}" install`);
+
+    await runInstallWithProgress(installCmd, { cwd: dir, timeout: 300000 }, 'Installing Python packages');
   },
 
   getRunCommand(detection, dir) {
     if (dir) {
-      const venvDir = join(dir, '.gitrunbykarubykaru-venv');
+      const venvDir = join(dir, '.gitrunbykaru-venv');
       const pyBin = process.platform === 'win32'
         ? join(venvDir, 'Scripts', 'python')
         : join(venvDir, 'bin', 'python');

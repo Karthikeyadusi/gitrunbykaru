@@ -153,8 +153,8 @@ interface Strategy {
 - **Port regex:** Looks for localhost URLs or port keywords.
 
 #### 2. Python Strategy ([src/strategies/python.js](file:///c:/Users/Karthikeya%20Dusi/Desktop/Artifacts/gitrunbykaru/src/strategies/python.js))
-- **Installation:** Locates `python3` or `python` on the system. Creates a localized virtual environment inside the temporary folder (`.gitrunbykarubykaru-venv`). Installs dependencies inside this environment.
-- **Run logic:** Maps the run script to the local venv interpreter (e.g., `".gitrunbykarubykaru-venv/bin/python" main.py`).
+- **Installation:** Locates `python3` or `python` on the system. Creates a localized virtual environment inside the temporary folder (`.gitrunbykaru-venv`). Installs dependencies inside this environment.
+- **Run logic:** Maps the run script to the local venv interpreter (e.g., `".gitrunbykaru-venv/bin/python" main.py`).
 - **Port regex:** Looks for keywords like `Running on`, `Serving on`, or `Uvicorn running on`.
 
 #### 3. Static Strategy ([src/strategies/static.js](file:///c:/Users/Karthikeya%20Dusi/Desktop/Artifacts/gitrunbykaru/src/strategies/static.js))
@@ -193,7 +193,7 @@ If a Node project contains a lockfile for `yarn`, `pnpm`, or `bun`, but the tool
 
 ### Python Environment Isolation
 To prevent pollution of the user's global system-packages, GitRunByKaru creates a local virtual environment:
-1. Spawns `python -m venv .gitrunbykarubykaru-venv`.
+1. Spawns `python -m venv .gitrunbykaru-venv`.
 2. Resolves path names based on the OS (e.g., using `Scripts/pip` and `Scripts/python` on Windows, and `bin/pip` and `bin/python` on macOS/Linux).
 3. Executes target library installation inside the isolated sandbox.
 
