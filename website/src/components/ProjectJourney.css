@@ -1,0 +1,9 @@
+.journey-section {
+  position: relative;
+}
+
+.journey-timeline-wrapper {
+  max-width: 640px;
+  margin: 0 auto;
+  padding-left: var(--space-md);
+}

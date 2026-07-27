@@ -9,7 +9,10 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node bin/gitrunbykaru.js",
-    "test": "node tests/test.js"
+    "test": "node tests/test.js",
+    "dev": "npm run dev --prefix website",
+    "web:dev": "npm run dev --prefix website",
+    "web:build": "npm run build --prefix website"
   },
   "keywords": [
     "cli",

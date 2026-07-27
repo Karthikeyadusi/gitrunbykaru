@@ -1,0 +1,40 @@
+.resource-card {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  transition: all var(--duration-fast) var(--ease-out);
+  text-decoration: none;
+}
+
+.resource-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent-magenta);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.resource-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.resource-arrow {
+  color: var(--text-tertiary);
+  font-family: var(--font-mono);
+  font-size: 16px;
+  transition: all 150ms ease;
+}
+
+.resource-card:hover .resource-arrow {
+  color: var(--accent-magenta);
+  transform: translateX(4px);
+}
+
+.resource-title {
+  color: var(--text-primary);
+  font-size: 16px;
+}

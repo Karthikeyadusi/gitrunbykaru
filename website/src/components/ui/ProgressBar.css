@@ -1,0 +1,43 @@
+.terminal-progress-line {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.8;
+  flex-wrap: wrap;
+}
+
+.step-sym {
+  color: var(--accent-magenta);
+}
+
+.progress-label {
+  color: var(--text-primary);
+}
+
+.bar-wrapper {
+  display: inline-flex;
+  letter-spacing: 0;
+}
+
+.bar-bracket {
+  color: var(--text-secondary);
+}
+
+.bar-filled {
+  color: var(--accent-magenta);
+}
+
+.bar-empty {
+  color: var(--text-tertiary);
+}
+
+.progress-pct {
+  color: var(--accent-cyan);
+  font-weight: 600;
+}
+
+.progress-time {
+  color: var(--text-secondary);
+}

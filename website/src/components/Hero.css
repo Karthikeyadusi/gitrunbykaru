@@ -1,0 +1,140 @@
+.hero-section {
+  position: relative;
+  padding-top: calc(var(--nav-height) + 80px);
+  padding-bottom: 80px;
+  overflow: hidden;
+}
+
+.hero-glow {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 400px;
+  background: radial-gradient(circle, var(--glow-magenta) 0%, rgba(10, 10, 15, 0) 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-container {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-lg);
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+  padding: 6px 14px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.hero-title {
+  max-width: 900px;
+}
+
+.hero-subtitle {
+  font-size: 18px;
+  max-width: 640px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  margin-top: 8px;
+}
+
+.hero-install-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero-install-pill {
+  padding: 12px 24px;
+  font-size: 16px;
+  background-color: var(--bg-surface);
+  border-color: var(--border-hover);
+}
+
+.keyboard-hint {
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+.keyboard-hint kbd {
+  font-family: var(--font-mono);
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.hero-secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: color 150ms ease;
+  padding: 6px 12px;
+}
+
+.hero-secondary-btn:hover {
+  color: var(--text-primary);
+}
+
+.hero-trust-strip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.trust-dot {
+  color: var(--text-tertiary);
+}
+
+.hero-origin-callout {
+  font-size: 14px;
+  max-width: 540px;
+  margin-top: 8px;
+  opacity: 0.85;
+}
+
+@media (max-width: 768px) {
+  .hero-br {
+    display: none;
+  }
+
+  .hero-subtitle {
+    font-size: 16px;
+  }
+
+  .hero-trust-strip {
+    font-size: 12px;
+    gap: 8px;
+  }
+}

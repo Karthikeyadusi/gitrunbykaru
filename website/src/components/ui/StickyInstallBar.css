@@ -1,0 +1,110 @@
+.sticky-install-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 90;
+  background-color: rgba(17, 17, 24, 0.9);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  animation: slideDown 300ms var(--ease-out);
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+}
+
+.sticky-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sticky-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.sticky-brand {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--accent-magenta);
+  font-size: 15px;
+}
+
+.sticky-text {
+  font-size: 13px;
+}
+
+.sticky-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.sticky-copy-btn {
+  padding: 6px 12px;
+  font-size: 13px;
+}
+
+.security-tooltip-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: help;
+}
+
+.security-icon {
+  transition: color 150ms ease;
+}
+
+.security-tooltip-wrapper:hover .security-icon {
+  color: var(--accent-yellow);
+}
+
+.security-tooltip {
+  position: absolute;
+  top: 32px;
+  right: 0;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 12px;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 200ms ease;
+  pointer-events: none;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+}
+
+.security-tooltip-wrapper:hover .security-tooltip {
+  opacity: 1;
+  visibility: visible;
+  top: 28px;
+}
+
+@media (max-width: 768px) {
+  .sticky-install-bar {
+    top: auto;
+    bottom: 0;
+    border-bottom: none;
+    border-top: 1px solid var(--border);
+    animation: slideUp 300ms var(--ease-out);
+  }
+
+  @keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+
+  .sticky-text {
+    display: none;
+  }
+}
