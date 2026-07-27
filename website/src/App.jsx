@@ -9,7 +9,6 @@ import { ProjectJourney } from './components/ProjectJourney';
 import { OpenSource } from './components/OpenSource';
 import { Footer } from './components/Footer';
 import { StickyInstallBar } from './components/ui/StickyInstallBar';
-import { SectionConnector } from './components/ui/SectionConnector';
 import './App.css';
 
 export function App() {
@@ -58,23 +57,11 @@ export function App() {
       <Navbar />
       <main>
         <Hero heroRef={heroRef} />
-        
-        <SectionConnector label="evaluate_friction" />
         <BeforeAfter />
-
-        <SectionConnector label="execute_live_demo" />
         <TerminalDemo />
-
-        <SectionConnector label="inspect_pipeline" />
         <Pipeline />
-
-        <SectionConnector label="edge_cases_handled" />
         <Features />
-
-        <SectionConnector label="project_momentum" />
         <ProjectJourney />
-
-        <SectionConnector label="open_source_community" />
         <OpenSource />
       </main>
       <Footer />
