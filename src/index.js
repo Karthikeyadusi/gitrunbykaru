@@ -20,12 +20,22 @@ export async function run(repoUrl, options = {}) {
   const url = repoUrl.replace(/\.git$/, '');
   let tmpDir = null;
 
+  let isCleaningUp = false;
+
   // Cleanup handler
-  const cleanup = () => {
+  const cleanup = (signal) => {
+    if (isCleaningUp) return;
+    isCleaningUp = true;
+
+    if (signal) {
+      console.log('');
+      log.step(`Received ${signal} — terminating process tree...`);
+    }
+
     if (tmpDir && !options.keep) {
       try {
         rmSync(tmpDir, { recursive: true, force: true });
-        log.dim(`Cleaned up ${tmpDir}`);
+        log.success(`Cleaned up ${tmpDir}`);
       } catch {
         // best effort
       }
@@ -33,10 +43,10 @@ export async function run(repoUrl, options = {}) {
     process.exit(0);
   };
 
-  process.on('SIGINT', cleanup);
-  process.on('SIGTERM', cleanup);
+  process.on('SIGINT', () => cleanup('SIGINT'));
+  process.on('SIGTERM', () => cleanup('SIGTERM'));
   process.on('exit', () => {
-    if (tmpDir && !options.keep) {
+    if (tmpDir && !options.keep && !isCleaningUp) {
       try { rmSync(tmpDir, { recursive: true, force: true }); } catch { /* best effort */ }
     }
   });
