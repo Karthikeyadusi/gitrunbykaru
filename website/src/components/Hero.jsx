@@ -53,7 +53,7 @@ export function Hero({ heroRef }) {
           Run conventional GitHub projects with zero config friction.
         </motion.p>
 
-        {/* Hero Mini Live Terminal Preview */}
+        {/* Hero Mini Live Terminal Sequence */}
         <motion.div
           className="hero-terminal-anchor"
           initial={{ opacity: 0, scale: 0.96 }}
@@ -74,7 +74,11 @@ export function Hero({ heroRef }) {
             </div>
             <div className="mini-line">
               <span className="sym-magenta">→</span>
-              <span className="text-secondary">Detecting project...</span>
+              <span className="text-secondary">Detecting project... Next.js (npm run dev)</span>
+            </div>
+            <div className="mini-line">
+              <span className="sym-magenta">→</span>
+              <span className="text-secondary">Installing dependencies... 100%</span>
             </div>
             <div className="mini-line">
               <span className="sym-green-bold">✔ Ready</span>
@@ -97,7 +101,7 @@ export function Hero({ heroRef }) {
           </div>
         </motion.div>
 
-        {/* Technical Trust Strip */}
+        {/* Technical Trust Strip - Simplified & Non-Repetitive */}
         <motion.div
           className="hero-trust-strip text-secondary"
           initial={{ opacity: 0 }}
@@ -112,12 +116,12 @@ export function Hero({ heroRef }) {
             title="View npm package downloads"
           >
             <NpmIcon size={13} className="text-magenta" />
-            <span><strong className="text-primary">{stats.downloads}+</strong> npm downloads</span>
+            <span><strong className="text-primary">{stats.downloads}+</strong> Downloads</span>
           </a>
           <span className="trust-dot">·</span>
           <div className="trust-pill">
             <Tag size={13} className="text-cyan" />
-            <span><strong className="text-primary">{stats.releases}</strong> releases</span>
+            <span><strong className="text-primary">{stats.releases}</strong> Releases</span>
           </div>
           <span className="trust-dot">·</span>
           <div className="trust-pill">

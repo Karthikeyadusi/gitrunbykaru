@@ -109,21 +109,26 @@
   color: var(--text-tertiary);
 }
 
-/* Actions Area */
-.nav-actions {
+/* Cohesive Action Cluster */
+.nav-action-cluster {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
 }
 
-/* Action Pills for npm & GitHub */
-.nav-action-pill {
+.utility-buttons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-util-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  padding: 6px 12px;
-  height: 32px;
+  gap: 5px;
+  padding: 5px 9px;
+  height: 30px;
   border-radius: var(--radius-md);
   background-color: var(--bg-surface);
   border: 1px solid var(--border);
@@ -131,33 +136,51 @@
   transition: all 150ms ease;
 }
 
-.nav-action-pill:hover {
+.nav-util-btn:hover {
   background-color: var(--bg-hover);
   border-color: var(--border-hover);
 }
 
-.action-npm-icon {
+.util-npm-icon {
   color: #CB3837;
-  transition: opacity 150ms ease;
 }
 
-.action-github-icon {
-  color: var(--text-primary);
+.util-github-icon {
+  color: var(--text-secondary);
   transition: color 150ms ease;
 }
 
-.nav-action-pill:hover .action-arrow {
+.nav-util-btn:hover .util-github-icon {
+  color: var(--text-primary);
+}
+
+.nav-util-btn:hover .util-arrow {
   color: var(--accent-magenta);
   transform: translate(1px, -1px);
 }
 
-.action-arrow {
+.util-arrow {
   color: var(--text-tertiary);
   transition: transform 150ms ease, color 150ms ease;
 }
 
-@media (max-width: 840px) {
+.nav-primary-install-cta {
+  padding: 5px 14px;
+  font-size: 13px;
+  height: 32px;
+  background-color: var(--bg-surface);
+  border-color: var(--accent-magenta);
+  box-shadow: 0 0 12px var(--glow-magenta);
+}
+
+@media (max-width: 900px) {
   .nav-links {
+    display: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .utility-buttons {
     display: none;
   }
 }
