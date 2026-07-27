@@ -32,6 +32,13 @@
   font-weight: 700;
   font-size: 18px;
   color: var(--accent-magenta);
+  transition: text-decoration 150ms ease;
+}
+
+.nav-logo:hover .logo-brand {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: var(--accent-magenta);
 }
 
 .nav-links {
