@@ -1,0 +1,55 @@
+.section-connector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 0;
+  user-select: none;
+  pointer-events: none;
+}
+
+.connector-line-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.connector-vertical-line {
+  width: 1px;
+  height: 36px;
+  background: linear-gradient(180deg, var(--border) 0%, var(--accent-magenta) 50%, var(--border) 100%);
+  opacity: 0.6;
+}
+
+.connector-node-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 4px 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-tertiary);
+  margin-top: 4px;
+}
+
+.connector-branch {
+  color: var(--accent-magenta);
+}
+
+.connector-label {
+  color: var(--text-secondary);
+  text-transform: lowercase;
+}
+
+.connector-cursor {
+  color: var(--accent-magenta);
+  font-size: 10px;
+  animation: blink 1s steps(2, start) infinite;
+}
+
+@keyframes blink {
+  to { opacity: 0; }
+}

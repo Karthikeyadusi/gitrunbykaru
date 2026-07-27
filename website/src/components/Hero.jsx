@@ -52,7 +52,7 @@ export function Hero({ heroRef }) {
           Run conventional GitHub projects with zero config friction.
         </motion.p>
 
-        {/* Hero Mini Terminal Active Anchor */}
+        {/* Hero Mini Live Terminal Preview */}
         <motion.div
           className="hero-terminal-anchor"
           initial={{ opacity: 0, scale: 0.96 }}
@@ -67,9 +67,19 @@ export function Hero({ heroRef }) {
             <span className="mini-temp-tag">[tempdir: /tmp/gitrun-ephemeral]</span>
           </div>
           <div className="mini-terminal-body">
-            <span className="prompt-sym">$</span>
-            <span className="prompt-cmd">gitrunbykaru https://github.com/user/project</span>
-            <span className="blinking-cursor">█</span>
+            <div className="mini-line">
+              <span className="prompt-sym">$</span>
+              <span className="prompt-cmd">gitrunbykaru github.com/vercel/next.js</span>
+            </div>
+            <div className="mini-line">
+              <span className="sym-magenta">→</span>
+              <span className="text-secondary">Detecting project...</span>
+            </div>
+            <div className="mini-line">
+              <span className="sym-green-bold">✔ Ready</span>
+              <span className="ready-url">http://localhost:3000</span>
+              <span className="blinking-cursor">█</span>
+            </div>
           </div>
         </motion.div>
 
@@ -124,7 +134,7 @@ export function Hero({ heroRef }) {
           </div>
         </motion.div>
 
-        {/* Developer Signature Signature Block */}
+        {/* Developer Signature Card */}
         <motion.div
           className="hero-signature-card"
           initial={{ opacity: 0 }}
