@@ -109,65 +109,51 @@
   color: var(--text-tertiary);
 }
 
-/* Integrated Actions */
+/* Actions Area */
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
-/* Identical External Action Buttons (npm & GitHub) */
-.nav-external-btn {
+/* Action Pills for npm & GitHub */
+.nav-action-pill {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  padding: 6px 10px;
+  gap: 6px;
+  padding: 6px 12px;
   height: 32px;
   border-radius: var(--radius-md);
-  color: var(--text-secondary);
-  background-color: transparent;
-  border: 1px solid transparent;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border);
   text-decoration: none;
   transition: all 150ms ease;
 }
 
-.nav-external-btn:hover {
-  color: var(--text-primary);
-  background-color: var(--bg-surface);
-  border-color: var(--border);
+.nav-action-pill:hover {
+  background-color: var(--bg-hover);
+  border-color: var(--border-hover);
 }
 
-.nav-external-btn:hover .ext-arrow {
+.action-npm-icon {
+  color: #CB3837;
+  transition: opacity 150ms ease;
+}
+
+.action-github-icon {
+  color: var(--text-primary);
+  transition: color 150ms ease;
+}
+
+.nav-action-pill:hover .action-arrow {
   color: var(--accent-magenta);
   transform: translate(1px, -1px);
 }
 
-.ext-icon {
-  color: var(--text-secondary);
-  transition: color 150ms ease;
-}
-
-.nav-external-btn:hover .npm-icon {
-  color: #CB3837;
-}
-
-.nav-external-btn:hover .github-icon {
-  color: var(--text-primary);
-}
-
-.ext-arrow {
+.action-arrow {
   color: var(--text-tertiary);
   transition: transform 150ms ease, color 150ms ease;
-}
-
-.nav-install-btn {
-  padding: 6px 14px;
-  font-size: 13px;
-  height: 32px;
-  background-color: var(--bg-surface);
-  border-color: var(--accent-magenta);
-  box-shadow: 0 0 12px var(--glow-magenta);
 }
 
 @media (max-width: 840px) {

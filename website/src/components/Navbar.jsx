@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { CopyButton } from './ui/CopyButton';
 import { GithubIcon } from './ui/GithubIcon';
 import { NpmIcon } from './ui/NpmIcon';
 import { ArrowUpRight } from 'lucide-react';
@@ -55,7 +54,7 @@ export function Navbar() {
     <header className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="container nav-container">
         
-        {/* Clean, Stable Terminal Shell Logo */}
+        {/* Clean Terminal Shell Logo */}
         <a href="#" className="nav-logo" aria-label="gitrunbykaru homepage">
           <span className="logo-prompt">$</span>
           <span className="logo-brand">gitrunbykaru</span>
@@ -87,37 +86,31 @@ export function Navbar() {
           </a>
         </nav>
 
-        {/* Global External Action Buttons & Primary Install Action */}
+        {/* Action Pills for npm & GitHub */}
         <div className="nav-actions">
           <a
             href="https://www.npmjs.com/package/gitrunbykaru"
             target="_blank"
             rel="noreferrer"
-            className="nav-external-btn"
+            className="nav-action-pill"
             title="View package on npm registry"
             aria-label="View package on npm registry"
           >
-            <NpmIcon size={14} className="ext-icon npm-icon" />
-            <ArrowUpRight size={13} className="ext-arrow" />
+            <NpmIcon size={14} className="action-npm-icon" />
+            <ArrowUpRight size={13} className="action-arrow" />
           </a>
 
           <a
             href="https://github.com/Karthikeyadusi/gitrunbykaru"
             target="_blank"
             rel="noreferrer"
-            className="nav-external-btn"
+            className="nav-action-pill"
             title="View repository on GitHub"
             aria-label="View repository on GitHub"
           >
-            <GithubIcon size={15} className="ext-icon github-icon" />
-            <ArrowUpRight size={13} className="ext-arrow" />
+            <GithubIcon size={16} className="action-github-icon" />
+            <ArrowUpRight size={13} className="action-arrow" />
           </a>
-
-          <CopyButton
-            text="npm install -g gitrunbykaru"
-            label="npm i -g gitrunbykaru"
-            className="nav-install-btn"
-          />
         </div>
 
       </div>
