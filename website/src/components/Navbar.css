@@ -13,7 +13,7 @@
   background-color: rgba(10, 10, 15, 0.85);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 8px 24px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
 .nav-container {
@@ -23,7 +23,7 @@
   height: 100%;
 }
 
-/* Terminal Shell Logo with Idle Cursor */
+/* Stable Terminal Shell Logo */
 .nav-logo {
   display: flex;
   align-items: center;
@@ -69,19 +69,7 @@
   transform: scaleX(1);
 }
 
-.logo-idle-cursor {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--accent-magenta);
-  animation: blinkLogoCursor 1.2s steps(2, start) infinite;
-  margin-left: 2px;
-}
-
-@keyframes blinkLogoCursor {
-  to { opacity: 0; }
-}
-
-/* CLI Control Panel Nav Links */
+/* Restrained CLI Control Panel Links */
 .nav-links {
   display: flex;
   align-items: center;
@@ -100,7 +88,7 @@
   align-items: center;
   gap: 6px;
   padding: 4px 6px;
-  transition: all 150ms ease;
+  transition: color 150ms ease;
 }
 
 .nav-link:hover {
@@ -115,13 +103,6 @@
 .active-indicator {
   color: var(--accent-magenta);
   font-size: 11px;
-  animation: pulseIndicator 1.5s infinite;
-}
-
-@keyframes pulseIndicator {
-  0% { opacity: 1; }
-  50% { opacity: 0.4; }
-  100% { opacity: 1; }
 }
 
 .external-link {
@@ -141,19 +122,18 @@
   gap: 6px;
   font-family: var(--font-mono);
   font-size: 12px;
-  color: var(--text-secondary);
-  background-color: var(--bg-surface);
-  border: 1px solid var(--border);
-  padding: 6px 12px;
+  color: var(--text-tertiary);
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: 6px 10px;
   border-radius: var(--radius-md);
   transition: all 150ms ease;
 }
 
 .nav-github-link:hover {
   color: var(--text-primary);
-  border-color: var(--accent-yellow);
-  box-shadow: 0 0 10px rgba(250, 204, 21, 0.15);
-  transform: translateY(-1px);
+  background-color: var(--bg-surface);
+  border-color: var(--border);
 }
 
 .github-label {

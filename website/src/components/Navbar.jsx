@@ -64,11 +64,10 @@ export function Navbar() {
     <header className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="container nav-container">
         
-        {/* Terminal Shell Logo with Idle Blinking Cursor */}
+        {/* Clean, Stable Terminal Shell Logo */}
         <a href="#" className="nav-logo" aria-label="gitrunbykaru homepage">
           <span className="logo-prompt">$</span>
           <span className="logo-brand">gitrunbykaru</span>
-          <span className="logo-idle-cursor" aria-hidden="true">█</span>
         </a>
 
         {/* CLI Control Panel Nav Links */}
@@ -97,7 +96,7 @@ export function Navbar() {
           </a>
         </nav>
 
-        {/* Integrated GitHub & Primary Action */}
+        {/* Integrated GitHub (Secondary) & Primary Install Action */}
         <div className="nav-actions">
           <a
             href="https://github.com/Karthikeyadusi/gitrunbykaru"
@@ -107,7 +106,7 @@ export function Navbar() {
             title="View source repository on GitHub"
             aria-label="View on GitHub"
           >
-            <GithubIcon size={15} />
+            <GithubIcon size={14} />
             <span className="github-label">
               {starsCount ? `★ ${starsCount}` : 'github'}
             </span>
