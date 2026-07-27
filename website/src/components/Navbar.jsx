@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { CopyButton } from './ui/CopyButton';
 import { GithubIcon } from './ui/GithubIcon';
+import { fetchLiveStats } from '../utils/fetchStats';
 import './Navbar.css';
 
 const NAV_ITEMS = [
@@ -13,6 +14,7 @@ const NAV_ITEMS = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('demo');
+  const [starsCount, setStarsCount] = useState(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,6 +22,15 @@ export function Navbar() {
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Fetch live stats for GitHub star count
+  useEffect(() => {
+    fetchLiveStats().then((data) => {
+      if (data && data.stars) {
+        setStarsCount(data.stars);
+      }
+    });
   }, []);
 
   // Section Observer for scroll spy active navigation
@@ -53,10 +64,11 @@ export function Navbar() {
     <header className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="container nav-container">
         
-        {/* Terminal Shell Logo */}
+        {/* Terminal Shell Logo with Idle Blinking Cursor */}
         <a href="#" className="nav-logo" aria-label="gitrunbykaru homepage">
           <span className="logo-prompt">$</span>
           <span className="logo-brand">gitrunbykaru</span>
+          <span className="logo-idle-cursor" aria-hidden="true">█</span>
         </a>
 
         {/* CLI Control Panel Nav Links */}
@@ -85,7 +97,7 @@ export function Navbar() {
           </a>
         </nav>
 
-        {/* Primary Action & Integrated GitHub */}
+        {/* Integrated GitHub & Primary Action */}
         <div className="nav-actions">
           <a
             href="https://github.com/Karthikeyadusi/gitrunbykaru"
@@ -95,8 +107,10 @@ export function Navbar() {
             title="View source repository on GitHub"
             aria-label="View on GitHub"
           >
-            <GithubIcon size={16} />
-            <span className="github-label">github</span>
+            <GithubIcon size={15} />
+            <span className="github-label">
+              {starsCount ? `★ ${starsCount}` : 'github'}
+            </span>
           </a>
 
           <CopyButton
