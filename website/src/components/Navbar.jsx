@@ -3,43 +3,109 @@ import { CopyButton } from './ui/CopyButton';
 import { GithubIcon } from './ui/GithubIcon';
 import './Navbar.css';
 
+const NAV_ITEMS = [
+  { id: 'demo', label: 'Demo', href: '#demo' },
+  { id: 'pipeline', label: 'Pipeline', href: '#pipeline' },
+  { id: 'journey', label: 'Journey', href: '#journey' },
+  { id: 'community', label: 'Community', href: '#community' }
+];
+
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('demo');
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 60);
+      setScrolled(window.scrollY > 40);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Section Observer for scroll spy active navigation
+  useEffect(() => {
+    const sectionIds = ['demo', 'pipeline', 'journey', 'community'];
+    const observers = [];
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setActiveSection(id);
+          }
+        },
+        { threshold: 0.3 }
+      );
+
+      observer.observe(el);
+      observers.push(observer);
+    });
+
+    return () => {
+      observers.forEach((obs) => obs.disconnect());
+    };
+  }, []);
+
   return (
     <header className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="container nav-container">
-        <a href="#" className="nav-logo">
+        
+        {/* Terminal Shell Logo */}
+        <a href="#" className="nav-logo" aria-label="gitrunbykaru homepage">
+          <span className="logo-prompt">$</span>
           <span className="logo-brand">gitrunbykaru</span>
         </a>
 
-        <nav className="nav-links">
-          <a href="#demo" className="nav-link">Demo</a>
-          <a href="#pipeline" className="nav-link">Pipeline</a>
-          <a href="#journey" className="nav-link">Journey</a>
-          <a href="https://github.com/Karthikeyadusi/gitrunbykaru/blob/main/CHANGELOG.md" target="_blank" rel="noreferrer" className="nav-link">Changelog</a>
+        {/* CLI Control Panel Nav Links */}
+        <nav className="nav-links" aria-label="Main navigation">
+          {NAV_ITEMS.map((item) => {
+            const isActive = activeSection === item.id;
+            return (
+              <a
+                key={item.id}
+                href={item.href}
+                className={`nav-link ${isActive ? 'active' : ''}`}
+                aria-current={isActive ? 'page' : undefined}
+              >
+                {isActive && <span className="active-indicator">❯</span>}
+                <span>{item.label}</span>
+              </a>
+            );
+          })}
+          <a
+            href="https://github.com/Karthikeyadusi/gitrunbykaru/blob/main/CHANGELOG.md"
+            target="_blank"
+            rel="noreferrer"
+            className="nav-link external-link"
+          >
+            <span>Changelog</span>
+          </a>
         </nav>
 
+        {/* Primary Action & Integrated GitHub */}
         <div className="nav-actions">
           <a
             href="https://github.com/Karthikeyadusi/gitrunbykaru"
             target="_blank"
             rel="noreferrer"
-            className="nav-icon-link"
+            className="nav-github-link"
+            title="View source repository on GitHub"
             aria-label="View on GitHub"
           >
-            <GithubIcon size={20} />
+            <GithubIcon size={16} />
+            <span className="github-label">github</span>
           </a>
-          <CopyButton text="npm install -g gitrunbykaru" label="npm i -g gitrunbykaru" className="nav-install-btn" />
+
+          <CopyButton
+            text="npm install -g gitrunbykaru"
+            label="npm i -g gitrunbykaru"
+            className="nav-install-btn"
+          />
         </div>
+
       </div>
     </header>
   );
