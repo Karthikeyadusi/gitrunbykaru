@@ -165,6 +165,7 @@ img, svg {
 
 .section {
   padding: var(--space-section) 0;
+  border-bottom: 1px solid var(--border);
 }
 
 /* ── Utility ───────────────────────────────────────────────── */
