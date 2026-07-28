@@ -186,9 +186,8 @@
 }
 
 .tech-badge-icon {
-  color: var(--text-tertiary);
-  transition: color 150ms ease, transform 150ms ease;
   flex-shrink: 0;
+  transition: transform 150ms ease;
 }
 
 .tech-badge:hover {
@@ -197,10 +196,6 @@
   background-color: var(--bg-hover);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(34, 211, 238, 0.1);
-}
-
-.tech-badge:hover .tech-badge-icon {
-  color: var(--accent-cyan);
 }
 
 @media (max-width: 768px) {
