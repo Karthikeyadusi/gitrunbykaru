@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import * as Icons from 'lucide-react';
 import { PIPELINE_STEPS, TECH_STACKS } from '../data/siteData';
+import { TechIcon } from './ui/TechIcon';
 import './Pipeline.css';
 
 export function Pipeline() {
@@ -90,6 +91,7 @@ export function Pipeline() {
           <div className="tech-stack-grid">
             {TECH_STACKS.map((tech, idx) => (
               <div key={idx} className="tech-badge">
+                <TechIcon name={tech.name} size={15} className="tech-badge-icon" />
                 <span className="tech-name">{tech.name}</span>
               </div>
             ))}
