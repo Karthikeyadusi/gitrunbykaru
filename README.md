@@ -5,7 +5,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![node](https://img.shields.io/badge/node-%3E%3D18.0.0-blue.svg)](https://nodejs.org)
 
-> Found a cool GitHub project? See it running before you lose interest.
+> Found a cool GitHub project? See it running before you lose interest.  
+> 🌐 **Live Web Demo:** [https://gitrunbykaru.vercel.app](https://gitrunbykaru.vercel.app)
 
 A command-line tool for quickly exploring conventional public GitHub repositories without the usual setup friction.
 
