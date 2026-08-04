@@ -17,7 +17,12 @@ program
   .option('--no-open', 'skip auto-opening the browser')
   .option('--keep', 'keep the cloned temp directory after exit')
   .option('--json', 'output machine-readable RuntimeSession JSON payload')
+  .option('--mcp', 'start Anthropic Model Context Protocol (MCP) stdio server')
   .action(async (target, options) => {
+    if (options.mcp) {
+      await import('../src/mcp/server.js');
+      return;
+    }
     await run(target || '.', options);
   });
 
