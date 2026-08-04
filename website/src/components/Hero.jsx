@@ -7,7 +7,7 @@ import { fetchLiveStats } from '../utils/fetchStats';
 import './Hero.css';
 
 export function Hero({ heroRef }) {
-  const [stats, setStats] = useState({ downloads: 700, releases: 5, latestVersion: 'v2.0.2', isLive: false });
+  const [stats, setStats] = useState({ downloads: 860, formattedDownloads: '860+', releases: 4, latestVersion: 'v2.0.3', isLive: false });
 
   useEffect(() => {
     fetchLiveStats().then((data) => {
@@ -116,7 +116,7 @@ export function Hero({ heroRef }) {
             title="View npm package downloads"
           >
             <NpmIcon size={13} className="text-magenta" />
-            <span><strong className="text-primary">{stats.downloads}+</strong> Downloads</span>
+            <span><strong className="text-primary">{stats.formattedDownloads || `${stats.downloads}+`}</strong> Downloads</span>
           </a>
           <span className="trust-dot">·</span>
           <div className="trust-pill">

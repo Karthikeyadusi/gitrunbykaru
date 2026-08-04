@@ -1,8 +1,15 @@
-const CACHE_KEY = 'grbk_live_stats_v1';
+const CACHE_KEY = 'grbk_live_stats_v2';
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
 
+export function formatRoundedDownloads(count) {
+  const num = Number(count) || 860;
+  const rounded = Math.floor(num / 10) * 10;
+  return `${rounded}+`;
+}
+
 const FALLBACK_STATS = {
-  downloads: 700,
+  downloads: 860,
+  formattedDownloads: '860+',
   releases: 4,
   stars: 12,
   latestVersion: 'v2.0.3',
@@ -36,8 +43,11 @@ export async function fetchLiveStats() {
     const relRes = await fetch('https://api.github.com/repos/Karthikeyadusi/gitrunbykaru/releases');
     const relData = relRes.ok ? await relRes.json() : null;
 
+    const rawDownloads = npmData?.downloads ? Math.max(860, npmData.downloads) : FALLBACK_STATS.downloads;
+
     const liveStats = {
-      downloads: npmData?.downloads ? Math.max(700, npmData.downloads) : FALLBACK_STATS.downloads,
+      downloads: rawDownloads,
+      formattedDownloads: formatRoundedDownloads(rawDownloads),
       releases: Array.isArray(relData) && relData.length > 0 ? relData.length : FALLBACK_STATS.releases,
       stars: ghData?.stargazers_count ?? FALLBACK_STATS.stars,
       latestVersion: Array.isArray(relData) && relData[0]?.tag_name ? relData[0].tag_name : FALLBACK_STATS.latestVersion,
