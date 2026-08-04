@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.1] - 2026-08-04
+
+This patch release fixes Python dependency installation failures on UTF-16 encoded `requirements.txt` files and upgrades isolated `venv` package tooling.
+
+### Fixed
+- **UTF-16LE `requirements.txt` Auto-Sanitization:** Automatically converts UTF-16LE encoded `requirements.txt` files (created by PowerShell `pip freeze` redirection) to clean UTF-8 before running `pip install`.
+- **Venv Tooling Upgrade:** Silently upgrades `pip`, `setuptools`, and `wheel` inside isolated virtual environments (`.gitrunbykaru-venv`).
+- **Binary Fallback Safety:** Added `--prefer-binary` retry fallback if standard `pip install` encounters compiled C extension build failures.
+
+---
+
 ## [2.1.0] - 2026-08-04
 
 This major release introduces a 3-Tier Layered Engine Architecture, stateful `RuntimeSession` management, machine-readable `--json` CLI output, `--mcp` setup helper flag, and native Anthropic Model Context Protocol (MCP) Server integration for AI Coding Agents.

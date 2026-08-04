@@ -1,11 +1,12 @@
 {
   "name": "gitrunbykaru",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Run conventional GitHub repositories locally with one command.",
   "homepage": "https://gitrunbykaru.vercel.app",
   "type": "module",
   "bin": {
-    "gitrunbykaru": "bin/gitrunbykaru.js"
+    "gitrunbykaru": "bin/gitrunbykaru.js",
+    "grbk": "bin/gitrunbykaru.js"
   },
   "main": "src/index.js",
   "scripts": {
@@ -25,7 +26,8 @@
     "npm",
     "productivity",
     "open-source",
-    "command-line"
+    "command-line",
+    "mcp"
   ],
   "author": "Karthikeya Dusi",
   "repository": {
