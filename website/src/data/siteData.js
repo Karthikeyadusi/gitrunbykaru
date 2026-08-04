@@ -205,7 +205,7 @@ export const JOURNEY_MILESTONES = [
   },
   {
     id: 'downloads',
-    title: '700+ Downloads',
+    title: '860+ Downloads',
     desc: 'Growing adoption across developer communities.',
     subdesc: 'Proving real-world demand.'
   },
@@ -220,7 +220,7 @@ export const JOURNEY_MILESTONES = [
     id: 'future',
     title: 'Still Improving',
     desc: 'Active maintenance and continuous refinement.',
-    subdesc: '6 releases and counting.',
+    subdesc: '4 releases and counting.',
     isFuture: true
   }
 ];
