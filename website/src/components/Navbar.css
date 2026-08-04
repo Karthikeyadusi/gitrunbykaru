@@ -140,6 +140,24 @@
   transform: translateY(-1px);
 }
 
+.nav-btn-ai {
+  background: linear-gradient(135deg, rgba(235, 78, 172, 0.15) 0%, rgba(168, 85, 247, 0.15) 100%);
+  border: 1px solid rgba(235, 78, 172, 0.4);
+  color: #f472b6;
+  cursor: pointer;
+}
+
+.nav-btn-ai:hover {
+  background: linear-gradient(135deg, rgba(235, 78, 172, 0.25) 0%, rgba(168, 85, 247, 0.25) 100%);
+  border-color: var(--accent-magenta);
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(235, 78, 172, 0.3);
+}
+
+.btn-ai-icon {
+  color: var(--accent-magenta);
+}
+
 .btn-npm-icon {
   color: #CB3837;
 }

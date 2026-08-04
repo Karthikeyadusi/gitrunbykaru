@@ -1,12 +1,12 @@
 # 🤖 GitRunByKaru MCP Setup Guide
 
-GitRunByKaru includes a native **Model Context Protocol (MCP)** server so AI Coding Agents (**Cursor**, **Claude Desktop**, **Claude Code**, **Windsurf**, **VS Code**) can run and inspect repositories using the exact same execution engine that powers the CLI.
+GitRunByKaru includes a native **Model Context Protocol (MCP)** server so AI Coding Agents (**Cursor**, **Claude Desktop**, **Claude Code**, **VS Code**, **Windsurf**) can run and inspect repositories using the exact same execution engine that powers the CLI.
 
 ---
 
-## ⚡ Quick 1-Min Setup
+## ⚡ Setup Guides by AI Client
 
-### 1. Cursor Setup
+### 🔵 1. Cursor Setup
 1. Open Cursor Settings (**Gear Icon** ➔ **Features** ➔ **MCP Servers**).
 2. Click **Add Custom MCP** (opens `mcp.json`).
 3. Add this exact configuration and save:
@@ -24,7 +24,7 @@ GitRunByKaru includes a native **Model Context Protocol (MCP)** server so AI Cod
 
 ---
 
-### 2. Claude Desktop Setup
+### 🟠 2. Claude Desktop Setup
 Open `%APPDATA%\Claude\claude_desktop_config.json` (Windows) or `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS), then add:
 
 ```json
@@ -40,10 +40,35 @@ Open `%APPDATA%\Claude\claude_desktop_config.json` (Windows) or `~/Library/Appli
 
 ---
 
-### 3. VS Code Setup (Cline / Roo Code / Continue)
-1. Open your AI Extension in VS Code.
-2. Click **Configure MCP Servers**.
-3. Add the `gitrunbykaru` server configuration block shown above.
+### 🟣 3. Claude Code CLI Setup
+Run the following command in your terminal:
+
+```bash
+claude mcp add gitrunbykaru -- npx -y gitrunbykaru-mcp
+```
+
+---
+
+### 🟢 4. VS Code Setup (Cline / Roo Code / Continue)
+1. Open your AI Extension in VS Code (Cline / Roo Code / Continue.dev).
+2. Click **Configure MCP Servers** (opens settings JSON).
+3. Paste the `gitrunbykaru` MCP server configuration block shown above and save.
+
+---
+
+### 🏄 5. Windsurf Setup
+Open `~/.codeium/windsurf/mcp_config.json` and add:
+
+```json
+{
+  "mcpServers": {
+    "gitrunbykaru": {
+      "command": "npx",
+      "args": ["-y", "gitrunbykaru-mcp"]
+    }
+  }
+}
+```
 
 ---
 
