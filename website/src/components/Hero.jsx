@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { CopyButton } from './ui/CopyButton';
 import { NpmIcon } from './ui/NpmIcon';
-import { Terminal, Tag, ShieldCheck, Code2 } from 'lucide-react';
+import { Terminal, Tag, ShieldCheck, Code2, Zap } from 'lucide-react';
 import { fetchLiveStats } from '../utils/fetchStats';
 import './Hero.css';
 
 export function Hero({ heroRef }) {
-  const [stats, setStats] = useState({ downloads: 860, formattedDownloads: '860+', releases: 4, latestVersion: 'v2.0.3', isLive: false });
+  const [stats, setStats] = useState({ downloads: 860, formattedDownloads: '860+', releases: 7, latestVersion: 'v2.1.0', isLive: false });
+  const [cmdAlias, setCmdAlias] = useState('gitrunbykaru');
 
   useEffect(() => {
     fetchLiveStats().then((data) => {
@@ -27,8 +28,8 @@ export function Hero({ heroRef }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <Terminal size={14} className="text-magenta" />
-          <span>{stats.latestVersion} is live</span>
+          <Zap size={14} className="text-magenta" />
+          <span>v2.1.0 • Runtime Engine + MCP</span>
           {stats.isLive && <span className="live-indicator-dot" title="Live npm/GitHub stats synced"></span>}
         </motion.div>
 
@@ -49,11 +50,11 @@ export function Hero({ heroRef }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          Clone, detect, install, launch — all automatic.<br className="hero-br" />
-          Run conventional GitHub projects with zero config friction.
+          Turn a GitHub repository into a running development environment with a single command.<br className="hero-br" />
+          Clone, detect, auto-mock `.env`, install, launch — all automatic.
         </motion.p>
 
-        {/* Hero Mini Live Terminal Sequence */}
+        {/* Hero Mini Live Terminal Sequence with grbk Command Toggle */}
         <motion.div
           className="hero-terminal-anchor"
           initial={{ opacity: 0, scale: 0.96 }}
@@ -65,12 +66,27 @@ export function Hero({ heroRef }) {
             <span className="mini-dot mini-yellow"></span>
             <span className="mini-dot mini-green"></span>
             <span className="mini-path">~/gitrun-workspace</span>
-            <span className="mini-temp-tag">[tempdir: /tmp/gitrun-ephemeral]</span>
+            
+            {/* Alias Command Toggle */}
+            <div className="cmd-toggle-pills">
+              <button
+                className={`toggle-pill ${cmdAlias === 'gitrunbykaru' ? 'active' : ''}`}
+                onClick={() => setCmdAlias('gitrunbykaru')}
+              >
+                gitrunbykaru
+              </button>
+              <button
+                className={`toggle-pill ${cmdAlias === 'grbk' ? 'active' : ''}`}
+                onClick={() => setCmdAlias('grbk')}
+              >
+                grbk
+              </button>
+            </div>
           </div>
           <div className="mini-terminal-body">
             <div className="mini-line">
               <span className="prompt-sym">$</span>
-              <span className="prompt-cmd">gitrunbykaru github.com/vercel/next.js</span>
+              <span className="prompt-cmd">{cmdAlias} github.com/vercel/next.js</span>
             </div>
             <div className="mini-line">
               <span className="sym-magenta">→</span>
@@ -101,7 +117,7 @@ export function Hero({ heroRef }) {
           </div>
         </motion.div>
 
-        {/* Technical Trust Strip - Simplified & Non-Repetitive */}
+        {/* Technical Trust Strip */}
         <motion.div
           className="hero-trust-strip text-secondary"
           initial={{ opacity: 0 }}

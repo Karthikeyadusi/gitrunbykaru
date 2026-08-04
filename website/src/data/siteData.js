@@ -178,8 +178,22 @@ export const FEATURE_CARDS = [
   {
     id: 'cleanup',
     icon: 'Sparkles',
-    title: 'Automatic cleanup',
-    desc: 'Cloned repos live in OS temp directories and are deleted when you Ctrl+C. Your machine stays clean.',
+    title: 'Zero clutter on disk',
+    desc: 'Runs in temporary OS directories. Pressing Ctrl+C deletes everything completely.',
+    featured: false
+  },
+  {
+    id: 'mcp',
+    icon: 'Bot',
+    title: 'AI Agent & MCP Ready',
+    desc: 'Native Model Context Protocol (MCP) server integration for Cursor, Claude Desktop, and VS Code.',
+    featured: true
+  },
+  {
+    id: 'session',
+    icon: 'Cpu',
+    title: 'Stateful RuntimeSession',
+    desc: 'Stateful execution session model with machine-readable --json output mode for scripts and automation.',
     featured: false
   }
 ];

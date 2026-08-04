@@ -108,7 +108,40 @@
 .mini-temp-tag {
   color: var(--text-tertiary);
   margin-left: auto;
-  font-size: 10px;
+  font-size: 11px;
+}
+
+.cmd-toggle-pills {
+  margin-left: auto;
+  display: flex;
+  gap: 4px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 2px;
+}
+
+.toggle-pill {
+  background: transparent;
+  border: none;
+  color: var(--text-tertiary);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.toggle-pill:hover {
+  color: var(--text-primary);
+}
+
+.toggle-pill.active {
+  background: var(--bg-surface);
+  color: var(--accent-magenta);
+  font-weight: 600;
+  border: 1px solid rgba(235, 78, 172, 0.25);
 }
 
 .mini-terminal-body {

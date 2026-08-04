@@ -4,6 +4,7 @@ import { Hero } from './components/Hero';
 import { BeforeAfter } from './components/BeforeAfter';
 import { TerminalDemo } from './components/TerminalDemo';
 import { Pipeline } from './components/Pipeline';
+import { RuntimeEngine } from './components/RuntimeEngine';
 import { Features } from './components/Features';
 import { ProjectJourney } from './components/ProjectJourney';
 import { OpenSource } from './components/OpenSource';
@@ -60,6 +61,7 @@ export function App() {
         <BeforeAfter />
         <TerminalDemo />
         <Pipeline />
+        <RuntimeEngine />
         <Features />
         <ProjectJourney />
         <OpenSource />
