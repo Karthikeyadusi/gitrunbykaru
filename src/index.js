@@ -1,133 +1,14 @@
-import { cloneRepo } from './clone.js';
-import { detectProject } from './detect.js';
-import { getStrategy } from './strategies/index.js';
-import { spawnProject } from './runner.js';
-import { log, printBanner, printSuccess, printError, printWarning } from './logger.js';
-import { rmSync, existsSync } from 'fs';
-import * as readline from 'readline/promises';
+import { runCli } from './cli/index.js';
+import { RemoteWorkspaceProvider } from './providers/remote.js';
+import { LocalWorkspaceProvider } from './providers/local.js';
+import { executeEngineOnDirectory } from './engine/index.js';
 
-export async function run(repoUrl, options = {}) {
-  printBanner();
-
-  // Validate URL
-  if (!repoUrl || !repoUrl.includes('github.com')) {
-    printError('Please provide a valid GitHub URL.');
-    printError('Example: gitrunbykaru https://github.com/user/repo');
-    process.exit(1);
-  }
-
-  // Normalize URL (strip .git suffix if present)
-  const url = repoUrl.replace(/\.git$/, '');
-  let tmpDir = null;
-
-  let isCleaningUp = false;
-
-  // Helper to delete directory cleanly with retry loop for Windows file locks
-  const removeTmpDir = (targetDir) => {
-    if (!targetDir || !existsSync(targetDir)) return;
-    try {
-      rmSync(targetDir, { recursive: true, force: true, maxRetries: 10, retryDelay: 250 });
-      if (!existsSync(targetDir)) {
-        log.success(`Cleaned up ${targetDir}`);
-        return;
-      }
-    } catch {
-      // Fallback loop if Windows process handle release is delayed
-      for (let i = 0; i < 5; i++) {
-        try {
-          const start = Date.now();
-          while (Date.now() - start < 300) {}
-          rmSync(targetDir, { recursive: true, force: true });
-          if (!existsSync(targetDir)) {
-            log.success(`Cleaned up ${targetDir}`);
-            return;
-          }
-        } catch {
-          // ignore until last retry
-        }
-      }
-    }
-  };
-
-  // Cleanup handler
-  const cleanup = (signal) => {
-    if (isCleaningUp) return;
-    isCleaningUp = true;
-
-    if (signal) {
-      console.log('');
-      log.step(`Received ${signal} — terminating process tree...`);
-    }
-
-    if (tmpDir && !options.keep) {
-      removeTmpDir(tmpDir);
-    }
-    process.exit(0);
-  };
-
-  process.on('SIGINT', () => cleanup('SIGINT'));
-  process.on('SIGTERM', () => cleanup('SIGTERM'));
-  process.on('exit', () => {
-    if (tmpDir && !options.keep && !isCleaningUp) {
-      removeTmpDir(tmpDir);
-    }
-  });
-
-  try {
-    // Step 1: Clone
-    tmpDir = await cloneRepo(url);
-
-    // Step 2: Detect
-    let detection = await detectProject(tmpDir);
-
-    if (!detection) {
-      printWarning("Couldn't detect project type automatically.");
-      
-      const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
-      console.log('\nWhat type of project is this?');
-      console.log('1) Node.js');
-      console.log('2) Python');
-      console.log('3) Static HTML');
-      console.log('0) Exit');
-
-      const answer = await rl.question('\nEnter number (1-3): ');
-      
-      if (answer === '1') {
-        const cmd = await rl.question('Run command (default: npm start): ');
-        detection = { type: 'node', label: 'Node.js (manual)', runCommand: cmd || 'npm start', installCommand: 'npm install', port: 3000 };
-      } else if (answer === '2') {
-        const cmd = await rl.question('Run command (default: python main.py): ');
-        detection = { type: 'python', label: 'Python (manual)', runCommand: cmd || 'python main.py', installCommand: 'pip install -r requirements.txt', port: 8000 };
-      } else if (answer === '3') {
-        detection = { type: 'static', label: 'Static HTML (manual)', runCommand: null, installCommand: null, port: 8080 };
-      } else {
-        process.exit(1);
-      }
-      rl.close();
-    }
-
-    log.info(`Detected  ${detection.label}`);
-
-    // Step 3: Get strategy
-    const strategy = getStrategy(detection.type);
-
-    if (!strategy) {
-      printWarning(`No strategy available for "${detection.type}" projects yet.`);
-      printWarning('Supported: Node.js, Python, Static HTML');
-      process.exit(1);
-    }
-
-    // Step 4: Install
-    await strategy.install(tmpDir, detection);
-
-    // Step 5: Run
-    await spawnProject(tmpDir, detection, strategy, options);
-
-  } catch (err) {
-    printError(err.message || String(err));
-    if (tmpDir && !options.keep) {
-      try { rmSync(tmpDir, { recursive: true, force: true }); } catch { /* best effort */ }
-    }
-    process.exit(1);
-  }
+export async function run(target, options = {}) {
+  await runCli(target, options);
 }
+
+export {
+  RemoteWorkspaceProvider,
+  LocalWorkspaceProvider,
+  executeEngineOnDirectory as executeEngine
+};

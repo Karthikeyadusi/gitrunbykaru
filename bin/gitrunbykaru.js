@@ -12,12 +12,13 @@ program
   .name('gitrunbykaru')
   .description('Run any GitHub repo locally in seconds — no setup, no friction.')
   .version(pkg.version)
-  .argument('<repo-url>', 'GitHub repository URL (e.g. https://github.com/user/repo)')
+  .argument('[target]', 'GitHub repository URL or local project path')
   .option('-p, --port <port>', 'preferred port (tool will still detect from app output)')
   .option('--no-open', 'skip auto-opening the browser')
   .option('--keep', 'keep the cloned temp directory after exit')
-  .action(async (repoUrl, options) => {
-    await run(repoUrl, options);
+  .option('--json', 'output machine-readable RuntimeSession JSON payload')
+  .action(async (target, options) => {
+    await run(target || '.', options);
   });
 
 program.parse();
