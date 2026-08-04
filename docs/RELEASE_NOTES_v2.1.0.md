@@ -1,43 +1,92 @@
-# Release Notes: v2.1.0
+# GitRunByKaru v2.1.0 — Runtime Engine & MCP
 
-GitRunByKaru **v2.1.0** is a major architectural milestone. It introduces a **3-Tier Layered Engine Architecture**, stateful **`RuntimeSession` object management**, machine-readable **`--json` CLI mode**, **`--mcp` helper guide**, and native **Anthropic Model Context Protocol (MCP)** integration for AI Coding Agents.
+GitRunByKaru **v2.1.0** is the largest architectural release since the project began.
+
+This release refactors the project into a layered runtime architecture, introduces stateful `RuntimeSession` management, adds machine-readable `--json` output, and includes native Model Context Protocol (MCP) support while preserving the existing CLI experience.
 
 ---
 
-## 🛠️ Key Highlights & Features
+## 🛠️ Added
 
-### 🏛️ 3-Tier Layered Engine Architecture
-- **Interfaces Layer (`src/cli/`, `src/mcp/`):** Separates human CLI presentation and AI agent protocol translation from core runtime execution.
-- **Workspace Providers Layer (`src/providers/`):** 
-  - `RemoteWorkspaceProvider`: Shallow clones remote GitHub repositories to OS `/tmp` and executes 100% clean directory teardown on exit.
-  - `LocalWorkspaceProvider`: Adapts in-place local workspace directories (`.`) with zero file deletion on session stop.
-- **Stateless Engine Layer (`src/engine/`):** Pure runtime engine operating strictly on target directories (unaware of Git or CLI/MCP interfaces).
+### Runtime Engine Architecture
+GitRunByKaru now uses a 3-tier layered architecture:
 
-### 🔄 Stateful `RuntimeSession` Object Pattern
-Every execution returns a structured `RuntimeSession` instance:
-```json
-{
-  "sessionId": "grbk-sess-8a391f-1",
-  "workspace": "/path/to/workspace",
-  "pid": 35784,
-  "url": "http://localhost:5173",
-  "port": 5173,
-  "framework": "Node.js",
-  "status": "ready"
-}
+```text
+Interfaces
+    ↓
+Workspace Providers
+    ↓
+Runtime Engine
 ```
 
-### 🤖 Anthropic Model Context Protocol (MCP) Server
-Allows AI Agents (**Cursor**, **Claude Desktop**, **Claude Code**, **Windsurf**, **VS Code**) to invoke GitRunByKaru as a native tool over `stdio` JSON-RPC:
-- `gitrun_remote({ repoUrl, preferredPort })`
-- `gitrun_local({ workspacePath, preferredPort })`
-- `gitrun_stop({ sessionId })`
+This separates:
+- **Interfaces** (CLI, `--json` mode, and MCP)
+- **Workspace acquisition & cleanup** (Remote & Local providers)
+- **Repository execution logic** (Pure engine)
 
-### ⚡ Machine-Readable `--json` CLI Mode & `--mcp` Guide
-- Run `gitrunbykaru <target> --json --no-open` to output clean machine-readable JSON status.
-- Run `gitrunbykaru --mcp` to print copy-pasteable JSON configuration for Cursor and Claude.
+The Runtime Engine now operates purely on workspace directories, independent of the interface invoking it.
+
+### RuntimeSession
+Introduced a stateful `RuntimeSession` model representing every execution. Each session tracks:
+- Session ID
+- Workspace path
+- Process ID
+- Framework detection
+- Local URL & Port
+- Runtime status
+
+This provides a consistent execution model across the CLI, JSON mode, and MCP.
+
+### Model Context Protocol (MCP)
+Added native Model Context Protocol (MCP) support. GitRunByKaru can now be configured as an MCP server for compatible AI clients.
+
+Available tools:
+- `gitrun_remote()`
+- `gitrun_local()`
+- `gitrun_stop()`
+
+### Machine-Readable JSON Output
+Added a new `--json` flag:
+```bash
+gitrunbykaru <repository> --json
+```
+Returns structured runtime metadata suitable for automation, scripting, and integrations.
+
+### Local Workspace Execution
+Added support for launching existing local workspaces (`.`). Unlike remote repository execution, local workspace sessions never delete project files during cleanup.
 
 ---
 
-## 🛡️ Backward Compatibility
-Human CLI terminal commands (`gitrunbykaru <url>` / `grbk <url>`), banner graphics, interactive fallback prompts, spinners, and `Ctrl+C` teardown remain **100% identical**.
+## 🔄 Changed
+- Refactored the execution pipeline into reusable runtime modules.
+- Introduced Workspace Providers for remote and local execution workflows.
+- Improved separation of concerns between interfaces, workspace management, and execution logic.
+- Updated the internal execution lifecycle around `RuntimeSession`.
+
+---
+
+## 🛡️ Compatibility
+This release maintains **full backward compatibility**. Existing CLI workflows continue to work without changes, including:
+- Existing commands
+- Interactive terminal output
+- Browser launch behavior
+- Progress indicators
+- Cleanup behavior
+- Existing command-line flags
+
+No migration is required.
+
+---
+
+## 📖 Documentation
+Updated project documentation with:
+- Runtime Engine architecture
+- Design philosophy
+- MCP configuration and usage
+- Runtime execution pipeline
+- Revised README
+
+---
+
+## ❤️ Thanks
+Thank you to everyone who has tried GitRunByKaru, reported issues, suggested improvements, and contributed feedback. Every release continues to improve the developer experience and shape the project's direction.
