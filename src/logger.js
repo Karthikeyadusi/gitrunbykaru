@@ -18,6 +18,7 @@ export const log = {
   step:    (msg) => console.log(`  ${SYM.step}  ${chalk.white(msg)}`),
   success: (msg) => console.log(`  ${SYM.success}  ${chalk.green(msg)}`),
   warn:    (msg) => console.log(`  ${SYM.warn}  ${chalk.yellow(msg)}`),
+  warning: (msg) => console.log(`  ${SYM.warn}  ${chalk.yellow(msg)}`),
   error:   (msg) => console.log(`  ${SYM.error}  ${chalk.red(msg)}`),
   dim:     (msg) => console.log(`     ${chalk.gray(msg)}`),
 };
