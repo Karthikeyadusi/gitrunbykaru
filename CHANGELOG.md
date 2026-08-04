@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2026-08-04
+
+This major release introduces a 3-Tier Layered Engine Architecture, stateful `RuntimeSession` management, machine-readable `--json` CLI output, `--mcp` setup helper flag, and native Anthropic Model Context Protocol (MCP) Server integration for AI Coding Agents.
+
+### Added
+- **3-Tier Layered Architecture (`Interfaces ➔ Workspace Providers ➔ Pure Engine`):** Decoupled execution pipeline into a pure, stateless engine operating strictly on target directories.
+- **Workspace Providers (`src/providers/`):** Added `RemoteWorkspaceProvider` for ephemeral Git URL execution and `LocalWorkspaceProvider` for in-place local workspace dev server execution without file deletion.
+- **Stateful `RuntimeSession` Object Pattern:** Returns clean session objects managing lifecycle states (`Created` ➔ `Preparing` ➔ `Installing` ➔ `Launching` ➔ `Ready` ➔ `Stopped` ➔ `Destroyed`).
+- **Machine-Readable `--json` Mode:** Added `--json` flag (`gitrunbykaru <target> --json --no-open`) returning structured `RuntimeSession` JSON for scripts, automation, and CI/CD pipelines.
+- **Anthropic MCP Server (`src/mcp/server.js`):** Native MCP server over `stdio` exposing `gitrun_remote`, `gitrun_local`, and `gitrun_stop` for Cursor, Claude Desktop, Claude Code, Windsurf, and VS Code.
+- **CLI `--mcp` Setup Helper:** Added `gitrunbykaru --mcp` flag printing copy-pasteable JSON configuration for AI client setup.
+- **`grbk` Dual Binary Alias:** Supported short `grbk` command alias in `package.json`.
+
+---
+
 ## [2.0.3] - 2026-08-04
 
 This patch release fixes Windows file-lock race conditions during workspace teardown, ensuring 100% clean deletion of temporary directories on exit.

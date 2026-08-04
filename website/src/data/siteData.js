@@ -210,10 +210,10 @@ export const JOURNEY_MILESTONES = [
     subdesc: 'Proving real-world demand.'
   },
   {
-    id: 'v203',
-    title: 'v2.0.3 — Latest',
-    desc: '🛡️ Teardown process handle fix · Zero-clutter workspace cleanup',
-    subdesc: 'Robust Windows file-lock retry loop.',
+    id: 'v210',
+    title: 'v2.1.0 — Latest',
+    desc: '🤖 Layered Engine Architecture · --json Mode · Anthropic MCP Server',
+    subdesc: 'Native AI Coding Agent execution engine.',
     isLatest: true
   },
   {

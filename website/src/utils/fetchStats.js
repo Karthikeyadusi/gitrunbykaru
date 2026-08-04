@@ -7,13 +7,12 @@ export function formatRoundedDownloads(count) {
   return `${rounded}+`;
 }
 
-const FALLBACK_STATS = {
+const DEFAULT_STATS = {
   downloads: 860,
   formattedDownloads: '860+',
-  releases: 4,
-  stars: 12,
-  latestVersion: 'v2.0.3',
-  isLive: false
+  releases: 7,
+  latestVersion: 'v2.1.0',
+  isLive: false,
 };
 
 export async function fetchLiveStats() {
