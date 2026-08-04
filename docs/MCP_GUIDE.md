@@ -1,6 +1,45 @@
-# 🤖 GitRunByKaru MCP Setup Guide
+# 🤖 AI Integration Guide
 
-GitRunByKaru includes a native **Model Context Protocol (MCP)** server so AI Coding Agents (**Cursor**, **Claude Desktop**, **Claude Code**, **VS Code**, **Windsurf**) can run and inspect repositories using the exact same execution engine that powers the CLI.
+GitRunByKaru includes an MCP server that allows compatible AI coding assistants to use the same runtime engine as the CLI.
+
+---
+
+## Supported AI Clients
+
+| Client | Status |
+| :--- | :---: |
+| **Cursor** | ✅ |
+| **Claude Desktop** | ✅ |
+| **Claude Code** | ✅ |
+| **VS Code (Cline / Roo / Continue)** | ✅ |
+| **Windsurf** | ✅ |
+
+---
+
+## Prerequisites
+
+- Node.js 18+
+- GitRunByKaru installed (or available through `npx`)
+- An MCP-compatible AI client
+
+---
+
+## How It Works
+
+```text
+AI Agent
+   │
+   ▼
+GitRunByKaru MCP Server
+   │
+   ▼
+GitRunByKaru Runtime Engine
+   │
+   ▼
+Running Development App
+```
+
+Your AI agent delegates repository setup and execution to GitRunByKaru, which handles workspace preparation, dependency installation, application launch, readiness detection, and lifecycle management.
 
 ---
 
@@ -49,7 +88,7 @@ claude mcp add gitrunbykaru -- npx -y gitrunbykaru-mcp
 
 ---
 
-### 🟢 4. VS Code Setup (Cline / Roo Code / Continue)
+### 🟢 4. VS Code Setup (Cline / Roo / Continue)
 1. Open your AI Extension in VS Code (Cline / Roo Code / Continue.dev).
 2. Click **Configure MCP Servers** (opens settings JSON).
 3. Paste the `gitrunbykaru` MCP server configuration block shown above and save.
@@ -84,9 +123,24 @@ Once connected, your AI Agent gets 3 native tools:
 
 ---
 
-## 💬 Example AI Prompts
+## 💬 Example Prompts
 
-Once configured, tell your AI Agent:
-- *"Use gitrunbykaru to run the local workspace `.`"*
-- *"Launch `https://github.com/expressjs/express` and tell me what port it's running on."*
-- *"Stop the active gitrunbykaru session."*
+Here are natural prompts you can ask your AI Agent:
+
+- *"Run the current workspace using GitRunByKaru."*
+- *"Launch https://github.com/expressjs/express and tell me when it's ready."*
+- *"Start this repository and summarize how it's structured."*
+- *"Stop the current GitRunByKaru session."*
+
+---
+
+## 🔍 Troubleshooting
+
+### The MCP server doesn't appear
+- Restart your AI client.
+- Verify the configuration file is valid JSON.
+- Ensure `npx` is available in your PATH.
+
+### The tool isn't available
+- Check that the MCP configuration was saved.
+- Restart the client after adding the server.
