@@ -5,10 +5,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![node](https://img.shields.io/badge/node-%3E%3D18.0.0-blue.svg)](https://nodejs.org)
 
-> Found a cool GitHub project? See it running before you lose interest.  
+> Turn a GitHub repository into a running development environment with a single command.  
 > 🌐 **Live Web Demo:** [https://gitrunbykaru.vercel.app](https://gitrunbykaru.vercel.app)
-
-A command-line tool and AI runtime engine for quickly exploring conventional public GitHub repositories without the usual setup friction.
 
 ```bash
 gitrunbykaru https://github.com/user/repo
@@ -16,41 +14,7 @@ gitrunbykaru https://github.com/user/repo
 grbk https://github.com/user/repo
 ```
 
----
-
-## Why I Built This
-
-As developers, we constantly browse Reddit, GitHub, LinkedIn, hackathons, and developer communities. We find many interesting, creative, or educational open-source repositories that we want to quickly run or learn from.
-
-But getting them running locally involves repetitive setup friction:
-1. Cloning the repository.
-2. Reading the README.
-3. Figuring out the package manager.
-4. Installing dependencies.
-5. Configuring `.env` files.
-6. Finding the correct run command.
-7. Debugging setup errors.
-8. Finally opening localhost in the browser.
-
-Often, this setup takes 20–30 minutes, only to realize within two minutes of running the app that it isn't what we wanted to inspect. We spend more time configuring repositories than actually exploring them.
-
-I built GitRunByKaru to solve this exact workflow: **"I found a cool conventional repository, and I want to see it running locally right now."**
-
-It optimizes for the common case: getting interesting projects running quickly with minimal effort. If a repository follows common conventions, GitRunByKaru aims to get you from a GitHub URL to a running application with a single command.
-
----
-
-## What GitRunByKaru Does
-
-GitRunByKaru automates the entire repository setup and launch experience:
-
-*   **Clones the repository** into a clean, temporary workspace.
-*   **Detects the project type** automatically without manual configuration.
-*   **Installs the correct dependencies** using the appropriate package manager (npm, yarn, pnpm, bun, or pip).
-*   **Creates a usable environment** from `.env.example` templates by mocking missing placeholders.
-*   **Starts the application** and waits until the application is ready.
-*   **Opens your browser** immediately as soon as the app is ready to receive requests.
-*   **Cleans up the temporary directory** automatically when you exit the tool.
+GitRunByKaru started as a CLI, but its execution pipeline has evolved into a reusable runtime engine shared by both developers and AI coding agents.
 
 ---
 
@@ -88,9 +52,89 @@ gitrunbykaru https://github.com/Karthikeyadusi/gitrunbykaru
 
 ---
 
-## 🤖 AI Agent & Model Context Protocol (MCP) Support
+## Why I Built This
 
-GitRunByKaru includes an **Anthropic Model Context Protocol (MCP)** server so AI Coding Agents (**Cursor**, **Claude Desktop**, **Claude Code**, **Windsurf**, **VS Code**) can run and inspect repositories autonomously without running trial-and-error shell commands!
+As developers, we constantly browse Reddit, GitHub, LinkedIn, hackathons, and developer communities. We find many interesting, creative, or educational open-source repositories that we want to quickly run or learn from.
+
+But getting them running locally involves repetitive setup friction:
+1. Cloning the repository.
+2. Reading the README.
+3. Figuring out the package manager.
+4. Installing dependencies.
+5. Configuring `.env` files.
+6. Finding the correct run command.
+7. Debugging setup errors.
+8. Finally opening localhost in the browser.
+
+Too often, you spend more time getting a project running than actually exploring it.
+
+I built GitRunByKaru to solve this exact workflow: **"I found a cool conventional repository, and I want to see it running locally right now."**
+
+It optimizes for the common case: getting interesting projects running quickly with minimal effort. If a repository follows common conventions, GitRunByKaru aims to get you from a GitHub URL to a running application with a single command.
+
+---
+
+## What GitRunByKaru Does
+
+GitRunByKaru processes repositories through an automated execution pipeline:
+
+```text
+GitHub URL
+      ↓
+    Clone
+      ↓
+Detect Framework
+      ↓
+Install Dependencies
+      ↓
+Prepare Environment (.env)
+      ↓
+   Launch
+      ↓
+    Ready
+      ↓
+   Cleanup
+```
+
+*   **Clones the repository** into a clean, temporary workspace.
+*   **Detects the project type** automatically without manual configuration.
+*   **Installs the correct dependencies** using the appropriate package manager (npm, yarn, pnpm, bun, or pip).
+*   **Creates a usable environment** from `.env.example` templates by mocking missing placeholders.
+*   **Starts the application** and verifies HTTP socket readiness.
+*   **Opens your browser** immediately as soon as the app is ready to receive requests.
+*   **Cleans up the temporary directory** automatically when you exit the tool.
+
+---
+
+## Supported Projects
+
+GitRunByKaru supports conventional web applications, APIs, and static pages:
+
+| Stack | Detection File | Install Command | Run Priority |
+| :--- | :--- | :--- | :--- |
+| **Node.js** | `package.json` | `npm`, `yarn`, `pnpm`, or `bun` | `dev` ➔ `start` ➔ `serve` ➔ `build && preview` |
+| **Next.js** | `package.json` + next | matching lockfile | `dev` |
+| **Vite / React**| `package.json` + vite | matching lockfile | `dev` |
+| **Python / Flask**| `requirements.txt` + `app.py` | `pip` inside local venv | `python app.py` |
+| **Django** | `manage.py` | `pip` inside local venv | `python manage.py runserver` |
+| **FastAPI** | `requirements.txt` + fastapi | `pip` inside local venv | `python main.py` |
+| **Static HTML** | `index.html` (only) | None | `npx serve .` ➔ `python -m http.server` |
+
+---
+
+## Why a Runtime Engine?
+
+GitRunByKaru began as a CLI for quickly launching GitHub repositories.
+
+As the project evolved, the execution pipeline was extracted into a reusable runtime engine that now powers both the human CLI and AI integrations through the Model Context Protocol (MCP).
+
+The CLI is one interface to the engine. The MCP server is another. Both rely on the same execution pipeline.
+
+---
+
+## 🤖 AI Agent & Model Context Protocol (MCP) Integration
+
+GitRunByKaru exposes its runtime through the **Model Context Protocol (MCP)**, allowing compatible AI coding agents (**Cursor**, **Claude Desktop**, **Claude Code**, **Windsurf**, **VS Code**) to launch repositories using the same execution engine that powers the CLI.
 
 ```
                                 ┌─────────────────────────────────┐
@@ -119,26 +163,10 @@ Add this to your `claude_desktop_config.json`, Cursor MCP Settings, or VS Code M
 }
 ```
 
-### Exposed MCP Tools for AI Agents:
+### Exposed MCP Tools:
 - **`gitrun_remote({ repoUrl, preferredPort })`**: Clones a remote GitHub repository to an ephemeral workspace, auto-mocks `.env`, installs dependencies, and launches dev server on localhost.
 - **`gitrun_local({ workspacePath, preferredPort })`**: Detects framework, auto-mocks `.env`, heals lockfiles, and launches dev server in-place for a local workspace without deleting files on teardown.
 - **`gitrun_stop({ sessionId })`**: Stops an active `RuntimeSession` by `sessionId`.
-
----
-
-## Supported Projects
-
-GitRunByKaru supports conventional web applications, APIs, and static pages:
-
-| Stack | Detection File | Install Command | Run Priority |
-| :--- | :--- | :--- | :--- |
-| **Node.js** | `package.json` | `npm`, `yarn`, `pnpm`, or `bun` | `dev` ➔ `start` ➔ `serve` ➔ `build && preview` |
-| **Next.js** | `package.json` + next | matching lockfile | `dev` |
-| **Vite / React**| `package.json` + vite | matching lockfile | `dev` |
-| **Python / Flask**| `requirements.txt` + `app.py` | `pip` inside local venv | `python app.py` |
-| **Django** | `manage.py` | `pip` inside local venv | `python manage.py runserver` |
-| **FastAPI** | `requirements.txt` + fastapi | `pip` inside local venv | `python main.py` |
-| **Static HTML** | `index.html` (only) | None | `npx serve .` ➔ `python -m http.server` |
 
 ---
 
