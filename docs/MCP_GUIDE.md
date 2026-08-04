@@ -128,7 +128,7 @@ Once connected, your AI Agent gets 3 native tools:
 Here are natural prompts you can ask your AI Agent:
 
 - *"Run the current workspace using GitRunByKaru."*
-- *"Launch https://github.com/Karthikeyadusi/username/repo and tell me when it's ready."*
+- *"Launch https://github.com/username/repo and tell me when it's ready."*
 - *"Start this repository and summarize how it's structured."*
 - *"Stop the current GitRunByKaru session."*
 
