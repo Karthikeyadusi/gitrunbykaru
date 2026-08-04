@@ -3,7 +3,7 @@ import { detectProject } from './detect.js';
 import { getStrategy } from './strategies/index.js';
 import { spawnProject } from './runner.js';
 import { log, printBanner, printSuccess, printError, printWarning } from './logger.js';
-import { rmSync } from 'fs';
+import { rmSync, existsSync } from 'fs';
 import * as readline from 'readline/promises';
 
 export async function run(repoUrl, options = {}) {
@@ -22,6 +22,33 @@ export async function run(repoUrl, options = {}) {
 
   let isCleaningUp = false;
 
+  // Helper to delete directory cleanly with retry loop for Windows file locks
+  const removeTmpDir = (targetDir) => {
+    if (!targetDir || !existsSync(targetDir)) return;
+    try {
+      rmSync(targetDir, { recursive: true, force: true, maxRetries: 10, retryDelay: 250 });
+      if (!existsSync(targetDir)) {
+        log.success(`Cleaned up ${targetDir}`);
+        return;
+      }
+    } catch {
+      // Fallback loop if Windows process handle release is delayed
+      for (let i = 0; i < 5; i++) {
+        try {
+          const start = Date.now();
+          while (Date.now() - start < 300) {}
+          rmSync(targetDir, { recursive: true, force: true });
+          if (!existsSync(targetDir)) {
+            log.success(`Cleaned up ${targetDir}`);
+            return;
+          }
+        } catch {
+          // ignore until last retry
+        }
+      }
+    }
+  };
+
   // Cleanup handler
   const cleanup = (signal) => {
     if (isCleaningUp) return;
@@ -33,12 +60,7 @@ export async function run(repoUrl, options = {}) {
     }
 
     if (tmpDir && !options.keep) {
-      try {
-        rmSync(tmpDir, { recursive: true, force: true });
-        log.success(`Cleaned up ${tmpDir}`);
-      } catch {
-        // best effort
-      }
+      removeTmpDir(tmpDir);
     }
     process.exit(0);
   };
@@ -47,7 +69,7 @@ export async function run(repoUrl, options = {}) {
   process.on('SIGTERM', () => cleanup('SIGTERM'));
   process.on('exit', () => {
     if (tmpDir && !options.keep && !isCleaningUp) {
-      try { rmSync(tmpDir, { recursive: true, force: true }); } catch { /* best effort */ }
+      removeTmpDir(tmpDir);
     }
   });
 
