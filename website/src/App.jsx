@@ -10,21 +10,28 @@ import { ProjectJourney } from './components/ProjectJourney';
 import { OpenSource } from './components/OpenSource';
 import { Footer } from './components/Footer';
 import { StickyInstallBar } from './components/ui/StickyInstallBar';
+import { AiGuidePage } from './pages/AiGuidePage';
 import './App.css';
 
 export function App() {
   const heroRef = useRef(null);
+  const [currentPage, setCurrentPage] = useState('home'); // 'home' | 'ai'
   const [isStickyVisible, setIsStickyVisible] = useState(false);
   const [toastMessage, setToastMessage] = useState(null);
 
+  // Scroll to top when page changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [currentPage]);
+
   // IntersectionObserver for Hero install command -> Sticky bar trigger
   useEffect(() => {
+    if (currentPage !== 'home') return;
     const target = heroRef.current;
     if (!target) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        // Show sticky bar when Hero is NOT intersecting (scrolled past)
         setIsStickyVisible(!entry.isIntersecting);
       },
       { threshold: 0.1 }
@@ -32,7 +39,7 @@ export function App() {
 
     observer.observe(target);
     return () => observer.disconnect();
-  }, []);
+  }, [currentPage]);
 
   // Global Keyboard Shortcut: Cmd/Ctrl + K to copy install command
   useEffect(() => {
@@ -55,19 +62,25 @@ export function App() {
 
   return (
     <div className="app-wrapper">
-      <Navbar />
-      <main>
-        <Hero heroRef={heroRef} />
-        <BeforeAfter />
-        <TerminalDemo />
-        <Pipeline />
-        <RuntimeEngine />
-        <Features />
-        <ProjectJourney />
-        <OpenSource />
-      </main>
+      <Navbar onNavigateAi={() => setCurrentPage('ai')} onNavigateHome={() => setCurrentPage('home')} />
+      
+      {currentPage === 'ai' ? (
+        <AiGuidePage onBackToHome={() => setCurrentPage('home')} />
+      ) : (
+        <main>
+          <Hero heroRef={heroRef} />
+          <BeforeAfter />
+          <TerminalDemo />
+          <Pipeline />
+          <RuntimeEngine />
+          <Features />
+          <ProjectJourney />
+          <OpenSource />
+        </main>
+      )}
+
       <Footer />
-      <StickyInstallBar isVisible={isStickyVisible} />
+      {currentPage === 'home' && <StickyInstallBar isVisible={isStickyVisible} />}
 
       {/* Global Toast Alert */}
       {toastMessage && (

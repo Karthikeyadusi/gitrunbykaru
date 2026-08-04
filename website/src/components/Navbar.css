@@ -24,11 +24,15 @@
 }
 
 /* Stable Terminal Shell Logo */
-.nav-logo {
+.nav-logo, .nav-logo-btn {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   text-decoration: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
 }
 
 .logo-prompt {
