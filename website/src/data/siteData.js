@@ -210,17 +210,17 @@ export const JOURNEY_MILESTONES = [
     subdesc: 'Proving real-world demand.'
   },
   {
-    id: 'v202',
-    title: 'v2.0.2 — Latest',
-    desc: '✨ Animated progress bar · Cleaner CLI · UX polish',
-    subdesc: 'Calibrated 80s installation lifecycle.',
+    id: 'v203',
+    title: 'v2.0.3 — Latest',
+    desc: '🛡️ Teardown process handle fix · Zero-clutter workspace cleanup',
+    subdesc: 'Robust Windows file-lock retry loop.',
     isLatest: true
   },
   {
     id: 'future',
     title: 'Still Improving',
     desc: 'Active maintenance and continuous refinement.',
-    subdesc: '5 releases and counting.',
+    subdesc: '6 releases and counting.',
     isFuture: true
   }
 ];

@@ -12,7 +12,7 @@ export function ProjectJourney() {
         <div className="section-header text-center">
           <h2 className="type-h2">Built in the open. Improving every release.</h2>
           <p className="type-body text-secondary">
-            Over 4 months of active development, 5 releases, and growing community adoption.
+            Over 4 months of active development, 6 releases, and growing community adoption.
           </p>
         </div>
 

@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.3] - 2026-08-04
+
+This patch release fixes Windows file-lock race conditions during workspace teardown, ensuring 100% clean deletion of temporary directories on exit.
+
+### Fixed
+- Added a robust retry loop (`maxRetries: 10`, `retryDelay: 250ms`) with fallback handle polling during `rmSync` workspace cleanup, giving Windows OS process trees time to release open handles on `Ctrl+C` before removing the temp directory.
+
 ## [2.0.2] - 2026-07-27
 
 This patch release introduces a smooth 80s-calibrated animated loading bar for dependency installation, cleans up CLI banner text rendering, and fixes internal string names.
