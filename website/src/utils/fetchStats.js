@@ -3,7 +3,7 @@ const CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
 
 const FALLBACK_STATS = {
   downloads: 700,
-  releases: 6,
+  releases: 4,
   stars: 12,
   latestVersion: 'v2.0.3',
   isLive: false
