@@ -210,17 +210,17 @@ export const JOURNEY_MILESTONES = [
     subdesc: 'Proving real-world demand.'
   },
   {
-    id: 'v203',
-    title: 'v2.0.3 — Latest',
-    desc: '🛡️ Teardown process handle fix · Zero-clutter workspace cleanup',
-    subdesc: 'Robust Windows file-lock retry loop.',
+    id: 'v210',
+    title: 'v2.1.0 — Latest',
+    desc: '🤖 Anthropic MCP Server · 3-Tier Layered Architecture · --json Mode',
+    subdesc: 'Universal execution runtime for AI Agents & CLI.',
     isLatest: true
   },
   {
     id: 'future',
     title: 'Still Improving',
     desc: 'Active maintenance and continuous refinement.',
-    subdesc: '4 releases and counting.',
+    subdesc: '5 releases and counting.',
     isFuture: true
   }
 ];

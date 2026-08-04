@@ -10,9 +10,9 @@ export function formatRoundedDownloads(count) {
 const FALLBACK_STATS = {
   downloads: 860,
   formattedDownloads: '860+',
-  releases: 4,
+  releases: 5,
   stars: 12,
-  latestVersion: 'v2.0.3',
+  latestVersion: 'v2.1.0',
   isLive: false
 };
 
