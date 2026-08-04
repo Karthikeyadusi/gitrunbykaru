@@ -10,20 +10,16 @@ const pkg = JSON.parse(readFileSync(join(__dirname, '../package.json'), 'utf8'))
 
 program
   .name('gitrunbykaru')
-  .description('Run any GitHub repo locally in seconds — no setup, no friction.')
+  .description('Turn a GitHub repository into a running development environment with a single command.')
   .version(pkg.version)
   .argument('[target]', 'GitHub repository URL or local project path')
   .option('-p, --port <port>', 'preferred port (tool will still detect from app output)')
   .option('--no-open', 'skip auto-opening the browser')
   .option('--keep', 'keep the cloned temp directory after exit')
   .option('--json', 'output machine-readable RuntimeSession JSON payload')
-  .option('--mcp', 'start Anthropic Model Context Protocol (MCP) stdio server')
+  .option('--mcp', 'show Model Context Protocol (MCP) server setup instructions')
   .action(async (target, options) => {
-    if (options.mcp) {
-      await import('../src/mcp/server.js');
-      return;
-    }
-    await run(target || '.', options);
+    await run(target, options);
   });
 
 program.parse();

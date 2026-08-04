@@ -5,16 +5,6 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.1.0] - 2026-08-04
-
-This major release introduces a 3-Tier Layered Engine Architecture, stateful `RuntimeSession` management, machine-readable `--json` CLI mode, and Anthropic Model Context Protocol (MCP) Server integration for AI Agents (Cursor, Claude Desktop, Windsurf, VS Code).
-
-### Added
-- **3-Tier Layered Architecture:** Decoupled `Interfaces` (CLI/MCP), `Workspace Providers` (`RemoteWorkspaceProvider` & `LocalWorkspaceProvider`), and `Stateless Engine`.
-- **Anthropic MCP Server (`src/mcp/server.js`):** Native `stdio` MCP server exposing `gitrun_remote`, `gitrun_local`, and `gitrun_stop` for AI Agents.
-- **Machine-Readable `--json` Flag:** `gitrunbykaru <target> --json --no-open` outputs structured `RuntimeSession` JSON payloads.
-- **CLI `--mcp` Flag:** `gitrunbykaru --mcp` launches the MCP stdio server cleanly.
-
 ## [2.0.3] - 2026-08-04
 
 This patch release fixes Windows file-lock race conditions during workspace teardown, ensuring 100% clean deletion of temporary directories on exit.
