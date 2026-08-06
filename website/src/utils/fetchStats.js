@@ -1,17 +1,17 @@
-const CACHE_KEY = 'grbk_live_stats_v2';
-const CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
+const CACHE_KEY = 'grbk_live_stats_v3';
+const CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour
 
 export function formatRoundedDownloads(count) {
-  const num = Number(count) || 860;
+  const num = Number(count) || 1370;
   const rounded = Math.floor(num / 10) * 10;
-  return `${rounded}+`;
+  return `${rounded.toLocaleString()}+`;
 }
 
-const DEFAULT_STATS = {
-  downloads: 860,
-  formattedDownloads: '860+',
+export const FALLBACK_STATS = {
+  downloads: 1370,
+  formattedDownloads: '1,370+',
   releases: 7,
-  latestVersion: 'v2.1.0',
+  latestVersion: 'v2.1.2',
   isLive: false,
 };
 
@@ -30,8 +30,8 @@ export async function fetchLiveStats() {
   }
 
   try {
-    // Fetch npm download count
-    const npmRes = await fetch('https://api.npmjs.org/downloads/point/last-month/gitrunbykaru');
+    // Fetch all-time npm download count (2020-01-01 to 2030-01-01 range)
+    const npmRes = await fetch('https://api.npmjs.org/downloads/point/2020-01-01:2030-01-01/gitrunbykaru');
     const npmData = npmRes.ok ? await npmRes.json() : null;
 
     // Fetch GitHub repo metadata
@@ -42,7 +42,7 @@ export async function fetchLiveStats() {
     const relRes = await fetch('https://api.github.com/repos/Karthikeyadusi/gitrunbykaru/releases');
     const relData = relRes.ok ? await relRes.json() : null;
 
-    const rawDownloads = npmData?.downloads ? Math.max(860, npmData.downloads) : FALLBACK_STATS.downloads;
+    const rawDownloads = npmData?.downloads ? Math.max(1370, npmData.downloads) : FALLBACK_STATS.downloads;
 
     const liveStats = {
       downloads: rawDownloads,
