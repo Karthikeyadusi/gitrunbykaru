@@ -269,8 +269,8 @@ export const RESOURCE_CARDS = [
   },
   {
     title: 'Release Notes',
-    desc: 'Detailed notes and highlights for v2.0.2.',
-    link: 'https://github.com/Karthikeyadusi/gitrunbykaru/blob/main/docs/RELEASE_NOTES_v2.0.2.md',
+    desc: 'Detailed notes and highlights for v2.2.0.',
+    link: 'https://github.com/Karthikeyadusi/gitrunbykaru/blob/main/docs/RELEASE_NOTES_v2.2.0.md',
     icon: 'Tag'
   }
 ];

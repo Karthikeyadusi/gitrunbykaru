@@ -1,4 +1,4 @@
-const CACHE_KEY = 'grbk_live_stats_v3';
+const CACHE_KEY = 'grbk_live_stats_v4';
 const CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour
 
 export function formatRoundedDownloads(count) {
@@ -10,8 +10,8 @@ export function formatRoundedDownloads(count) {
 export const FALLBACK_STATS = {
   downloads: 1370,
   formattedDownloads: '1,370+',
-  releases: 7,
-  latestVersion: 'v2.1.2',
+  releases: 8,
+  latestVersion: 'v2.2.0',
   isLive: false,
 };
 
