@@ -5,7 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.1.1] - 2026-08-04
+## [2.2.0] - 2026-08-21
+
+This minor release introduces experimental execution strategies for Go and Rust projects, Windows toolchain auto-discovery enhancements, and repository documentation alignment.
+
+### Added (Experimental)
+- **Go Execution Strategy (`src/strategies/go.js`):** Added detection and execution for Go projects (`go.mod`, `main.go`) using `go mod download` and `go run .` with real-time port sniffing (Gin, Fiber, Echo, standard `net/http`). Marked as Under Development.
+- **Rust Execution Strategy (`src/strategies/rust.js`):** Added detection and execution for Rust projects (`Cargo.toml`, `main.rs`) using `cargo build` and `cargo run` with progress feedback. Marked as Under Development.
+
+### Fixed & Enhanced
+- **Windows Go Toolchain Discovery:** Added dynamic discovery of standard Windows Go installation paths (`C:\Program Files\Go\bin`, `C:\Go\bin`) to ensure execution succeeds even when terminal sessions have un-refreshed environment variables.
+- **Windows Path Whitespace Safety:** Dynamically prepends discovered toolchain directories to `process.env.PATH` to prevent Windows `cmd.exe` space-splitting errors during subprocess spawning.
+- **Package Optimization:** Streamlined `.npmignore` to reduce published npm tarball size from 11 MB to 21.8 kB.
+
+### Documentation & Repository
+- Clarified Go and Rust status across `README.md`, `llms.txt`, and architecture references as experimental / under development.
+
+---
+
+## [2.1.2] - 2026-08-21
 
 This patch release fixes Python dependency installation failures on UTF-16 encoded `requirements.txt` files and upgrades isolated `venv` package tooling.
 
