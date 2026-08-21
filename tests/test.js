@@ -72,6 +72,25 @@ describe('Strategy & Detection Engine Tests', () => {
     assert.equal(strategy.getRunCommand(detection), 'go run .');
   });
 
+  it('should detect a Rust/Axum project', async () => {
+    const dir = join(tempBase, 'rust-app');
+    mkdirSync(dir, { recursive: true });
+    writeFileSync(join(dir, 'Cargo.toml'), '[package]\nname = "my-axum-app"\nversion = "0.1.0"\n\n[dependencies]\naxum = "0.7"\n');
+    mkdirSync(join(dir, 'src'), { recursive: true });
+    writeFileSync(join(dir, 'src', 'main.rs'), 'fn main() { println!("Hello Axum"); }');
+
+    const detection = await detectProject(dir);
+    assert.equal(detection.type, 'rust');
+    assert.equal(detection.framework, 'Axum');
+    assert.equal(detection.runCommand, 'cargo run');
+    assert.equal(detection.installCommand, 'cargo build');
+
+    const strategy = getStrategy(detection.type);
+    assert.ok(strategy);
+    assert.equal(strategy.name, 'rust');
+    assert.equal(strategy.getRunCommand(detection), 'cargo run');
+  });
+
   it('should detect a Static HTML project', async () => {
     const dir = join(tempBase, 'static-app');
     mkdirSync(dir, { recursive: true });

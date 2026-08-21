@@ -160,6 +160,40 @@ export async function detectProject(dir, logger) {
     };
   }
 
+  // ── Rust ─────────────────────────────────────────────────────────────────
+  if (has('Cargo.toml') || files.some(f => f.endsWith('.rs'))) {
+    let rawFramework = 'Rust';
+    let label = 'Rust app';
+
+    if (has('Cargo.toml')) {
+      try {
+        const content = readFileSync(join(dir, 'Cargo.toml'), 'utf8');
+        if (content.includes('actix-web')) {
+          rawFramework = 'Actix-web';
+          label = 'Rust/Actix-web server';
+        } else if (content.includes('axum')) {
+          rawFramework = 'Axum';
+          label = 'Rust/Axum server';
+        } else if (content.includes('rocket')) {
+          rawFramework = 'Rocket';
+          label = 'Rust/Rocket server';
+        } else if (content.includes('warp')) {
+          rawFramework = 'Warp';
+          label = 'Rust/Warp server';
+        }
+      } catch { /* ignore */ }
+    }
+
+    return {
+      type: 'rust',
+      label,
+      framework: rawFramework,
+      runCommand: 'cargo run',
+      installCommand: 'cargo build',
+      port: detectPortFromEnv(dir) || 8080,
+    };
+  }
+
   // ── Static HTML ──────────────────────────────────────────────────────────
   if (has('index.html') || files.some(f => f.endsWith('.html'))) {
     return {
