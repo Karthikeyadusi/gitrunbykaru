@@ -1,0 +1,38 @@
+name: Website Verification
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'website/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/website.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'website/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/website.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Verify Website Production Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+
+      - name: Install website dependencies
+        run: npm ci --prefix website
+
+      - name: Build website bundle
+        run: npm run build --prefix website

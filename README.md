@@ -246,6 +246,12 @@ npm test
 
 ---
 
+## Contributing
+
+We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for local setup, development guidelines, and pull request expectations, and read our [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
+
+---
+
 ## License
 
 This project is licensed under the MIT License.
