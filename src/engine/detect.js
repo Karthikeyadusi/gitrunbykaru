@@ -123,6 +123,43 @@ export async function detectProject(dir, logger) {
     };
   }
 
+  // ── Go ───────────────────────────────────────────────────────────────────
+  if (has('go.mod') || has('main.go') || files.some(f => f.endsWith('.go'))) {
+    let rawFramework = 'Go';
+    let label = 'Go app';
+
+    if (has('go.mod')) {
+      try {
+        const content = readFileSync(join(dir, 'go.mod'), 'utf8');
+        if (content.includes('github.com/gin-gonic/gin')) {
+          rawFramework = 'Gin';
+          label = 'Go/Gin server';
+        } else if (content.includes('github.com/gofiber/fiber')) {
+          rawFramework = 'Fiber';
+          label = 'Go/Fiber server';
+        } else if (content.includes('github.com/labstack/echo')) {
+          rawFramework = 'Echo';
+          label = 'Go/Echo server';
+        } else if (content.includes('github.com/go-chi/chi')) {
+          rawFramework = 'Chi';
+          label = 'Go/Chi server';
+        }
+      } catch { /* ignore */ }
+    }
+
+    const runCommand = has('go.mod') ? 'go run .' : (has('main.go') ? 'go run main.go' : 'go run .');
+    const installCommand = has('go.mod') ? 'go mod download' : null;
+
+    return {
+      type: 'go',
+      label,
+      framework: rawFramework,
+      runCommand,
+      installCommand,
+      port: detectPortFromEnv(dir) || 8080,
+    };
+  }
+
   // ── Static HTML ──────────────────────────────────────────────────────────
   if (has('index.html') || files.some(f => f.endsWith('.html'))) {
     return {
