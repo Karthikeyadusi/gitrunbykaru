@@ -1,0 +1,83 @@
+# GitRunByKaru (grbk)
+
+> An open-source developer tool and npm CLI for automatically running conventional GitHub repositories locally.
+
+## Summary
+GitRunByKaru is an open-source CLI tool published on npm under `gitrunbykaru` (with the short binary alias `grbk`). Its primary purpose is to automate the process of taking a conventional public GitHub repository or local workspace and getting it running locally.
+
+The technical foundation of the tool is implemented as a reusable runtime execution engine that handles the execution pipeline. An Anthropic Model Context Protocol (MCP) server is included as an additional, optional interface that allows compatible AI coding assistants to invoke the same execution engine.
+
+GitRunByKaru does **not** create, initialize, push, commit, or manage GitHub repositories. It operates strictly on existing repositories to automate cloning, detection, configuration, dependency installation, and local execution.
+
+## Installation
+Requires Node.js 18+.
+
+```bash
+npm install -g gitrunbykaru
+```
+
+## CLI Usage
+Pass any public GitHub repository URL to clone and launch it in a temporary directory:
+
+```bash
+gitrunbykaru https://github.com/user/repo
+# or short alias:
+grbk https://github.com/user/repo
+```
+
+## What It Automates
+When a repository URL is provided, GitRunByKaru executes an automated pipeline:
+1. **Cloning:** Performs a shallow clone (`--depth 1`) into an operating system temporary directory.
+2. **Framework Detection:** Inspects lockfiles and package manifests to identify framework, package manager, and launch command.
+3. **Environment Preparation:** Detects `.env.example` or sample configuration templates and synthesizes working placeholder `.env` files.
+4. **Dependency Installation:** Runs the appropriate package manager (`npm`, `pnpm`, `yarn`, `bun`, `pip`) inside the temporary project workspace.
+5. **Application Launch:** Spawns the development server process tree.
+6. **Readiness Verification:** Issues HTTP GET readiness probes to verify server response before opening the browser.
+7. **Workspace Cleanup:** Traps exit signals (`Ctrl+C`, `SIGINT`, `SIGTERM`), terminates child processes, and deletes the temporary directory.
+
+## Local Workspace Execution
+GitRunByKaru also supports running existing local project directories in-place:
+
+```bash
+gitrunbykaru .
+```
+
+When run against a local workspace, GitRunByKaru executes the detection, environment preparation, and launch steps in-place and does **not** delete any workspace files during teardown.
+
+## Machine-Readable Mode
+Returns structured `RuntimeSession` metadata as JSON for scripting and automation:
+
+```bash
+gitrunbykaru https://github.com/user/repo --json --no-open
+```
+
+## AI Agent Integration (MCP)
+GitRunByKaru provides a Model Context Protocol (MCP) server as an additional interface over `stdio`, allowing compatible AI coding assistants (such as Cursor, Claude Desktop, Claude Code, VS Code, and Windsurf) to delegate local execution to the same underlying runtime engine.
+
+### Configuration Example:
+```json
+{
+  "mcpServers": {
+    "gitrunbykaru": {
+      "command": "npx",
+      "args": ["-y", "gitrunbykaru-mcp"]
+    }
+  }
+}
+```
+
+### Available MCP Tools:
+- `gitrun_remote({ repoUrl, preferredPort })`: Shallow clones a remote GitHub repository to a temporary directory, prepares `.env`, installs dependencies, and launches the development server.
+- `gitrun_local({ workspacePath, preferredPort })`: Executes a local workspace in-place without deleting files on teardown.
+- `gitrun_stop({ sessionId })`: Terminates the running process tree and performs session cleanup.
+
+## Supported Frameworks & Stacks
+- **Node.js:** Next.js, Vite, React, Express, Fastify, Vue, Svelte, Angular, Astro, Remix
+- **Python:** Flask, Django, FastAPI (virtualenv isolated)
+- **Static Web:** HTML5 / static asset projects
+
+## Official Links
+- Website: https://gitrunbykaru.vercel.app/
+- AI Integration Guide: https://gitrunbykaru.vercel.app/ai
+- GitHub Repository: https://github.com/Karthikeyadusi/gitrunbykaru
+- npm Package: https://www.npmjs.com/package/gitrunbykaru
