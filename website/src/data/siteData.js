@@ -92,6 +92,7 @@ export const PIPELINE_STEPS = [
       details: [
         'Node.js: package.json + lockfiles (package-lock, yarn.lock, pnpm-lock, bun.lock)',
         'Python: requirements.txt, pyproject.toml, Pipfile, manage.py, app.py',
+        'Go & Rust (Under Development): go.mod, main.go, Cargo.toml',
         'Static: index.html or standalone HTML files'
       ]
     }
@@ -150,6 +151,8 @@ export const TECH_STACKS = [
   { name: 'Django', icon: 'Boxes' },
   { name: 'Flask', icon: 'Cpu' },
   { name: 'FastAPI', icon: 'Activity' },
+  { name: 'Go (Dev)', icon: 'Terminal' },
+  { name: 'Rust (Dev)', icon: 'Boxes' },
   { name: 'HTML5', icon: 'FileCode' }
 ];
 

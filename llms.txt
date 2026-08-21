@@ -72,11 +72,16 @@ GitRunByKaru provides a Model Context Protocol (MCP) server as an additional int
 - `gitrun_stop({ sessionId })`: Terminates the running process tree and performs session cleanup.
 
 ## Supported Frameworks & Stacks
+### Stable:
 - **Node.js:** Next.js, Vite, React, Express, Fastify, Vue, Svelte, Angular, Astro, Remix
 - **Python:** Flask, Django, FastAPI (virtualenv isolated)
-- **Go:** Gin, Fiber, Echo, Chi, standard net/http
-- **Rust:** Axum, Actix-web, Rocket, Warp, Poem
 - **Static Web:** HTML5 / static asset projects
+
+### Under Development (Experimental):
+- **Go — Under Development:** Gin, Fiber, Echo, Chi, standard net/http
+- **Rust — Under Development:** Axum, Actix-web, Rocket, Cargo
+
+> Go and Rust support is currently under development and may not work with all project structures.
 
 ## Official Links
 - Website: https://gitrunbykaru.vercel.app/

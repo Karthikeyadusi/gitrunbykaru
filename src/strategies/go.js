@@ -3,6 +3,9 @@ import { existsSync } from 'fs';
 import { join } from 'path';
 import { runInstallWithProgress, log } from '../logger.js';
 
+/**
+ * Go execution strategy (Under Development / Experimental)
+ */
 export const goStrategy = {
   name: 'go',
 

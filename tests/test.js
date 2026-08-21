@@ -54,7 +54,7 @@ describe('Strategy & Detection Engine Tests', () => {
     assert.equal(strategy.name, 'python');
   });
 
-  it('should detect a Go/Gin project', async () => {
+  it('should detect a Go/Gin project (under development)', async () => {
     const dir = join(tempBase, 'go-app');
     mkdirSync(dir, { recursive: true });
     writeFileSync(join(dir, 'go.mod'), 'module example.com/my-gin-app\n\ngo 1.22\n\nrequire github.com/gin-gonic/gin v1.9.1\n');
@@ -72,7 +72,7 @@ describe('Strategy & Detection Engine Tests', () => {
     assert.equal(strategy.getRunCommand(detection), 'go run .');
   });
 
-  it('should detect a Rust/Axum project', async () => {
+  it('should detect a Rust/Axum project (under development)', async () => {
     const dir = join(tempBase, 'rust-app');
     mkdirSync(dir, { recursive: true });
     writeFileSync(join(dir, 'Cargo.toml'), '[package]\nname = "my-axum-app"\nversion = "0.1.0"\n\n[dependencies]\naxum = "0.7"\n');

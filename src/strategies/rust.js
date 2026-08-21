@@ -1,6 +1,9 @@
 import { spawnSync } from 'child_process';
 import { runInstallWithProgress, log } from '../logger.js';
 
+/**
+ * Rust execution strategy (Under Development / Experimental)
+ */
 export const rustStrategy = {
   name: 'rust',
 

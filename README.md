@@ -110,6 +110,8 @@ Prepare Environment (.env)
 
 GitRunByKaru supports conventional web applications, APIs, and static pages:
 
+### Stable
+
 | Stack | Detection File | Install Command | Run Priority |
 | :--- | :--- | :--- | :--- |
 | **Node.js** | `package.json` | `npm`, `yarn`, `pnpm`, or `bun` | `dev` ➔ `start` ➔ `serve` ➔ `build && preview` |
@@ -118,9 +120,16 @@ GitRunByKaru supports conventional web applications, APIs, and static pages:
 | **Python / Flask**| `requirements.txt` + `app.py` | `pip` inside local venv | `python app.py` |
 | **Django** | `manage.py` | `pip` inside local venv | `python manage.py runserver` |
 | **FastAPI** | `requirements.txt` + fastapi | `pip` inside local venv | `python main.py` |
-| **Go** (Gin, Fiber, Echo) | `go.mod` / `main.go` | `go mod download` | `go run .` |
-| **Rust** (Axum, Actix-web, Rocket) | `Cargo.toml` | `cargo build` | `cargo run` |
 | **Static HTML** | `index.html` (only) | None | `npx serve .` ➔ `python -m http.server` |
+
+### Under Development (Experimental)
+
+| Stack | Detection File | Toolchain Action | Status |
+| :--- | :--- | :--- | :--- |
+| **Go** | `go.mod` / `main.go` | `go mod download` ➔ `go run .` | Under Development |
+| **Rust** | `Cargo.toml` | `cargo build` ➔ `cargo run` | Under Development |
+
+> ⚠️ **Note:** Go and Rust support is currently under development and may not work with all project structures.
 
 ---
 
