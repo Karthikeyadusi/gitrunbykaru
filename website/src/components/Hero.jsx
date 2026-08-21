@@ -7,7 +7,7 @@ import { fetchLiveStats } from '../utils/fetchStats';
 import './Hero.css';
 
 export function Hero({ heroRef }) {
-  const [stats, setStats] = useState({ downloads: 1370, formattedDownloads: '1,370+', releases: 8, latestVersion: 'v2.2.0', isLive: false });
+  const [stats, setStats] = useState({ downloads: 1370, formattedDownloads: '1,370+', releases: 6, latestVersion: 'v2.2.0', isLive: false });
   const [cmdAlias, setCmdAlias] = useState('gitrunbykaru');
 
   useEffect(() => {

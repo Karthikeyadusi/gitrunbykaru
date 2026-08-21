@@ -7,10 +7,10 @@ import './ProjectJourney.css';
 
 export function ProjectJourney() {
   const [stats, setStats] = useState({
-    downloads: 860,
-    formattedDownloads: '860+',
-    releases: 4,
-    latestVersion: 'v2.0.3',
+    downloads: 1521,
+    formattedDownloads: '1,520+',
+    releases: 6,
+    latestVersion: 'v2.2.0',
     isLive: false
   });
 
@@ -23,7 +23,7 @@ export function ProjectJourney() {
   return (
     <section className="section journey-section" id="journey">
       <div className="container">
-        
+
         <div className="section-header text-center">
           <h2 className="type-h2">Built in the open. Improving every release.</h2>
           <p className="type-body text-secondary">
