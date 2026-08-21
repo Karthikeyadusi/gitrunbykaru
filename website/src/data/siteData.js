@@ -227,10 +227,10 @@ export const JOURNEY_MILESTONES = [
     subdesc: 'Proving real-world demand.'
   },
   {
-    id: 'v210',
-    title: 'v2.1.0 — Latest',
-    desc: '🤖 Layered Engine Architecture · --json Mode · Anthropic MCP Server',
-    subdesc: 'Native AI Coding Agent execution engine.',
+    id: 'v220',
+    title: 'v2.2.0 — Latest',
+    desc: '🦀 Go & Rust Strategies (Experimental) · 21 kB Lean Tarball · Windows Path Discovery',
+    subdesc: 'Multi-runtime engine with native AI Agent MCP support.',
     isLatest: true
   },
   {
