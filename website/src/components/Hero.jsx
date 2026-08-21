@@ -29,7 +29,7 @@ export function Hero({ heroRef }) {
           transition={{ duration: 0.5 }}
         >
           <Zap size={14} className="text-magenta" />
-          <span>v2.1.0 • Runtime Engine + MCP</span>
+          <span>{stats.latestVersion || 'v2.2.0'} • Multi-Runtime + MCP</span>
           {stats.isLive && <span className="live-indicator-dot" title="Live npm/GitHub stats synced"></span>}
         </motion.div>
 

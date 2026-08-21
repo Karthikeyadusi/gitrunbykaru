@@ -133,7 +133,7 @@ export function AiGuidePage({ onBackToHome }) {
             <span>Back to Main Page</span>
           </button>
 
-          <span className="page-version-badge">v2.1.0 • MCP Integration</span>
+          <span className="page-version-badge">v2.2.0 • MCP Integration</span>
         </div>
 
         {/* Hero Section */}
