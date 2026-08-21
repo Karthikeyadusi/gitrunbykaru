@@ -1,9 +1,9 @@
 # GitRunByKaru (grbk)
 
-> An open-source developer tool and npm CLI that automates taking conventional GitHub repositories and getting them running locally.
+> An open-source developer tool and npm CLI for automatically running conventional GitHub repositories locally.
 
 ## Summary
-GitRunByKaru is an open-source CLI tool published on npm under `gitrunbykaru` (with short binary alias `grbk`). Its primary purpose is to automate the repository-to-running-application process for developers exploring conventional public repositories and local workspaces.
+GitRunByKaru is an open-source CLI tool published on npm under `gitrunbykaru` (with the short binary alias `grbk`). Its primary purpose is to automate the process of taking a conventional public GitHub repository or local workspace and getting it running locally.
 
 The technical foundation of the tool is implemented as a reusable runtime execution engine that handles the execution pipeline. An Anthropic Model Context Protocol (MCP) server is included as an additional, optional interface that allows compatible AI coding assistants to invoke the same execution engine.
 
@@ -17,7 +17,7 @@ npm install -g gitrunbykaru
 ```
 
 ## CLI Usage
-Pass any public GitHub repository URL to clone and launch it in an isolated ephemeral directory:
+Pass any public GitHub repository URL to clone and launch it in a temporary directory:
 
 ```bash
 gitrunbykaru https://github.com/user/repo
@@ -27,13 +27,13 @@ grbk https://github.com/user/repo
 
 ## What It Automates
 When a repository URL is provided, GitRunByKaru executes an automated pipeline:
-1. **Cloning:** Performs a shallow clone (`--depth 1`) into an isolated operating system temporary directory.
+1. **Cloning:** Performs a shallow clone (`--depth 1`) into an operating system temporary directory.
 2. **Framework Detection:** Inspects lockfiles and package manifests to identify framework, package manager, and launch command.
 3. **Environment Preparation:** Detects `.env.example` or sample configuration templates and synthesizes working placeholder `.env` files.
-4. **Dependency Installation:** Runs the appropriate package manager (`npm`, `pnpm`, `yarn`, `bun`, `pip`) inside an isolated environment.
+4. **Dependency Installation:** Runs the appropriate package manager (`npm`, `pnpm`, `yarn`, `bun`, `pip`) inside the temporary project workspace.
 5. **Application Launch:** Spawns the development server process tree.
 6. **Readiness Verification:** Issues HTTP GET readiness probes to verify server response before opening the browser.
-7. **Workspace Cleanup:** Traps exit signals (`Ctrl+C`, `SIGINT`, `SIGTERM`), terminates child processes, and deletes the temporary workspace directory.
+7. **Workspace Cleanup:** Traps exit signals (`Ctrl+C`, `SIGINT`, `SIGTERM`), terminates child processes, and deletes the temporary directory.
 
 ## Local Workspace Execution
 GitRunByKaru also supports running existing local project directories in-place:
@@ -67,7 +67,7 @@ GitRunByKaru provides a Model Context Protocol (MCP) server as an additional int
 ```
 
 ### Available MCP Tools:
-- `gitrun_remote({ repoUrl, preferredPort })`: Shallow clones a remote GitHub repository to an ephemeral workspace, prepares `.env`, installs dependencies, and launches the development server.
+- `gitrun_remote({ repoUrl, preferredPort })`: Shallow clones a remote GitHub repository to a temporary directory, prepares `.env`, installs dependencies, and launches the development server.
 - `gitrun_local({ workspacePath, preferredPort })`: Executes a local workspace in-place without deleting files on teardown.
 - `gitrun_stop({ sessionId })`: Terminates the running process tree and performs session cleanup.
 
