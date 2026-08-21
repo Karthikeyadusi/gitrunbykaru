@@ -11,13 +11,19 @@ import { OpenSource } from './components/OpenSource';
 import { Footer } from './components/Footer';
 import { StickyInstallBar } from './components/ui/StickyInstallBar';
 import { AiGuidePage } from './pages/AiGuidePage';
+import { NotFoundPage } from './pages/NotFoundPage';
 import './App.css';
+
+function getRouteFromLocation() {
+  const path = window.location.pathname.replace(/\/$/, '');
+  if (path === '' || path === '/') return 'home';
+  if (path === '/ai') return 'ai';
+  return '404';
+}
 
 export function App() {
   const heroRef = useRef(null);
-  const [currentPage, setCurrentPage] = useState(() => {
-    return window.location.pathname.startsWith('/ai') ? 'ai' : 'home';
-  });
+  const [currentPage, setCurrentPage] = useState(getRouteFromLocation);
   const [isStickyVisible, setIsStickyVisible] = useState(false);
   const [toastMessage, setToastMessage] = useState(null);
 
@@ -27,7 +33,7 @@ export function App() {
     if (currentPage === 'ai') {
       document.title = 'AI Agent Integration Guide (MCP) — gitrunbykaru';
       window.history.replaceState(null, '', '/ai');
-    } else {
+    } else if (currentPage === 'home') {
       document.title = 'gitrunbykaru — Run GitHub repos locally with one command';
       window.history.replaceState(null, '', '/');
     }
@@ -36,7 +42,7 @@ export function App() {
   // Handle browser back/forward buttons
   useEffect(() => {
     const handlePopState = () => {
-      setCurrentPage(window.location.pathname.startsWith('/ai') ? 'ai' : 'home');
+      setCurrentPage(getRouteFromLocation());
     };
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
@@ -84,6 +90,8 @@ export function App() {
       
       {currentPage === 'ai' ? (
         <AiGuidePage onBackToHome={() => setCurrentPage('home')} />
+      ) : currentPage === '404' ? (
+        <NotFoundPage onBackToHome={() => setCurrentPage('home')} />
       ) : (
         <main>
           <Hero heroRef={heroRef} />
