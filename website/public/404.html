@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 — Page Not Found | gitrunbykaru</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        background-color: #0a0a0f;
+        color: #f3f4f6;
+        font-family: 'JetBrains Mono', monospace;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 20px;
+        text-align: center;
+      }
+      .container {
+        max-width: 500px;
+        padding: 40px;
+        background: #12121a;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+      }
+      .badge {
+        display: inline-block;
+        color: #eb4eac;
+        background: rgba(235, 78, 172, 0.1);
+        border: 1px solid rgba(235, 78, 172, 0.3);
+        padding: 4px 12px;
+        border-radius: 9999px;
+        font-size: 12px;
+        margin-bottom: 16px;
+      }
+      h1 {
+        font-size: 2.5rem;
+        margin-bottom: 12px;
+        color: #ffffff;
+      }
+      p {
+        color: #9ca3af;
+        font-size: 14px;
+        line-height: 1.6;
+        margin-bottom: 24px;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: #eb4eac;
+        color: #ffffff;
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 13px;
+        transition: opacity 0.2s ease;
+      }
+      .btn:hover { opacity: 0.9; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="badge">HTTP 404</div>
+      <h1>Page Not Found</h1>
+      <p>The path you requested could not be located in this workspace.</p>
+      <a href="/" class="btn">← Return to Homepage</a>
+    </div>
+  </body>
+</html>

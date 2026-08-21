@@ -15,14 +15,32 @@ import './App.css';
 
 export function App() {
   const heroRef = useRef(null);
-  const [currentPage, setCurrentPage] = useState('home'); // 'home' | 'ai'
+  const [currentPage, setCurrentPage] = useState(() => {
+    return window.location.pathname.startsWith('/ai') ? 'ai' : 'home';
+  });
   const [isStickyVisible, setIsStickyVisible] = useState(false);
   const [toastMessage, setToastMessage] = useState(null);
 
-  // Scroll to top when page changes
+  // Sync document title and URL when page changes
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (currentPage === 'ai') {
+      document.title = 'AI Agent Integration Guide (MCP) — gitrunbykaru';
+      window.history.replaceState(null, '', '/ai');
+    } else {
+      document.title = 'gitrunbykaru — Run GitHub repos locally with one command';
+      window.history.replaceState(null, '', '/');
+    }
   }, [currentPage]);
+
+  // Handle browser back/forward buttons
+  useEffect(() => {
+    const handlePopState = () => {
+      setCurrentPage(window.location.pathname.startsWith('/ai') ? 'ai' : 'home');
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   // IntersectionObserver for Hero install command -> Sticky bar trigger
   useEffect(() => {

@@ -1,0 +1,57 @@
+# GitRunByKaru (grbk)
+
+> Run conventional public GitHub repositories and local workspaces locally in seconds with a single command. Zero config friction.
+
+## Summary
+GitRunByKaru (`gitrunbykaru` or `grbk`) is a command-line tool, runtime engine, and Anthropic Model Context Protocol (MCP) server that automates cloning, framework detection, dependency installation, `.env` synthesis, and application execution.
+
+## Installation
+Requires Node.js 18+.
+
+```bash
+npm install -g gitrunbykaru
+```
+
+## CLI Usage
+Run any GitHub repository:
+```bash
+gitrunbykaru https://github.com/user/repo
+# or short alias:
+grbk https://github.com/user/repo
+```
+
+Machine-readable JSON mode:
+```bash
+gitrunbykaru https://github.com/user/repo --json --no-open
+```
+
+## AI Agent Integration (MCP)
+GitRunByKaru includes an MCP server compatible with Cursor, Claude Desktop, Claude Code, VS Code, and Windsurf.
+
+### MCP Configuration:
+```json
+{
+  "mcpServers": {
+    "gitrunbykaru": {
+      "command": "npx",
+      "args": ["-y", "gitrunbykaru-mcp"]
+    }
+  }
+}
+```
+
+### Available MCP Tools:
+- `gitrun_remote({ repoUrl, preferredPort })`: Shallow clones remote GitHub repository to OS /tmp, prepares .env, installs dependencies, and launches development server.
+- `gitrun_local({ workspacePath, preferredPort })`: Runs local workspace in-place without deleting files.
+- `gitrun_stop({ sessionId })`: Gracefully stops the process tree by session ID.
+
+## Supported Frameworks & Stacks
+- Node.js (Next.js, Vite, React, Express, Fastify, Vue, Svelte, Angular, Astro, Remix)
+- Python (Flask, Django, FastAPI)
+- Static HTML / Web sites
+
+## Links
+- Website: https://gitrunbykaru.vercel.app/
+- AI Integration Guide: https://gitrunbykaru.vercel.app/ai
+- GitHub: https://github.com/Karthikeyadusi/gitrunbykaru
+- npm: https://www.npmjs.com/package/gitrunbykaru
