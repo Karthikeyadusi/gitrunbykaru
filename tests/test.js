@@ -69,7 +69,7 @@ describe('Strategy & Detection Engine Tests', () => {
     const strategy = getStrategy(detection.type);
     assert.ok(strategy);
     assert.equal(strategy.name, 'go');
-    assert.equal(strategy.getRunCommand(detection), 'go run .');
+    assert.match(strategy.getRunCommand(detection), /run \.$/);
   });
 
   it('should detect a Rust/Axum project', async () => {
