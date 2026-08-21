@@ -7,15 +7,13 @@ export const goStrategy = {
   name: 'go',
 
   async install(dir, detection) {
-    const goBin = getGoBin();
-    if (!goBin) {
+    if (!ensureGoInPath()) {
       throw new Error('Go toolchain is not installed or not found on PATH. Please install Go from https://go.dev/dl/');
     }
 
     if (detection.installCommand) {
-      const installCmd = detection.installCommand.replace(/^go\s+/, `"${goBin}" `);
       await runInstallWithProgress(
-        installCmd,
+        detection.installCommand,
         { cwd: dir, timeout: 300000 },
         'Downloading Go modules'
       );
@@ -25,32 +23,34 @@ export const goStrategy = {
   },
 
   getRunCommand(detection) {
-    const goBin = getGoBin() || 'go';
-    const baseCmd = detection.runCommand || 'go run .';
-    return baseCmd.replace(/^go\s+/, `"${goBin}" `);
+    ensureGoInPath();
+    return detection.runCommand || 'go run .';
   },
 
   // Matches Go server output formats (Gin, Fiber, Echo, standard net/http)
   portPattern: /(?:localhost|127\.0\.0\.1|0\.0\.0\.0):(\d{4,5})|(?:listening on|Listening and serving HTTP on|started at)\s*:?\s*(?::?(\d{4,5}))/i,
 };
 
-function getGoBin() {
+function ensureGoInPath() {
   try {
     const result = spawnSync('go', ['version'], { stdio: 'pipe', shell: process.platform === 'win32' });
-    if (result.status === 0) return 'go';
+    if (result.status === 0) return true;
   } catch { /* ignore */ }
 
   if (process.platform === 'win32') {
-    const standardPaths = [
-      'C:\\Program Files\\Go\\bin\\go.exe',
-      'C:\\Go\\bin\\go.exe',
-      join(process.env.USERPROFILE || '', 'go', 'bin', 'go.exe'),
-      join(process.env.LOCALAPPDATA || '', 'Programs', 'Go', 'bin', 'go.exe'),
+    const standardDirs = [
+      'C:\\Program Files\\Go\\bin',
+      'C:\\Go\\bin',
+      join(process.env.USERPROFILE || '', 'go', 'bin'),
+      join(process.env.LOCALAPPDATA || '', 'Programs', 'Go', 'bin'),
     ];
-    for (const p of standardPaths) {
-      if (existsSync(p)) return p;
+    for (const dir of standardDirs) {
+      if (existsSync(join(dir, 'go.exe')) || existsSync(dir)) {
+        process.env.PATH = `${dir};${process.env.PATH}`;
+        return true;
+      }
     }
   }
 
-  return null;
+  return false;
 }
