@@ -1,6 +1,6 @@
 {
   "name": "gitrunbykaru",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "description": "Run conventional GitHub repositories locally with one command.",
   "homepage": "https://gitrunbykaru.vercel.app",
   "type": "module",
