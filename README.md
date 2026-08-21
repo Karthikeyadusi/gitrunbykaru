@@ -118,6 +118,8 @@ GitRunByKaru supports conventional web applications, APIs, and static pages:
 | **Python / Flask**| `requirements.txt` + `app.py` | `pip` inside local venv | `python app.py` |
 | **Django** | `manage.py` | `pip` inside local venv | `python manage.py runserver` |
 | **FastAPI** | `requirements.txt` + fastapi | `pip` inside local venv | `python main.py` |
+| **Go** (Gin, Fiber, Echo) | `go.mod` / `main.go` | `go mod download` | `go run .` |
+| **Rust** (Axum, Actix-web, Rocket) | `Cargo.toml` | `cargo build` | `cargo run` |
 | **Static HTML** | `index.html` (only) | None | `npx serve .` ➔ `python -m http.server` |
 
 ---
