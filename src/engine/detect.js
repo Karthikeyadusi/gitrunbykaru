@@ -161,9 +161,11 @@ export async function detectProject(dir, logger) {
   }
 
   // ── Rust ─────────────────────────────────────────────────────────────────
-  if (has('Cargo.toml') || files.some(f => f.endsWith('.rs'))) {
+  if (has('Cargo.toml') || has('main.rs')) {
     let rawFramework = 'Rust';
     let label = 'Rust app';
+    let runCommand = 'cargo run';
+    let installCommand = 'cargo build';
 
     if (has('Cargo.toml')) {
       try {
@@ -182,14 +184,19 @@ export async function detectProject(dir, logger) {
           label = 'Rust/Warp server';
         }
       } catch { /* ignore */ }
+    } else if (has('main.rs')) {
+      // Standalone single-file Rust script
+      label = 'Rust script (main.rs)';
+      installCommand = null;
+      runCommand = process.platform === 'win32' ? 'rustc main.rs && .\\main.exe' : 'rustc main.rs && ./main';
     }
 
     return {
       type: 'rust',
       label,
       framework: rawFramework,
-      runCommand: 'cargo run',
-      installCommand: 'cargo build',
+      runCommand,
+      installCommand,
       port: detectPortFromEnv(dir) || 8080,
     };
   }
