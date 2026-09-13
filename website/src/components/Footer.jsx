@@ -5,7 +5,7 @@ export function Footer() {
   return (
     <footer className="footer-section">
       <div className="container footer-container">
-        
+
         <div className="footer-left">
           <span className="footer-brand">gitrunbykaru</span>
           <span className="footer-license text-tertiary">· MIT License</span>
@@ -20,7 +20,7 @@ export function Footer() {
         </div>
 
         <div className="footer-right text-tertiary">
-          Built by <a href="https://github.com/Karthikeyadusi" target="_blank" rel="noreferrer" className="author-link">Karthikeya Dusi</a>
+          Built by <a href="https://linkedin.com/in/Karthikeyadusi" target="_blank" rel="noreferrer" className="author-link">Karthikeya Dusi</a>
         </div>
 
       </div>
