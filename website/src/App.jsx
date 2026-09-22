@@ -11,6 +11,9 @@ import { OpenSource } from './components/OpenSource';
 import { Footer } from './components/Footer';
 import { StickyInstallBar } from './components/ui/StickyInstallBar';
 import { AiGuidePage } from './pages/AiGuidePage';
+import { FaqPage } from './pages/FaqPage';
+import { InstallPage } from './pages/InstallPage';
+import { ComparisonPage } from './pages/ComparisonPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import './App.css';
 
@@ -18,6 +21,9 @@ function getRouteFromLocation() {
   const path = window.location.pathname.replace(/\/$/, '');
   if (path === '' || path === '/') return 'home';
   if (path === '/ai') return 'ai';
+  if (path === '/faq') return 'faq';
+  if (path === '/install') return 'install';
+  if (path === '/compare') return 'compare';
   return '404';
 }
 
@@ -30,13 +36,22 @@ export function App() {
   // Sync document title and URL when page changes
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    if (currentPage === 'ai') {
-      document.title = 'AI Agent Integration Guide (MCP) — gitrunbykaru';
-      window.history.replaceState(null, '', '/ai');
-    } else if (currentPage === 'home') {
-      document.title = 'gitrunbykaru — Run GitHub repos locally with one command';
-      window.history.replaceState(null, '', '/');
-    }
+    const titles = {
+      home: 'gitrunbykaru — Run GitHub repos locally with one command',
+      ai: 'AI Agent Integration Guide (MCP) — gitrunbykaru',
+      faq: 'FAQ — gitrunbykaru',
+      install: 'Install & Run — gitrunbykaru',
+      compare: 'gitrunbykaru vs Alternatives — gitrunbykaru',
+    };
+    document.title = titles[currentPage] || titles.home;
+    const paths = {
+      home: '/',
+      ai: '/ai',
+      faq: '/faq',
+      install: '/install',
+      compare: '/compare',
+    };
+    window.history.replaceState(null, '', paths[currentPage] || '/');
   }, [currentPage]);
 
   // Handle browser back/forward buttons
@@ -90,6 +105,12 @@ export function App() {
       
       {currentPage === 'ai' ? (
         <AiGuidePage onBackToHome={() => setCurrentPage('home')} />
+      ) : currentPage === 'faq' ? (
+        <FaqPage />
+      ) : currentPage === 'install' ? (
+        <InstallPage />
+      ) : currentPage === 'compare' ? (
+        <ComparisonPage />
       ) : currentPage === '404' ? (
         <NotFoundPage onBackToHome={() => setCurrentPage('home')} />
       ) : (

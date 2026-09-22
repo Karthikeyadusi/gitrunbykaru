@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { GithubIcon } from './ui/GithubIcon';
 import { NpmIcon } from './ui/NpmIcon';
-import { ArrowUpRight, Bot } from 'lucide-react';
+import { ArrowUpRight, Bot, HelpCircle, Download, GitCompare } from 'lucide-react';
 import './Navbar.css';
 
 const NAV_ITEMS = [
@@ -11,7 +11,7 @@ const NAV_ITEMS = [
   { id: 'journey', label: 'Journey', href: '#journey' }
 ];
 
-export function Navbar({ onNavigateAi, onNavigateHome }) {
+export function Navbar({ onNavigateAi, onNavigateHome, onNavigateFaq, onNavigateInstall, onNavigateCompare }) {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('demo');
 
@@ -87,6 +87,34 @@ export function Navbar({ onNavigateAi, onNavigateHome }) {
           </a>
         </nav>
 
+        {/* Secondary Nav - Documentation */}
+        <nav className="nav-docs" aria-label="Documentation">
+          <button
+            onClick={onNavigateInstall}
+            className="nav-doc-link"
+            aria-label="Installation guide"
+          >
+            <Download size={16} />
+            <span>Install</span>
+          </button>
+          <button
+            onClick={onNavigateFaq}
+            className="nav-doc-link"
+            aria-label="Frequently asked questions"
+          >
+            <HelpCircle size={16} />
+            <span>FAQ</span>
+          </button>
+          <button
+            onClick={onNavigateCompare}
+            className="nav-doc-link"
+            aria-label="Compare with alternatives"
+          >
+            <GitCompare size={16} />
+            <span>Compare</span>
+          </button>
+        </nav>
+
         {/* Prominent Action Buttons for AI, npm & GitHub */}
         <div className="nav-actions">
           <button
@@ -130,3 +158,5 @@ export function Navbar({ onNavigateAi, onNavigateHome }) {
     </header>
   );
 }
+
+export default Navbar;

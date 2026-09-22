@@ -47,26 +47,139 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "gitrunbykaru",
-      "alternateName": "grbk",
-      "operatingSystem": "Windows, macOS, Linux",
-      "applicationCategory": "DeveloperApplication",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "description": "A command-line tool and AI runtime engine for quickly exploring and running conventional public GitHub repositories and local workspaces without setup friction.",
-      "url": "https://gitrunbykaru.vercel.app/",
-      "downloadUrl": "https://www.npmjs.com/package/gitrunbykaru",
-      "softwareVersion": "2.1.2",
-      "author": {
-        "@type": "Person",
-        "name": "Karthikeya Dusi",
-        "url": "https://github.com/Karthikeyadusi"
-      },
-      "license": "https://opensource.org/licenses/MIT"
+      "@graph": [
+        {
+          "@type": "SoftwareApplication",
+          "name": "gitrunbykaru",
+          "alternateName": "grbk",
+          "operatingSystem": "Windows, macOS, Linux",
+          "applicationCategory": "DeveloperApplication",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "description": "A command-line tool and AI runtime engine for quickly exploring and running conventional public GitHub repositories and local workspaces without setup friction.",
+          "url": "https://gitrunbykaru.vercel.app/",
+          "downloadUrl": "https://www.npmjs.com/package/gitrunbykaru",
+          "softwareVersion": "2.2.0",
+          "author": {
+            "@type": "Person",
+            "name": "Karthikeya Dusi",
+            "url": "https://github.com/Karthikeyadusi"
+          },
+          "license": "https://opensource.org/licenses/MIT"
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Does gitrunbykaru work with private repositories?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. gitrunbykaru only supports public GitHub repositories. It cannot authenticate with GitHub to access private repos."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What frameworks does gitrunbykaru support?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Stable: Node.js (Next.js, Vite, React, Express, Fastify, Vue, Svelte, Angular, Astro, Remix), Python (Flask, Django, FastAPI), Static HTML. Experimental: Go (Gin, Fiber, Echo, Chi), Rust (Axum, Actix-web, Rocket)."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does gitrunbykaru set up databases like PostgreSQL or Redis?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. gitrunbykaru does not provision databases. If a project requires PostgreSQL, MySQL, Redis, or other services, you must run them locally and configure the project's .env to point to them."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I run gitrunbykaru on a local project directory?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Run 'grbk .' or 'gitrunbykaru .' from any local project directory. It will detect the framework, prepare .env, install dependencies, and launch the dev server in-place without deleting files on exit."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How does gitrunbykaru handle missing environment variables?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "It detects .env.example, .env.local.example, .env.sample, .env.template, or env.example files and auto-generates a .env file with placeholder values (e.g., gitrunbykaru_dummy_key_12345 for keys, http://localhost:9999 for URLs) to prevent boot crashes."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What package managers does gitrunbykaru support?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "npm, yarn, pnpm, bun for Node.js; pip, pipenv for Python; go mod for Go; cargo for Rust. It detects lockfiles to choose the correct manager."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does gitrunbykaru work with monorepos?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. gitrunbykaru does not support monorepos that require running multiple concurrent services (e.g., separate frontend + backend servers). It launches a single dev server process."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is there an MCP server for AI agents?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Install @gitrunbykaru/mcp-server via npx. Tools: gitrun_remote, gitrun_local, gitrun_stop. Works with Cursor, Claude Desktop, Claude Code, VS Code, Windsurf."
+              }
+            }
+          ]
+        },
+        {
+          "@type": "HowTo",
+          "name": "Install and run a GitHub repository with gitrunbykaru",
+          "description": "Install the CLI globally and run any public GitHub repository locally in seconds.",
+          "step": [
+            {
+              "@type": "HowToStep",
+              "name": "Install gitrunbykaru globally via npm",
+              "text": "Run 'npm install -g gitrunbykaru' in your terminal. Requires Node.js 18+.",
+              "url": "https://gitrunbykaru.vercel.app/"
+            },
+            {
+              "@type": "HowToStep",
+              "name": "Run a public GitHub repository",
+              "text": "Run 'grbk https://github.com/user/repo' (or 'gitrunbykaru https://github.com/user/repo'). The tool will clone, detect, install, and launch the dev server automatically.",
+              "url": "https://gitrunbykaru.vercel.app/"
+            },
+            {
+              "@type": "HowToStep",
+              "name": "Access the running application",
+              "text": "The tool opens your browser to http://localhost:PORT when the server is ready. Press Ctrl+C to stop and clean up.",
+              "url": "https://gitrunbykaru.vercel.app/"
+            }
+          ],
+          "tool": [
+            {
+              "@type": "HowToTool",
+              "name": "Node.js 18+"
+            },
+            {
+              "@type": "HowToTool",
+              "name": "npm"
+            },
+            {
+              "@type": "HowToTool",
+              "name": "git"
+            }
+          ],
+          "totalTime": "PT30S"
+        }
+      ]
     }
     </script>
   </head>

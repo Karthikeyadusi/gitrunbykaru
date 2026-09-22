@@ -113,6 +113,50 @@
   color: var(--text-tertiary);
 }
 
+/* Secondary Nav - Documentation Links */
+.nav-docs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-right: 16px;
+}
+
+.nav-doc-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+.nav-doc-link:hover {
+  color: var(--text-primary);
+  border-color: var(--border);
+  background: var(--bg-surface);
+}
+
+.nav-doc-link:focus-visible {
+  outline: 2px solid var(--accent-magenta);
+  outline-offset: 2px;
+}
+
+.nav-doc-link svg {
+  color: var(--text-tertiary);
+  transition: color 150ms ease;
+}
+
+.nav-doc-link:hover svg {
+  color: var(--accent-magenta);
+}
+
 /* Actions Area */
 .nav-actions {
   display: flex;
@@ -186,6 +230,9 @@
 
 @media (max-width: 840px) {
   .nav-links {
+    display: none;
+  }
+  .nav-docs {
     display: none;
   }
 }
