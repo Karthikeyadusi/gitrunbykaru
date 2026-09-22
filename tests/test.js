@@ -3,8 +3,8 @@ import assert from 'node:assert/strict';
 import { mkdtempSync, writeFileSync, rmSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
-import { detectProject } from '../src/engine/detect.js';
-import { getStrategy } from '../src/strategies/index.js';
+import { detectProject } from '../src/core/detection.js';
+import { getStrategy } from '../src/core/strategies/index.js';
 
 describe('Strategy & Detection Engine Tests', () => {
   let tempBase;

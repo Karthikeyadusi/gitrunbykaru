@@ -2,8 +2,7 @@
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { CallToolRequestSchema, ListToolsRequestSchema } from '@modelcontextprotocol/sdk/types.js';
-import { RemoteWorkspaceProvider } from '../providers/remote.js';
-import { LocalWorkspaceProvider } from '../providers/local.js';
+import { RemoteWorkspaceProvider, LocalWorkspaceProvider } from '../core/index.js';
 
 const activeSessions = new Map();
 

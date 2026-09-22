@@ -1,6 +1,6 @@
-import { RemoteWorkspaceProvider } from '../providers/remote.js';
-import { LocalWorkspaceProvider } from '../providers/local.js';
+import { RemoteWorkspaceProvider, LocalWorkspaceProvider } from '../core/index.js';
 import { cliUi } from './ui.js';
+import { createCliLogger } from './logger.js';
 
 export async function runCli(target, options = {}) {
   // Handle --mcp helper flag
@@ -10,17 +10,17 @@ export async function runCli(target, options = {}) {
   }
 
   const isJson = options.json === true;
-  const logger = isJson ? {} : cliUi;
+  const logger = isJson ? {} : createCliLogger();
 
   if (!isJson) {
-    cliUi.printBanner();
+    logger.printBanner?.();
   }
 
   if (!target) {
     if (!isJson) {
-      cliUi.printError('Please provide a valid GitHub URL or local workspace directory.');
-      cliUi.printError('Example: gitrunbykaru https://github.com/user/repo');
-      cliUi.printError('For MCP setup info: gitrunbykaru --mcp');
+      logger.printError('Please provide a valid GitHub URL or local workspace directory.');
+      logger.printError('Example: gitrunbykaru https://github.com/user/repo');
+      logger.printError('For MCP setup info: gitrunbykaru --mcp');
     } else {
       console.log(JSON.stringify({ status: 'error', message: 'Missing target argument' }));
     }
@@ -36,7 +36,7 @@ export async function runCli(target, options = {}) {
 
     if (signal && !isJson) {
       console.log('');
-      cliUi.step(`Received ${signal} — terminating process tree...`);
+      logger.step?.(`Received ${signal} — terminating process tree...`);
     }
 
     if (activeSession) {
@@ -60,7 +60,7 @@ export async function runCli(target, options = {}) {
     if (isJson) {
       console.log(JSON.stringify(activeSession.toJSON(), null, 2));
     } else {
-      cliUi.dim('Press Ctrl+C to exit & stop session');
+      logger.dim?.('Press Ctrl+C to exit & stop session');
     }
 
   } catch (err) {
@@ -70,7 +70,7 @@ export async function runCli(target, options = {}) {
         message: err.message || String(err)
       }));
     } else {
-      cliUi.printError(err.message || String(err));
+      logger.printError(err.message || String(err));
     }
     if (activeSession) {
       await activeSession.stop();
@@ -80,7 +80,7 @@ export async function runCli(target, options = {}) {
 }
 
 function printMcpGuide() {
-  cliUi.printBanner();
+  logger.printBanner?.();
   console.log(`
 🤖 GitRunByKaru Model Context Protocol (MCP) Setup Guide
 
