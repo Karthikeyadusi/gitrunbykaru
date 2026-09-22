@@ -101,7 +101,13 @@ export function App() {
 
   return (
     <div className="app-wrapper">
-      <Navbar onNavigateAi={() => setCurrentPage('ai')} onNavigateHome={() => setCurrentPage('home')} />
+      <Navbar 
+        onNavigateAi={() => setCurrentPage('ai')} 
+        onNavigateHome={() => setCurrentPage('home')}
+        onNavigateFaq={() => setCurrentPage('faq')}
+        onNavigateInstall={() => setCurrentPage('install')}
+        onNavigateCompare={() => setCurrentPage('compare')}
+      />
       
       {currentPage === 'ai' ? (
         <AiGuidePage onBackToHome={() => setCurrentPage('home')} />
