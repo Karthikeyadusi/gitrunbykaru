@@ -1,15 +1,17 @@
-import { printBanner, printSuccess, printError, printWarning, log } from '../logger.js';
+import { printBanner, printSuccess, printError, printWarning, cliLogger, createSpinner, runInstallWithProgress } from './logger.js';
 
 export const cliUi = {
   printBanner,
   printSuccess,
   printError,
   printWarning,
-  log,
-  step: (msg) => log.step(msg),
-  success: (msg) => log.success(msg),
-  warning: (msg) => log.warning(msg),
-  error: (msg) => log.error(msg),
-  dim: (msg) => log.dim(msg),
-  info: (msg) => log.info(msg)
+  log: cliLogger,
+  step: cliLogger.step,
+  success: cliLogger.success,
+  warning: cliLogger.warning,
+  error: cliLogger.error,
+  dim: cliLogger.dim,
+  info: cliLogger.info,
+  createSpinner,
+  runInstallWithProgress,
 };
