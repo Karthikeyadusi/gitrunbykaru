@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Check, X, GitBranch, ExternalLink, Zap, Shield, Layers, Database, Terminal, Zap as ZapIcon } from 'lucide-react';
+import { Check, X, Layers, Database, Zap as ZapIcon } from 'lucide-react';
+import { GithubIcon } from '../components/ui/GithubIcon';
 import './ComparisonPage.css';
 
 const COMPARISON_DATA = [
@@ -75,7 +76,7 @@ const COMPARISON_DATA = [
 
 const TOOLS = [
   { id: 'grbk', name: 'gitrunbykaru', short: 'grbk', color: '#8250df', icon: ZapIcon },
-  { id: 'codespaces', name: 'GitHub Codespaces', short: 'Codespaces', color: '#0969da', icon: Github },
+  { id: 'codespaces', name: 'GitHub Codespaces', short: 'Codespaces', color: '#0969da', icon: GithubIcon },
   { id: 'docker', name: 'Docker / Docker Compose', short: 'Docker', color: '#0db7ed', icon: Database },
   { id: 'devcontainers', name: 'VS Code Dev Containers', short: 'Dev Containers', color: '#4ade80', icon: Layers },
 ];
@@ -195,7 +196,7 @@ export function ComparisonPage() {
               </ul>
             </div>
             <div className="choose-card codespaces">
-              <div className="choose-icon"><Github size={28} style={{ color: '#0969da' }} /></div>
+              <div className="choose-icon"><GithubIcon size={28} style={{ color: '#0969da' }} /></div>
               <h3>Choose GitHub Codespaces when...</h3>
               <ul>
                 <li>You need to work on <strong>private repos</strong></li>
@@ -237,7 +238,7 @@ export function ComparisonPage() {
                 <Check size={16} /> Copy Install Command
               </button>
               <a href="https://github.com/Karthikeyadusi/gitrunbykaru" target="_blank" rel="noreferrer" className="btn-secondary">
-                <Github size={16} /> Star on GitHub
+                <GithubIcon size={16} /> Star on GitHub
               </a>
             </div>
           </div>

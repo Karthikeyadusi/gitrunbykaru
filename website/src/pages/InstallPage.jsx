@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Check, Copy, Terminal, ArrowRight, GitBranch, ExternalLink, Download, Zap } from 'lucide-react';
+import { Check, Copy, Terminal, ArrowRight, ExternalLink, Download, Zap } from 'lucide-react';
+import { GithubIcon } from '../components/ui/GithubIcon';
 import './InstallPage.css';
 
 const STEPS = [
@@ -35,7 +36,7 @@ const STEPS = [
     description: 'Point gitrunbykaru at any public GitHub repository. It will clone, detect, install, and launch automatically.',
     command: 'grbk https://github.com/facebook/react',
     links: [
-      { label: 'Try with our repo', href: 'https://github.com/Karthikeyadusi/gitrunbykaru', icon: Github },
+      { label: 'Try with our repo', href: 'https://github.com/Karthikeyadusi/gitrunbykaru', icon: GithubIcon },
     ],
   },
 ];
@@ -213,7 +214,7 @@ export function InstallPage() {
                 <Copy size={16} /> Copy: grbk https://github.com/Karthikeyadusi/gitrunbykaru
               </button>
               <a href="https://github.com/Karthikeyadusi/gitrunbykaru" target="_blank" rel="noreferrer" className="btn-secondary">
-                <Github size={16} /> View on GitHub
+                <GithubIcon size={16} /> View on GitHub
               </a>
             </div>
           </div>
